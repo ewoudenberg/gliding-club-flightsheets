@@ -28,19 +28,27 @@ namespace au.org.GGC {
 
         void LoadFormFields(Flight flight) {
             Flight = flight;
-            Pilot1Name = flight.Pilot1;
-            Pilot2Name = flight.Pilot2;
-            Tug = flight.Tug;
-            Glider = flight.Glider;
-            TakeOff = flight.TakeOff;
-            TugDown = flight.TugDown;
-            GliderDown = flight.GliderDown;
-            AnnualCheck = flight.AnnualCheck;
-            Mutual = flight.Mutual;
-            AEFType = flight.AEFType;
-            ChargeTo = flight.ChargeTo;
-            Notes = flight.Notes;
+            Pilot1Name = Flight.Pilot1;
+            Pilot2Name = Flight.Pilot2;
+            Tug = Flight.Tug;
+            Glider = Flight.Glider;
+            TakeOff = Flight.TakeOff;
+            TugDown = Flight.TugDown;
+            GliderDown = Flight.GliderDown;
+            AnnualCheck = Flight.AnnualCheck;
+            Mutual = Flight.Mutual;
+            AEFType = Flight.AEFType;
+            ChargeTo = Flight.ChargeTo;
+            Notes = Flight.Notes;
             FixBlankSelectors();
+            SetFlightTitle();
+        }
+
+        void SetFlightTitle() {
+            if (Flight.IsEmpty)
+                labelTitle.Text = "New Flight Information";
+            else
+                labelTitle.Text = String.Format("Flight #{0} Information", Flight.FlightNo);
         }
 
         void FixBlankSelectors() {

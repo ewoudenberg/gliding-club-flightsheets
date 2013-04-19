@@ -44,18 +44,27 @@ namespace au.org.GGC {
             FlightSheet.AutoGenerateColumns = false;
 
             // First column is the Edit/New button
+            int iCol = 0;
             var btn = new DataGridViewButtonColumn();
             btn.Name = "Edit";
             btn.DataPropertyName = "Edit";
             FlightSheet.Columns.Add(btn);
 
             string[] columns = { "Flight No", "Pilot 1", "Pilot 2", "Tug", 
-                                   "Glider", "Take\nOff", "Tug Down", "Glider Down", 
-                                   "Tow Time", "Flight Time", "Annual Check", "Mutual", 
+                                   "Glider", "Take\nOff", "Tug\nDown", "Glider\nDown", 
+                                   "Tow Time", "Flight Time", "Annual\nCheck", "Mutual", 
                                    "AEF Type", "Charge To", "Notes"};
 
             foreach (var column in columns) {
-                DataGridViewTextBoxColumn tbcol = new DataGridViewTextBoxColumn();
+                ++iCol;
+                DataGridViewColumn tbcol;
+                if (false && Timecolumns.Contains(iCol)) {
+                    tbcol = new DataGridViewButtonColumn();
+                    ((DataGridViewButtonColumn)tbcol).Text = column;
+                    ((DataGridViewButtonColumn)tbcol).UseColumnTextForButtonValue = true;
+                } else {
+                    tbcol = new DataGridViewTextBoxColumn();
+                }
                 // Column names without spaces become the Flight class property to display
                 tbcol.DataPropertyName = column.Replace(" ", "").Replace("\n", "");
                 tbcol.Name = column;
@@ -113,14 +122,14 @@ namespace au.org.GGC {
                 FlightSheet.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
                 Save();
             } else {
-                EditRow(e.RowIndex);
+                EditFlight(e.RowIndex);
             }
         }
 
         void NewFlight() {
             // Silently assert that the last row (which we're overwriting) is empty.
             if (Flights[Flights.Count - 1].IsEmpty)
-                EditRow(Flights.Count - 1);
+                EditFlight(Flights.Count - 1);
         }
 
         bool ClerkAlertVisible {
@@ -139,7 +148,7 @@ namespace au.org.GGC {
             }
         }
 
-        void EditRow(int rowindex) {
+        void EditFlight(int rowindex) {
             RequestClerkLogin();
             var flight = Flights[rowindex];
             var entry = new EntryForm(flight);
@@ -151,11 +160,11 @@ namespace au.org.GGC {
             }
             // Result.Ignore is returned to indicate a Delete request.
             if (result == System.Windows.Forms.DialogResult.Ignore) {
-                DeleteFlight(rowindex);
+                RemoveFlight(rowindex);
             }
         }
 
-        void DeleteFlight(int index) {
+        void RemoveFlight(int index) {
             Flights.RemoveAt(index);
             Save();
         }
@@ -332,7 +341,7 @@ namespace au.org.GGC {
 
         System.Drawing.Color PreLaunchColor = System.Drawing.Color.LightGreen;
         System.Drawing.Color TowColor = System.Drawing.Color.Yellow;
-        System.Drawing.Color FlightColor = System.Drawing.Color.LightSkyBlue;
+        System.Drawing.Color FlightColor = System.Drawing.Color.LightBlue;
         System.Drawing.Color TowAlarmColor = System.Drawing.Color.Red;
 
         // Colors tow alarm rows red
@@ -355,7 +364,7 @@ namespace au.org.GGC {
                 var color = System.Drawing.Color.White;
                 if (flight.TakeOff == null)
                     color = PreLaunchColor;
-                else if (flight.TugDown == null)
+                else if (flight.IsInTow)
                     color = TowColor;
                 else if (flight.GliderDown == null)
                     color = FlightColor;
@@ -382,7 +391,7 @@ namespace au.org.GGC {
             if (flight.TakeOff != null) {
                 string towtime = flight.GetTowMinutes().ToString();
                 string flighttime = flight.GetFlightMinutes().ToString();
-                if (flight.TugDown == null) towtime += '+';
+                if (flight.IsInTow) towtime += '+';
                 if (flight.GliderDown == null) flighttime += '+';
                 changed = (flight.TowTime != towtime) || (flight.FlightTime != flighttime);
                 if (changed) {
@@ -395,7 +404,7 @@ namespace au.org.GGC {
 
         bool CalcActive(Flight flight) {
             bool changed = false;
-            bool active = flight.TakeOff == null || flight.TugDown == null || flight.GliderDown == null;
+            bool active = flight.TakeOff == null || flight.IsInTow || flight.GliderDown == null;
             if (flight.GliderDown != null) {
                 int age = Convert.ToInt32((DateTime.Now - (DateTime)flight.GliderDown).TotalMinutes);
                 if (age < 10)
@@ -429,7 +438,7 @@ namespace au.org.GGC {
             SetAndSaveFontSize(4);
         }
 
-        void CheckAppropriateFontMenu(int index) {
+        void PutCheckMarkOnFontMenu(int index) {
             int i = 0;
             foreach (ToolStripMenuItem m in fontSizeToolStripMenuItem.DropDownItems)
                 m.Checked = index == i++;
@@ -445,7 +454,7 @@ namespace au.org.GGC {
         void SetFontSize(int fontindex) {
             if (fontindex >= FontSizes.Length)
                 fontindex = 0;
-            CheckAppropriateFontMenu(fontindex);
+            PutCheckMarkOnFontMenu(fontindex);
             float fontsize = FontSizes[fontindex];
             FlightSheet.DefaultCellStyle.Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, fontsize);
             FlightSheet.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, fontsize);
@@ -485,14 +494,6 @@ namespace au.org.GGC {
             return clerkReady;
         }
 
-        // Implements the Edit button by handling a single click in the edit column
-        private void FlightSheet_CellClick(object sender, DataGridViewCellEventArgs e) {
-            if (e.RowIndex < 0) // Ignores any double-clicks in a column header
-                return;
-            if (e.ColumnIndex == 0)
-                EditRow(e.RowIndex);
-        }
-
         // Clones an existing flight into a new one with the time fields cleared out
         void CloneFlight(int index) {
             var flight = Flights[index].Clone();
@@ -502,28 +503,6 @@ namespace au.org.GGC {
             InitializeNewFlightFields(flight);
             Flights[Flights.Count - 1] = flight;
             Save();
-        }
-  
-        // Presents the grid's right-click context menu
-        private void FlightSheet_MouseDown(object sender, MouseEventArgs e) {
-            if (e.Button == MouseButtons.Right) {
-                var hit = FlightSheet.HitTest(e.X, e.Y);
-                bool valid =
-                    (hit.Type == DataGridViewHitTestType.Cell
-                    && hit.RowIndex >= 0
-                    && hit.RowIndex < (FlightSheet.Rows.Count - 1));
-
-                if (valid) {
-                    RequestClerkLogin();
-                    FlightSheet.ClearSelection();
-                    FlightSheet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                    FlightSheet.Rows[hit.RowIndex].Selected = true;
-                    contextMenuStripFlights.Show(MousePosition);
-                }
-            } else {
-                FlightSheet.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            }
-
         }
 
         private void addANewFlightToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -592,44 +571,144 @@ namespace au.org.GGC {
             }
         }
 
-        private void deleteSelectedFileToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (FlightSheet.SelectedCells.Count == 0
-                 || FlightSheet.SelectedCells[0].RowIndex < 0
-                 || FlightSheet.SelectedCells[0].RowIndex >= FlightSheet.RowCount - 1)
-                MessageBox.Show("No row selected for deletion", "Which row?", MessageBoxButtons.OK);
-            else {
-                int row = FlightSheet.SelectedCells[0].RowIndex;
-                var result = MessageBox.Show(
-                    String.Format("Are you sure you want to delete Flight #{0}?", Flights[row].FlightNo),
-                    "Confirm Delete", MessageBoxButtons.OKCancel);
-                if (result == System.Windows.Forms.DialogResult.OK)
-                    DeleteFlight(FlightSheet.SelectedCells[0].RowIndex);
+        // Selection-related grid operations
+
+        int SelectedRow, SavedColumnSelection, SavedRowSelection;
+
+        // For functions that operate on a selection, this function
+        // 1) determines whether this is a valid selection
+        // 2) turns a single cell selection into a row selection and 
+        // 3) returns whether there was a valid selection.
+
+        bool FormRowSelection() {
+            return FlightSheet.SelectedCells.Count != 0 
+                    && FormRowSelection(
+                        FlightSheet.SelectedCells[0].RowIndex, 
+                        FlightSheet.SelectedCells[0].ColumnIndex);
+        }
+
+        bool FormRowSelection(DataGridView.HitTestInfo hit) {
+            return hit.Type == DataGridViewHitTestType.Cell
+                    && FormRowSelection(hit.RowIndex, hit.ColumnIndex);
+        }
+
+        bool FormRowSelection(int row, int column) {
+            SelectedRow = -1;
+            bool validSelection =
+                  column != 0
+                  && row >= 0
+                  && row < FlightSheet.RowCount - 1;
+            if (validSelection) {
+                FlightSheet.ClearSelection();
+                FlightSheet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                FlightSheet.Rows[row].Selected = true;
+                SelectedRow = row;
+                SavedRowSelection = row;
+                SavedColumnSelection = column;
+            }
+            return validSelection;
+        }
+
+        void RestoreCellSelection() {
+            FlightSheet.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            FlightSheet.Rows[SavedRowSelection].Cells[SavedColumnSelection].Selected = true;
+        }
+
+        // Presents the grid's context menu when a flight is right-clicked.
+        private void FlightSheet_MouseDown(object sender, MouseEventArgs e) {
+            if (e.Button == MouseButtons.Right) {
+                var hit = FlightSheet.HitTest(e.X, e.Y);
+                if (FormRowSelection(hit)) {
+                    RequestClerkLogin();
+                    contextMenuStripFlights.Show(MousePosition);
+                }
+            } else {
+                FlightSheet.SelectionMode = DataGridViewSelectionMode.CellSelect;
             }
         }
 
-        private void cloneSelectedFlightToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (FlightSheet.SelectedCells.Count == 0
-                || FlightSheet.SelectedCells[0].RowIndex < 0
-                || FlightSheet.SelectedCells[0].RowIndex >= FlightSheet.RowCount - 1)
-                MessageBox.Show("No row selected for cloning", "Which row?", MessageBoxButtons.OK);
-            else
-                CloneFlight(FlightSheet.SelectedCells[0].RowIndex);
+        private void contextMenuStripFlights_Closing(object sender, ToolStripDropDownClosingEventArgs e) {
+            RestoreCellSelection();
         }
-         
+
+        // Implements the Edit button by handling a single click in the edit column.
+        private void FlightSheet_CellClick(object sender, DataGridViewCellEventArgs e) {
+            if (e.RowIndex < 0) // Ignores any double-clicks in a column header
+                return;
+            if (e.ColumnIndex == 0)
+                EditFlight(e.RowIndex);
+        }
+
+        private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e) {
+            bool validSelection = FormRowSelection();
+
+            foreach (ToolStripItem item in editToolStripMenuItem.DropDownItems)
+                if (new string[] { "delete", "edit", "duplicate" }.Contains(item.Tag))
+                    item.Enabled = validSelection;
+        }
+
+        private void editToolStripMenuItem_DropDownClosed(object sender, EventArgs e) {
+            RestoreCellSelection();
+        }  
+
+        private void deleteSelectedFileToolStripMenuItem_Click(object sender, EventArgs e) {
+            DeleteSelectedFlight();
+        }
+
         private void deleteThisEntryToolStripMenuItem_Click(object sender, EventArgs e) {
-            int row = FlightSheet.SelectedCells[0].RowIndex;
+            DeleteSelectedFlight();
+        }
+
+        void DeleteSelectedFlight() {
+            int row = SelectedRow;
             var result = MessageBox.Show(
                 String.Format("Are you sure you want to delete Flight #{0}?", Flights[row].FlightNo),
                 "Confirm Delete", MessageBoxButtons.OKCancel);
             if (result == System.Windows.Forms.DialogResult.OK)
-                DeleteFlight(FlightSheet.SelectedCells[0].RowIndex);
-            FlightSheet.SelectionMode = DataGridViewSelectionMode.CellSelect;
+                RemoveFlight(FlightSheet.SelectedCells[0].RowIndex);
+            else
+                RestoreCellSelection();
         }
 
-        private void cloneIntoNewEntryToolStripMenuItem_Click(object sender, EventArgs e) {
-            CloneFlight(FlightSheet.SelectedRows[0].Index);
-            FlightSheet.SelectionMode = DataGridViewSelectionMode.CellSelect;
+        private void cloneSelectedFlightToolStripMenuItem_Click(object sender, EventArgs e) {
+            CloneFlight(SelectedRow);
         }
+         
+        private void cloneIntoNewEntryToolStripMenuItem_Click(object sender, EventArgs e) {
+            CloneFlight(SelectedRow);
+            RestoreCellSelection();
+        }
+
+        private void editSToolStripMenuItem_Click(object sender, EventArgs e) {
+            EditFlight(SelectedRow);
+            RestoreCellSelection();
+        }
+
+        private void editThisEntryToolStripMenuItem_Click(object sender, EventArgs e) {
+            EditFlight(SelectedRow);
+            RestoreCellSelection();
+        }
+
+        void SetTimeButtons(int row) {
+            bool buttonIn = false;
+            if (row >= FlightSheet.Rows.Count - 1)
+                return;
+            for (var i = 0; i < 3; i++) {
+                if (Flights[row][i] == null && !buttonIn) {
+                    var button = new DataGridViewButtonCell();
+                    FlightSheet.Rows[row].Cells[Timecolumns[i]] = button;
+                    buttonIn = true;
+                } else
+                    FlightSheet.Rows[row].Cells[Timecolumns[i]] = new DataGridViewTextBoxCell();
+            }
+        }
+
+        private void FlightSheet_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e) {
+            //for (int i = e.RowIndex; i < (e.RowIndex + e.RowCount); i++) {
+            //    SetTimeButtons(i);
+            //}
+        }
+
 
         #region Persisted Settings
         int GridFontSize {
@@ -677,5 +756,7 @@ namespace au.org.GGC {
             }
         }
         #endregion
+
+
     }
 }

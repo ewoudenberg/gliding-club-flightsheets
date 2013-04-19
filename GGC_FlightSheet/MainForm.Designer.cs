@@ -44,8 +44,9 @@
             this.exitFlightSheetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addANewFlightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteSelectedFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cloneSelectedFlightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteSelectedFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +60,7 @@
             this.aboutGGCFlightSheetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelClerkAlert = new System.Windows.Forms.Label();
             this.contextMenuStripFlights = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editThisEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cloneIntoNewEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteThisEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBoxFlightSheetRef = new System.Windows.Forms.TextBox();
@@ -102,6 +104,7 @@
             this.FlightSheet.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FlightSheet_CellClick);
             this.FlightSheet.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FlightSheet_CellContentClick);
             this.FlightSheet.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.FlightSheet_ColumnHeaderMouseClick);
+            this.FlightSheet.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.FlightSheet_RowsAdded);
             this.FlightSheet.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FlightSheet_MouseDown);
             // 
             // Logo
@@ -207,32 +210,46 @@
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addANewFlightToolStripMenuItem,
-            this.deleteSelectedFileToolStripMenuItem,
-            this.cloneSelectedFlightToolStripMenuItem});
+            this.editSToolStripMenuItem,
+            this.cloneSelectedFlightToolStripMenuItem,
+            this.deleteSelectedFileToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.DropDownClosed += new System.EventHandler(this.editToolStripMenuItem_DropDownClosed);
+            this.editToolStripMenuItem.DropDownOpening += new System.EventHandler(this.editToolStripMenuItem_DropDownOpening);
             // 
             // addANewFlightToolStripMenuItem
             // 
             this.addANewFlightToolStripMenuItem.Name = "addANewFlightToolStripMenuItem";
             this.addANewFlightToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.addANewFlightToolStripMenuItem.Tag = "add";
             this.addANewFlightToolStripMenuItem.Text = "Add a new flight (Ctrl-N) ...";
             this.addANewFlightToolStripMenuItem.Click += new System.EventHandler(this.addANewFlightToolStripMenuItem_Click);
             // 
-            // deleteSelectedFileToolStripMenuItem
+            // editSToolStripMenuItem
             // 
-            this.deleteSelectedFileToolStripMenuItem.Name = "deleteSelectedFileToolStripMenuItem";
-            this.deleteSelectedFileToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.deleteSelectedFileToolStripMenuItem.Text = "Delete Selected Flight ...";
-            this.deleteSelectedFileToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedFileToolStripMenuItem_Click);
+            this.editSToolStripMenuItem.Name = "editSToolStripMenuItem";
+            this.editSToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.editSToolStripMenuItem.Tag = "edit";
+            this.editSToolStripMenuItem.Text = "Edit selected flight ...";
+            this.editSToolStripMenuItem.Click += new System.EventHandler(this.editSToolStripMenuItem_Click);
             // 
             // cloneSelectedFlightToolStripMenuItem
             // 
             this.cloneSelectedFlightToolStripMenuItem.Name = "cloneSelectedFlightToolStripMenuItem";
             this.cloneSelectedFlightToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.cloneSelectedFlightToolStripMenuItem.Text = "Clone Selected Flight";
+            this.cloneSelectedFlightToolStripMenuItem.Tag = "duplicate";
+            this.cloneSelectedFlightToolStripMenuItem.Text = "Duplicate selected flight";
             this.cloneSelectedFlightToolStripMenuItem.Click += new System.EventHandler(this.cloneSelectedFlightToolStripMenuItem_Click);
+            // 
+            // deleteSelectedFileToolStripMenuItem
+            // 
+            this.deleteSelectedFileToolStripMenuItem.Name = "deleteSelectedFileToolStripMenuItem";
+            this.deleteSelectedFileToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.deleteSelectedFileToolStripMenuItem.Tag = "delete";
+            this.deleteSelectedFileToolStripMenuItem.Text = "Delete selected flight ...";
+            this.deleteSelectedFileToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedFileToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -337,7 +354,7 @@
             this.labelClerkAlert.ForeColor = System.Drawing.Color.Red;
             this.labelClerkAlert.Location = new System.Drawing.Point(631, 67);
             this.labelClerkAlert.Name = "labelClerkAlert";
-            this.labelClerkAlert.Size = new System.Drawing.Size(281, 31);
+            this.labelClerkAlert.Size = new System.Drawing.Size(274, 31);
             this.labelClerkAlert.TabIndex = 8;
             this.labelClerkAlert.Text = "←Your name please?";
             this.labelClerkAlert.Visible = false;
@@ -345,23 +362,32 @@
             // contextMenuStripFlights
             // 
             this.contextMenuStripFlights.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editThisEntryToolStripMenuItem,
             this.cloneIntoNewEntryToolStripMenuItem,
             this.deleteThisEntryToolStripMenuItem});
             this.contextMenuStripFlights.Name = "contextMenuStripFlights";
-            this.contextMenuStripFlights.Size = new System.Drawing.Size(216, 48);
+            this.contextMenuStripFlights.Size = new System.Drawing.Size(178, 70);
+            this.contextMenuStripFlights.Closing += new System.Windows.Forms.ToolStripDropDownClosingEventHandler(this.contextMenuStripFlights_Closing);
+            // 
+            // editThisEntryToolStripMenuItem
+            // 
+            this.editThisEntryToolStripMenuItem.Name = "editThisEntryToolStripMenuItem";
+            this.editThisEntryToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.editThisEntryToolStripMenuItem.Text = "Edit this flight ...";
+            this.editThisEntryToolStripMenuItem.Click += new System.EventHandler(this.editThisEntryToolStripMenuItem_Click);
             // 
             // cloneIntoNewEntryToolStripMenuItem
             // 
             this.cloneIntoNewEntryToolStripMenuItem.Name = "cloneIntoNewEntryToolStripMenuItem";
-            this.cloneIntoNewEntryToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.cloneIntoNewEntryToolStripMenuItem.Text = "Clone this into a new entry";
+            this.cloneIntoNewEntryToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.cloneIntoNewEntryToolStripMenuItem.Text = "Duplicate this flight";
             this.cloneIntoNewEntryToolStripMenuItem.Click += new System.EventHandler(this.cloneIntoNewEntryToolStripMenuItem_Click);
             // 
             // deleteThisEntryToolStripMenuItem
             // 
             this.deleteThisEntryToolStripMenuItem.Name = "deleteThisEntryToolStripMenuItem";
-            this.deleteThisEntryToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.deleteThisEntryToolStripMenuItem.Text = "Delete this entry ...";
+            this.deleteThisEntryToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.deleteThisEntryToolStripMenuItem.Text = "Delete this flight ...";
             this.deleteThisEntryToolStripMenuItem.Click += new System.EventHandler(this.deleteThisEntryToolStripMenuItem_Click);
             // 
             // textBoxFlightSheetRef
@@ -499,6 +525,8 @@
         private System.Windows.Forms.ToolStripMenuItem cloneSelectedFlightToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addANewFlightToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteThisEntryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editThisEntryToolStripMenuItem;
     }
 }
 

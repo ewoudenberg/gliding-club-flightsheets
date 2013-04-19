@@ -53,7 +53,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxNotes = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.labelTitle = new System.Windows.Forms.Label();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonWGG = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -62,7 +62,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(34, 64);
+            this.label1.Location = new System.Drawing.Point(34, 54);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 18);
             this.label1.TabIndex = 0;
@@ -73,7 +73,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(34, 96);
+            this.label2.Location = new System.Drawing.Point(34, 86);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 18);
             this.label2.TabIndex = 1;
@@ -84,7 +84,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(90, 128);
+            this.label3.Location = new System.Drawing.Point(90, 118);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(33, 18);
             this.label3.TabIndex = 2;
@@ -95,7 +95,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(76, 190);
+            this.label4.Location = new System.Drawing.Point(76, 180);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(47, 18);
             this.label4.TabIndex = 3;
@@ -109,7 +109,7 @@
             this.comboBoxPilot1.CausesValidation = false;
             this.comboBoxPilot1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxPilot1.FormattingEnabled = true;
-            this.comboBoxPilot1.Location = new System.Drawing.Point(130, 61);
+            this.comboBoxPilot1.Location = new System.Drawing.Point(130, 51);
             this.comboBoxPilot1.Name = "comboBoxPilot1";
             this.comboBoxPilot1.Size = new System.Drawing.Size(247, 26);
             this.comboBoxPilot1.TabIndex = 7;
@@ -121,7 +121,7 @@
             this.comboBoxPilot2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxPilot2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxPilot2.FormattingEnabled = true;
-            this.comboBoxPilot2.Location = new System.Drawing.Point(130, 93);
+            this.comboBoxPilot2.Location = new System.Drawing.Point(130, 83);
             this.comboBoxPilot2.Name = "comboBoxPilot2";
             this.comboBoxPilot2.Size = new System.Drawing.Size(247, 26);
             this.comboBoxPilot2.TabIndex = 8;
@@ -133,7 +133,7 @@
             this.comboBoxTug.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxTug.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxTug.FormattingEnabled = true;
-            this.comboBoxTug.Location = new System.Drawing.Point(130, 125);
+            this.comboBoxTug.Location = new System.Drawing.Point(130, 115);
             this.comboBoxTug.Name = "comboBoxTug";
             this.comboBoxTug.Size = new System.Drawing.Size(247, 26);
             this.comboBoxTug.TabIndex = 9;
@@ -145,7 +145,7 @@
             this.comboBoxGlider.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxGlider.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxGlider.FormattingEnabled = true;
-            this.comboBoxGlider.Location = new System.Drawing.Point(130, 187);
+            this.comboBoxGlider.Location = new System.Drawing.Point(130, 177);
             this.comboBoxGlider.Name = "comboBoxGlider";
             this.comboBoxGlider.Size = new System.Drawing.Size(247, 26);
             this.comboBoxGlider.TabIndex = 10;
@@ -154,7 +154,7 @@
             // buttonOK
             // 
             this.buttonOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOK.Location = new System.Drawing.Point(302, 596);
+            this.buttonOK.Location = new System.Drawing.Point(303, 486);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 33);
             this.buttonOK.TabIndex = 11;
@@ -166,7 +166,7 @@
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.Location = new System.Drawing.Point(164, 596);
+            this.buttonCancel.Location = new System.Drawing.Point(165, 486);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 33);
             this.buttonCancel.TabIndex = 12;
@@ -177,33 +177,33 @@
             // textBoxTakeoff
             // 
             this.textBoxTakeoff.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTakeoff.Location = new System.Drawing.Point(129, 249);
+            this.textBoxTakeoff.Location = new System.Drawing.Point(130, 236);
             this.textBoxTakeoff.Name = "textBoxTakeoff";
-            this.textBoxTakeoff.Size = new System.Drawing.Size(72, 24);
+            this.textBoxTakeoff.Size = new System.Drawing.Size(71, 24);
             this.textBoxTakeoff.TabIndex = 13;
             this.textBoxTakeoff.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxTugDown
             // 
             this.textBoxTugDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTugDown.Location = new System.Drawing.Point(129, 279);
+            this.textBoxTugDown.Location = new System.Drawing.Point(129, 267);
             this.textBoxTugDown.Name = "textBoxTugDown";
-            this.textBoxTugDown.Size = new System.Drawing.Size(72, 24);
+            this.textBoxTugDown.Size = new System.Drawing.Size(71, 24);
             this.textBoxTugDown.TabIndex = 14;
             this.textBoxTugDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxGliderDown
             // 
             this.textBoxGliderDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxGliderDown.Location = new System.Drawing.Point(129, 309);
+            this.textBoxGliderDown.Location = new System.Drawing.Point(129, 298);
             this.textBoxGliderDown.Name = "textBoxGliderDown";
-            this.textBoxGliderDown.Size = new System.Drawing.Size(72, 24);
+            this.textBoxGliderDown.Size = new System.Drawing.Size(71, 24);
             this.textBoxGliderDown.TabIndex = 15;
             this.textBoxGliderDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // buttonSSO
             // 
-            this.buttonSSO.Location = new System.Drawing.Point(130, 154);
+            this.buttonSSO.Location = new System.Drawing.Point(130, 144);
             this.buttonSSO.Name = "buttonSSO";
             this.buttonSSO.Size = new System.Drawing.Size(49, 23);
             this.buttonSSO.TabIndex = 16;
@@ -213,7 +213,7 @@
             // 
             // buttonMSA
             // 
-            this.buttonMSA.Location = new System.Drawing.Point(185, 154);
+            this.buttonMSA.Location = new System.Drawing.Point(185, 144);
             this.buttonMSA.Name = "buttonMSA";
             this.buttonMSA.Size = new System.Drawing.Size(49, 23);
             this.buttonMSA.TabIndex = 17;
@@ -224,7 +224,7 @@
             // buttonTNC
             // 
             this.buttonTNC.AllowDrop = true;
-            this.buttonTNC.Location = new System.Drawing.Point(240, 154);
+            this.buttonTNC.Location = new System.Drawing.Point(240, 144);
             this.buttonTNC.Name = "buttonTNC";
             this.buttonTNC.Size = new System.Drawing.Size(49, 23);
             this.buttonTNC.TabIndex = 18;
@@ -235,7 +235,7 @@
             // 
             // buttonGPZ
             // 
-            this.buttonGPZ.Location = new System.Drawing.Point(130, 216);
+            this.buttonGPZ.Location = new System.Drawing.Point(130, 206);
             this.buttonGPZ.Name = "buttonGPZ";
             this.buttonGPZ.Size = new System.Drawing.Size(49, 23);
             this.buttonGPZ.TabIndex = 19;
@@ -245,7 +245,7 @@
             // 
             // buttonOWL
             // 
-            this.buttonOWL.Location = new System.Drawing.Point(185, 216);
+            this.buttonOWL.Location = new System.Drawing.Point(185, 206);
             this.buttonOWL.Name = "buttonOWL";
             this.buttonOWL.Size = new System.Drawing.Size(49, 23);
             this.buttonOWL.TabIndex = 20;
@@ -255,7 +255,7 @@
             // 
             // buttonXOC
             // 
-            this.buttonXOC.Location = new System.Drawing.Point(240, 216);
+            this.buttonXOC.Location = new System.Drawing.Point(240, 206);
             this.buttonXOC.Name = "buttonXOC";
             this.buttonXOC.Size = new System.Drawing.Size(49, 23);
             this.buttonXOC.TabIndex = 21;
@@ -266,9 +266,9 @@
             // buttonTakeOff
             // 
             this.buttonTakeOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonTakeOff.Location = new System.Drawing.Point(23, 247);
+            this.buttonTakeOff.Location = new System.Drawing.Point(56, 234);
             this.buttonTakeOff.Name = "buttonTakeOff";
-            this.buttonTakeOff.Size = new System.Drawing.Size(100, 29);
+            this.buttonTakeOff.Size = new System.Drawing.Size(69, 29);
             this.buttonTakeOff.TabIndex = 22;
             this.buttonTakeOff.Text = "TakeOff";
             this.buttonTakeOff.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -278,9 +278,9 @@
             // buttonTugDown
             // 
             this.buttonTugDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonTugDown.Location = new System.Drawing.Point(23, 277);
+            this.buttonTugDown.Location = new System.Drawing.Point(41, 265);
             this.buttonTugDown.Name = "buttonTugDown";
-            this.buttonTugDown.Size = new System.Drawing.Size(101, 29);
+            this.buttonTugDown.Size = new System.Drawing.Size(84, 29);
             this.buttonTugDown.TabIndex = 23;
             this.buttonTugDown.Text = "Tug Down";
             this.buttonTugDown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -290,9 +290,9 @@
             // buttonGliderDown
             // 
             this.buttonGliderDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGliderDown.Location = new System.Drawing.Point(23, 307);
+            this.buttonGliderDown.Location = new System.Drawing.Point(27, 296);
             this.buttonGliderDown.Name = "buttonGliderDown";
-            this.buttonGliderDown.Size = new System.Drawing.Size(101, 29);
+            this.buttonGliderDown.Size = new System.Drawing.Size(98, 29);
             this.buttonGliderDown.TabIndex = 24;
             this.buttonGliderDown.Text = "Glider Down";
             this.buttonGliderDown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -303,7 +303,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(27, 342);
+            this.label5.Location = new System.Drawing.Point(27, 332);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(97, 18);
             this.label5.TabIndex = 25;
@@ -315,7 +315,7 @@
             this.comboBoxAEF.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAEF.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxAEF.FormattingEnabled = true;
-            this.comboBoxAEF.Location = new System.Drawing.Point(130, 339);
+            this.comboBoxAEF.Location = new System.Drawing.Point(130, 329);
             this.comboBoxAEF.Name = "comboBoxAEF";
             this.comboBoxAEF.Size = new System.Drawing.Size(247, 26);
             this.comboBoxAEF.TabIndex = 26;
@@ -324,7 +324,7 @@
             // 
             this.checkBoxMutual.AutoSize = true;
             this.checkBoxMutual.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxMutual.Location = new System.Drawing.Point(130, 372);
+            this.checkBoxMutual.Location = new System.Drawing.Point(130, 362);
             this.checkBoxMutual.Name = "checkBoxMutual";
             this.checkBoxMutual.Size = new System.Drawing.Size(71, 22);
             this.checkBoxMutual.TabIndex = 27;
@@ -335,7 +335,7 @@
             // 
             this.checkBoxAnnual.AutoSize = true;
             this.checkBoxAnnual.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAnnual.Location = new System.Drawing.Point(130, 400);
+            this.checkBoxAnnual.Location = new System.Drawing.Point(210, 362);
             this.checkBoxAnnual.Name = "checkBoxAnnual";
             this.checkBoxAnnual.Size = new System.Drawing.Size(157, 22);
             this.checkBoxAnnual.TabIndex = 28;
@@ -348,7 +348,7 @@
             this.comboBoxChargeTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxChargeTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxChargeTo.FormattingEnabled = true;
-            this.comboBoxChargeTo.Location = new System.Drawing.Point(130, 428);
+            this.comboBoxChargeTo.Location = new System.Drawing.Point(131, 392);
             this.comboBoxChargeTo.Name = "comboBoxChargeTo";
             this.comboBoxChargeTo.Size = new System.Drawing.Size(247, 26);
             this.comboBoxChargeTo.TabIndex = 30;
@@ -358,7 +358,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(45, 431);
+            this.label6.Location = new System.Drawing.Point(46, 395);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 18);
             this.label6.TabIndex = 29;
@@ -369,7 +369,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(75, 467);
+            this.label7.Location = new System.Drawing.Point(76, 431);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(48, 18);
             this.label7.TabIndex = 31;
@@ -379,27 +379,28 @@
             // textBoxNotes
             // 
             this.textBoxNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxNotes.Location = new System.Drawing.Point(129, 467);
+            this.textBoxNotes.Location = new System.Drawing.Point(130, 431);
             this.textBoxNotes.Multiline = true;
             this.textBoxNotes.Name = "textBoxNotes";
-            this.textBoxNotes.Size = new System.Drawing.Size(248, 112);
+            this.textBoxNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxNotes.Size = new System.Drawing.Size(248, 49);
             this.textBoxNotes.TabIndex = 32;
             // 
-            // label8
+            // labelTitle
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(159, 18);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(177, 25);
-            this.label8.TabIndex = 33;
-            this.label8.Text = "Flight Information";
+            this.labelTitle.AutoSize = true;
+            this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.Location = new System.Drawing.Point(126, 9);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(177, 25);
+            this.labelTitle.TabIndex = 33;
+            this.labelTitle.Text = "Flight Information";
             // 
             // buttonDelete
             // 
             this.buttonDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDelete.ForeColor = System.Drawing.Color.Red;
-            this.buttonDelete.Location = new System.Drawing.Point(30, 596);
+            this.buttonDelete.Location = new System.Drawing.Point(31, 486);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(75, 33);
             this.buttonDelete.TabIndex = 34;
@@ -410,7 +411,7 @@
             // buttonWGG
             // 
             this.buttonWGG.AllowDrop = true;
-            this.buttonWGG.Location = new System.Drawing.Point(295, 154);
+            this.buttonWGG.Location = new System.Drawing.Point(295, 144);
             this.buttonWGG.Name = "buttonWGG";
             this.buttonWGG.Size = new System.Drawing.Size(49, 23);
             this.buttonWGG.TabIndex = 35;
@@ -424,10 +425,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(425, 649);
+            this.ClientSize = new System.Drawing.Size(420, 534);
             this.Controls.Add(this.buttonWGG);
             this.Controls.Add(this.buttonDelete);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.textBoxNotes);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.comboBoxChargeTo);
@@ -499,7 +500,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBoxNotes;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonWGG;
     }

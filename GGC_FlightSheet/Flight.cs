@@ -9,6 +9,7 @@ namespace au.org.GGC {
         public Flight Clone() {
             return (Flight)this.MemberwiseClone();
         }
+        // This allows access to the three timestamps though a small array.
         public DateTime? this[int i] {
             get {
                 if (i == 0) return TakeOff;
@@ -48,16 +49,27 @@ namespace au.org.GGC {
 
         public bool IsInTow {
             get {
-                return (this.TugDown == null);
+                return (this.TugDown == null && !IsWinchLaunch && !IsMotorGlider);
+            }
+        }
+
+        bool IsWinchLaunch {
+            get { return Csv.Instance.IsWinch(Tug); }
+        }
+
+        bool IsMotorGlider {
+            get { 
+                return Csv.Instance.IsMotorGlider(Tug) || 
+                      (Csv.Instance.IsMotorGlider(Glider) && String.IsNullOrWhiteSpace(Tug)); 
             }
         }
 
         public int GetTowMinutes() {
-            if (this.TakeOff != null) {
+            if (this.TakeOff != null && !IsWinchLaunch && !IsMotorGlider) {
                 DateTime takeoff = (DateTime)this.TakeOff;
                 DateTime tugdown = DateTime.Now;
                 if (this.TugDown != null) tugdown = (DateTime)this.TugDown;
-                return Convert.ToInt32(Math.Round((tugdown - takeoff).TotalMinutes));
+                return Convert.ToInt32((tugdown - takeoff).TotalMinutes);
             }
             return 0;
         }
@@ -67,7 +79,7 @@ namespace au.org.GGC {
                 DateTime takeoff = (DateTime)this.TakeOff;
                 DateTime gliderdown = DateTime.Now;
                 if (this.GliderDown != null) gliderdown = (DateTime)this.GliderDown;
-                return Convert.ToInt32(Math.Round((gliderdown - takeoff).TotalMinutes));
+                return Convert.ToInt32((gliderdown - takeoff).TotalMinutes);
             }
             return 0;
         }

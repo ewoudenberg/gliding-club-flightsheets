@@ -16,6 +16,7 @@ namespace au.org.GGC {
         static List<Displayable> GlidersList = null;
         static List<Displayable> AirfieldsList = null;
         static List<Displayable> AefTypesList = null;
+        static Dictionary<string, string> AircraftType = null;
 
         public List<Displayable> GetPilotsList() {
             if (PilotsList == null)
@@ -42,6 +43,21 @@ namespace au.org.GGC {
             if (AefTypesList == null)
                 AefTypesList = LoadAefTypes();
             return AefTypesList;
+        }
+
+        public string GetAircraftType(string reg) {
+            if (AircraftType == null)
+                AircraftType = LoadAircraftTypes();
+            reg = reg.ToLower();
+            return AircraftType.ContainsKey(reg) ? AircraftType[reg] : "";
+        }
+
+        public bool IsWinch(string regPlusName) {
+            return GetAircraftType(regPlusName.Split(" ".ToCharArray())[0]) == "w";
+        }
+
+        public bool IsMotorGlider(string regPlusName) {
+            return GetAircraftType(regPlusName.Split(" ".ToCharArray())[0]) == "m";
         }
 
         const string DropdownHelp = "-- Select from list or Type in --";
@@ -87,7 +103,7 @@ namespace au.org.GGC {
                 engine.ErrorManager.SaveErrors("Errors.txt");
             foreach (Aircraft aircraft in res) {
                 string actype = aircraft.Type.ToLower();
-                bool isTug = (actype == "t" || actype == "m");
+                bool isTug = (actype == "t" || actype == "m" || actype == "w");
                 bool isGlider = (actype == "g" || actype == "m");
                 if (tug && isTug || !tug && isGlider) {
                     string name = aircraft.Reg + " " + aircraft.Name + ClubSuffix(aircraft.Club);
@@ -104,6 +120,18 @@ namespace au.org.GGC {
             }
             final.Sort(CompareDisplays);
             return final;
+        }
+
+        Dictionary<string, string> LoadAircraftTypes() {
+            FileHelperEngine<Aircraft> engine = new FileHelperEngine<Aircraft>();
+            engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
+            Aircraft[] res = engine.ReadFile(@"programdata/aircraft.csv");
+            if (engine.ErrorManager.ErrorCount > 0)
+                engine.ErrorManager.SaveErrors("Errors.txt");
+            Dictionary<string, string> types = new Dictionary<string, string>();
+            foreach (Aircraft aircraft in res)
+                types[aircraft.Reg.ToLower()] = aircraft.Type.ToLower();
+            return types;
         }
 
         List<Displayable> LoadAirfieldList() {
