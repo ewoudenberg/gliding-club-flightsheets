@@ -1,5 +1,5 @@
 ﻿namespace au.org.GGC {
-    partial class SettingsForm {
+    partial class SettingsDialog {
         /// <summary>
         /// Required designer variable.
         /// </summary>

@@ -8,8 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace au.org.GGC {
-    public partial class SettingsForm : Form {
-        public SettingsForm() {
+    public partial class SettingsDialog : Form {
+        public SettingsDialog() {
             InitializeComponent();
         }
 

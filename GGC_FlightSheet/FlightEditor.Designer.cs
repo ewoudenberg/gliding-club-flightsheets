@@ -1,5 +1,5 @@
 ﻿namespace au.org.GGC {
-    partial class EntryForm {
+    partial class FlightEditor {
         /// <summary>
         /// Required designer variable.
         /// </summary>

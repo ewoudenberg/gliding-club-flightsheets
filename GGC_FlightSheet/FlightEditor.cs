@@ -11,14 +11,14 @@ using System.IO;
 using FileHelpers;
 
 namespace au.org.GGC {
-    public partial class EntryForm : Form {
-        public EntryForm() {
+    public partial class FlightEditor : Form {
+        public FlightEditor() {
             InitializeComponent();
             InitFields();
             LoadFormFields(new Flight());
         }
 
-        public EntryForm(Flight flight) {
+        public FlightEditor(Flight flight) {
             InitializeComponent();
             InitFields();
             LoadFormFields(flight.Clone());

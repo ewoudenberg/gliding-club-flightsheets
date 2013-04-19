@@ -29,9 +29,7 @@ namespace au.org.GGC {
             InitColumns();
             FlightSheet.DataSource = Flights;
             SetFontSize(GridFontSize);
-            comboBoxClerk.DataSource = Csv.Instance.LoadPilotsList(isMember: true);
-            comboBoxClerk.DisplayMember = "DisplayName";
-            comboBoxClerk.Focus();
+            SetupClerkBox();
             StartWallClock();
             LoadFromCsv(GetTodaysAirfieldFile());
             AirfieldName = Airfield;
@@ -62,6 +60,7 @@ namespace au.org.GGC {
                     var bcol = new DataGridViewButtonColumn();
                     bcol.Text = column;
                     bcol.UseColumnTextForButtonValue = true;
+                    bcol.SortMode = DataGridViewColumnSortMode.Automatic;
                     tbcol = bcol;
                 } else {
                     tbcol = new DataGridViewTextBoxColumn();
@@ -80,7 +79,7 @@ namespace au.org.GGC {
         }
 
         void ChangeSettings() {
-            var browser = new SettingsForm();
+            var browser = new SettingsDialog();
             browser.SelectedPath = FlightSheetsFolder;
             browser.TowAlarmThreshold = TowAlarmThreshold;
             var result = browser.ShowDialog();
@@ -109,6 +108,12 @@ namespace au.org.GGC {
                 return 1;
             else
                 return Flights.Max(f => f.IsEmpty ? 0 : (int)f.FlightNo) + 1;
+        }
+
+        void SetupClerkBox() {
+            comboBoxClerk.DataSource = Csv.Instance.LoadPilotsList(isMember: true);
+            comboBoxClerk.DisplayMember = "DisplayName";
+            comboBoxClerk.Focus();
         }
 
         // If an empty time cell is double-clicked the flight is opened for editing.
@@ -143,7 +148,7 @@ namespace au.org.GGC {
         void EditFlight(int rowindex) {
             RequestClerkLogin();
             var flight = Flights[rowindex];
-            var entry = new EntryForm(flight);
+            var entry = new FlightEditor(flight);
             var result = entry.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK) {
                 InitializeNewFlightFields(entry.Flight);
@@ -496,6 +501,7 @@ namespace au.org.GGC {
 
         private void FlightSheet_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) {
             ColorGridRows();
+            ButtonizeSheet();
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
@@ -557,7 +563,7 @@ namespace au.org.GGC {
 
         int SelectedRow, SavedColumnSelection, SavedRowSelection;
 
-        // For functions that operate on a selection, this function
+        // For functions that operate on a row selection, this function
         // 1) determines whether this is a valid selection
         // 2) turns a single cell selection into a row selection and 
         // 3) returns whether there was a valid selection.
@@ -587,6 +593,7 @@ namespace au.org.GGC {
                 SelectedRow = row;
                 SavedRowSelection = row;
                 SavedColumnSelection = column;
+                FlightSheet.FirstDisplayedScrollingRowIndex = row;
             }
             return validSelection;
         }
@@ -598,14 +605,16 @@ namespace au.org.GGC {
 
         // Presents the grid's context menu when a flight is right-clicked.
         private void FlightSheet_MouseDown(object sender, MouseEventArgs e) {
+            var hit = FlightSheet.HitTest(e.X, e.Y);
             if (e.Button == MouseButtons.Right) {
-                var hit = FlightSheet.HitTest(e.X, e.Y);
                 if (FormRowSelection(hit)) {
                     RequestClerkLogin();
                     contextMenuStripFlights.Show(MousePosition);
                 }
             } else {
                 FlightSheet.SelectionMode = DataGridViewSelectionMode.CellSelect;
+                SavedRowSelection = hit.RowIndex;
+                SavedColumnSelection = hit.ColumnIndex;
             }
         }
 
@@ -682,10 +691,10 @@ namespace au.org.GGC {
 
         void ButtonizeSheet() {
             for (int i = 0; i < FlightSheet.Rows.Count; i++)
-                SetTimeButtons(i);
+                SetRowTimeButtons(i);
         }
 
-        void SetTimeButtons(int row) {
+        void SetRowTimeButtons(int row) {
             bool buttonIn = false;
             bool newRow = row == FlightSheet.Rows.Count - 1;
             for (var i = 0; i < 3; i++) {
