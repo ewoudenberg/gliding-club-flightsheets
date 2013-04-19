@@ -49,8 +49,12 @@ namespace au.org.GGC {
 
         public bool IsInTow {
             get {
-                return (this.TugDown == null && !IsWinchLaunch && !IsMotorGlider);
+                return (this.TugDown == null && !IsTugless);
             }
+        }
+
+        public bool IsTugless {
+            get { return IsWinchLaunch || IsMotorGlider; }
         }
 
         bool IsWinchLaunch {

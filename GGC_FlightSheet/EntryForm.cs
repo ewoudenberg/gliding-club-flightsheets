@@ -246,5 +246,17 @@ namespace au.org.GGC {
                 // Passes back Ignore to invoke the Delete function in the main form.
                 this.DialogResult = System.Windows.Forms.DialogResult.Ignore;
         }
+
+        private void buttonClearTO_Click(object sender, EventArgs e) {
+            textBoxTakeoff.Text = "";
+        }
+
+        private void buttonClearTD_Click(object sender, EventArgs e) {
+            textBoxTugDown.Text = "";
+        }
+
+        private void buttonClearGD_Click(object sender, EventArgs e) {
+            textBoxGliderDown.Text = "";
+        }
     }
 }

@@ -58,10 +58,11 @@ namespace au.org.GGC {
             foreach (var column in columns) {
                 ++iCol;
                 DataGridViewColumn tbcol;
-                if (false && Timecolumns.Contains(iCol)) {
-                    tbcol = new DataGridViewButtonColumn();
-                    ((DataGridViewButtonColumn)tbcol).Text = column;
-                    ((DataGridViewButtonColumn)tbcol).UseColumnTextForButtonValue = true;
+                if (Timecolumns.Contains(iCol)) {
+                    var bcol = new DataGridViewButtonColumn();
+                    bcol.Text = column;
+                    bcol.UseColumnTextForButtonValue = true;
+                    tbcol = bcol;
                 } else {
                     tbcol = new DataGridViewTextBoxColumn();
                 }
@@ -110,20 +111,11 @@ namespace au.org.GGC {
                 return Flights.Max(f => f.IsEmpty ? 0 : (int)f.FlightNo) + 1;
         }
 
-        // If an empty time cell is double-clicked, it's filled with the current time. 
-        // Otherwise, the flight is opened for editing.
-        void FlightSheet_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-            if (e.RowIndex < 0 || e.RowIndex >= (Flights.Count-1))
+        // If an empty time cell is double-clicked the flight is opened for editing.
+        void FlightSheet_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
+            if (e.RowIndex < 0 || e.RowIndex >= (Flights.Count - 1))
                 return;
-            int realcolumn = e.ColumnIndex;
-            int timei = realcolumn - Timecolumns[0];
-            if (Timecolumns.Contains(realcolumn) && Flights[e.RowIndex][timei] == null) {
-                Flights[e.RowIndex][timei] = DateTime.Now;
-                FlightSheet.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
-                Save();
-            } else {
-                EditFlight(e.RowIndex);
-            }
+            EditFlight(e.RowIndex);
         }
 
         void NewFlight() {
@@ -227,6 +219,7 @@ namespace au.org.GGC {
         void Save() {
             SaveToCsv();
             EnsureEmptyRowPresent();
+            ButtonizeSheet();
         }
 
         void SaveToCsv() {
@@ -422,22 +415,10 @@ namespace au.org.GGC {
             WallClockThread.Abort();
         }
 
-        private void smallToolStripMenuItem_Click(object sender, EventArgs e) {
-            SetAndSaveFontSize(0);
+        private void fontSizeToolStripMenuItem_Click(object sender, EventArgs e) {
+            SetAndSaveFontSize(Convert.ToInt32(((ToolStripMenuItem)sender).Tag));
         }
-        private void mediumToolStripMenuItem_Click(object sender, EventArgs e) {
-            SetAndSaveFontSize(1);
-        }
-        private void largeToolStripMenuItem_Click(object sender, EventArgs e) {
-            SetAndSaveFontSize(2);
-        }
-        private void extraLargeToolStripMenuItem_Click(object sender, EventArgs e) {
-            SetAndSaveFontSize(3);
-        }
-        private void grandpaToolStripMenuItem_Click(object sender, EventArgs e) {
-            SetAndSaveFontSize(4);
-        }
-
+  
         void PutCheckMarkOnFontMenu(int index) {
             int i = 0;
             foreach (ToolStripMenuItem m in fontSizeToolStripMenuItem.DropDownItems)
@@ -519,6 +500,7 @@ namespace au.org.GGC {
 
         private void MainForm_Load(object sender, EventArgs e) {
             ColorGridRows();
+            ButtonizeSheet();
         }
 
         private void aboutGGCFlightSheetsToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -637,6 +619,15 @@ namespace au.org.GGC {
                 return;
             if (e.ColumnIndex == 0)
                 EditFlight(e.RowIndex);
+            else {
+                var cell = FlightSheet.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (cell is DataGridViewButtonCell) {
+                    int timei = e.ColumnIndex - Timecolumns[0];
+                    Flights[e.RowIndex][timei] = DateTime.Now;
+                    FlightSheet.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
+                    Save();
+                }
+            }
         }
 
         private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e) {
@@ -689,26 +680,26 @@ namespace au.org.GGC {
             RestoreCellSelection();
         }
 
+        void ButtonizeSheet() {
+            for (int i = 0; i < FlightSheet.Rows.Count; i++)
+                SetTimeButtons(i);
+        }
+
         void SetTimeButtons(int row) {
             bool buttonIn = false;
-            if (row >= FlightSheet.Rows.Count - 1)
-                return;
+            bool newRow = row == FlightSheet.Rows.Count - 1;
             for (var i = 0; i < 3; i++) {
-                if (Flights[row][i] == null && !buttonIn) {
+                // Skips the TugDown button for winches & motorgliders 
+                bool noButton = i == 1 && Flights[row].IsTugless;
+                if (!noButton && Flights[row][i] == null && !buttonIn && !newRow) {
                     var button = new DataGridViewButtonCell();
+                    button.UseColumnTextForButtonValue = true;
                     FlightSheet.Rows[row].Cells[Timecolumns[i]] = button;
                     buttonIn = true;
                 } else
                     FlightSheet.Rows[row].Cells[Timecolumns[i]] = new DataGridViewTextBoxCell();
             }
         }
-
-        private void FlightSheet_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e) {
-            //for (int i = e.RowIndex; i < (e.RowIndex + e.RowCount); i++) {
-            //    SetTimeButtons(i);
-            //}
-        }
-
 
         #region Persisted Settings
         int GridFontSize {
@@ -756,7 +747,5 @@ namespace au.org.GGC {
             }
         }
         #endregion
-
-
     }
 }

@@ -53,11 +53,13 @@ namespace au.org.GGC {
         }
 
         public bool IsWinch(string regPlusName) {
-            return GetAircraftType(regPlusName.Split(" ".ToCharArray())[0]) == "w";
+            return regPlusName != null &&
+                GetAircraftType(regPlusName.Split(" ".ToCharArray())[0]) == "w";
         }
 
         public bool IsMotorGlider(string regPlusName) {
-            return GetAircraftType(regPlusName.Split(" ".ToCharArray())[0]) == "m";
+            return regPlusName != null && 
+                GetAircraftType(regPlusName.Split(" ".ToCharArray())[0]) == "m";
         }
 
         const string DropdownHelp = "-- Select from list or Type in --";

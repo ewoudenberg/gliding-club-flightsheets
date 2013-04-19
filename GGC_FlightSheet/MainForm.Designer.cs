@@ -101,10 +101,9 @@
             this.FlightSheet.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.FlightSheet.Size = new System.Drawing.Size(942, 318);
             this.FlightSheet.TabIndex = 2;
-            this.FlightSheet.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FlightSheet_CellClick);
-            this.FlightSheet.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FlightSheet_CellContentClick);
+            this.FlightSheet.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FlightSheet_CellClick);
+            this.FlightSheet.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FlightSheet_CellDoubleClick);
             this.FlightSheet.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.FlightSheet_ColumnHeaderMouseClick);
-            this.FlightSheet.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.FlightSheet_RowsAdded);
             this.FlightSheet.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FlightSheet_MouseDown);
             // 
             // Logo
@@ -278,8 +277,9 @@
             this.smallToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.smallToolStripMenuItem.Name = "smallToolStripMenuItem";
             this.smallToolStripMenuItem.Size = new System.Drawing.Size(179, 34);
+            this.smallToolStripMenuItem.Tag = "0";
             this.smallToolStripMenuItem.Text = "Small";
-            this.smallToolStripMenuItem.Click += new System.EventHandler(this.smallToolStripMenuItem_Click);
+            this.smallToolStripMenuItem.Click += new System.EventHandler(this.fontSizeToolStripMenuItem_Click);
             // 
             // mediumToolStripMenuItem
             // 
@@ -287,8 +287,9 @@
             this.mediumToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.mediumToolStripMenuItem.Name = "mediumToolStripMenuItem";
             this.mediumToolStripMenuItem.Size = new System.Drawing.Size(179, 34);
+            this.mediumToolStripMenuItem.Tag = "1";
             this.mediumToolStripMenuItem.Text = "Medium";
-            this.mediumToolStripMenuItem.Click += new System.EventHandler(this.mediumToolStripMenuItem_Click);
+            this.mediumToolStripMenuItem.Click += new System.EventHandler(this.fontSizeToolStripMenuItem_Click);
             // 
             // largeToolStripMenuItem
             // 
@@ -296,8 +297,9 @@
             this.largeToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.largeToolStripMenuItem.Name = "largeToolStripMenuItem";
             this.largeToolStripMenuItem.Size = new System.Drawing.Size(179, 34);
+            this.largeToolStripMenuItem.Tag = "2";
             this.largeToolStripMenuItem.Text = "Large";
-            this.largeToolStripMenuItem.Click += new System.EventHandler(this.largeToolStripMenuItem_Click);
+            this.largeToolStripMenuItem.Click += new System.EventHandler(this.fontSizeToolStripMenuItem_Click);
             // 
             // extraLargeToolStripMenuItem
             // 
@@ -305,8 +307,9 @@
             this.extraLargeToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.extraLargeToolStripMenuItem.Name = "extraLargeToolStripMenuItem";
             this.extraLargeToolStripMenuItem.Size = new System.Drawing.Size(179, 34);
+            this.extraLargeToolStripMenuItem.Tag = "3";
             this.extraLargeToolStripMenuItem.Text = "Extra Large";
-            this.extraLargeToolStripMenuItem.Click += new System.EventHandler(this.extraLargeToolStripMenuItem_Click);
+            this.extraLargeToolStripMenuItem.Click += new System.EventHandler(this.fontSizeToolStripMenuItem_Click);
             // 
             // grandpaToolStripMenuItem
             // 
@@ -314,8 +317,9 @@
             this.grandpaToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 19F);
             this.grandpaToolStripMenuItem.Name = "grandpaToolStripMenuItem";
             this.grandpaToolStripMenuItem.Size = new System.Drawing.Size(179, 34);
+            this.grandpaToolStripMenuItem.Tag = "4";
             this.grandpaToolStripMenuItem.Text = "Grandpa";
-            this.grandpaToolStripMenuItem.Click += new System.EventHandler(this.grandpaToolStripMenuItem_Click);
+            this.grandpaToolStripMenuItem.Click += new System.EventHandler(this.fontSizeToolStripMenuItem_Click);
             // 
             // changeFlightSheetFolderToolStripMenuItem
             // 

@@ -56,6 +56,9 @@
             this.labelTitle = new System.Windows.Forms.Label();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonWGG = new System.Windows.Forms.Button();
+            this.buttonClearTO = new System.Windows.Forms.Button();
+            this.buttonClearTD = new System.Windows.Forms.Button();
+            this.buttonClearGD = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -420,12 +423,45 @@
             this.buttonWGG.UseVisualStyleBackColor = true;
             this.buttonWGG.Click += new System.EventHandler(this.buttonTug_Click);
             // 
+            // buttonClearTO
+            // 
+            this.buttonClearTO.Location = new System.Drawing.Point(210, 237);
+            this.buttonClearTO.Name = "buttonClearTO";
+            this.buttonClearTO.Size = new System.Drawing.Size(45, 23);
+            this.buttonClearTO.TabIndex = 36;
+            this.buttonClearTO.Text = "Clear";
+            this.buttonClearTO.UseVisualStyleBackColor = true;
+            this.buttonClearTO.Click += new System.EventHandler(this.buttonClearTO_Click);
+            // 
+            // buttonClearTD
+            // 
+            this.buttonClearTD.Location = new System.Drawing.Point(210, 268);
+            this.buttonClearTD.Name = "buttonClearTD";
+            this.buttonClearTD.Size = new System.Drawing.Size(45, 23);
+            this.buttonClearTD.TabIndex = 37;
+            this.buttonClearTD.Text = "Clear";
+            this.buttonClearTD.UseVisualStyleBackColor = true;
+            this.buttonClearTD.Click += new System.EventHandler(this.buttonClearTD_Click);
+            // 
+            // buttonClearGD
+            // 
+            this.buttonClearGD.Location = new System.Drawing.Point(210, 299);
+            this.buttonClearGD.Name = "buttonClearGD";
+            this.buttonClearGD.Size = new System.Drawing.Size(45, 23);
+            this.buttonClearGD.TabIndex = 38;
+            this.buttonClearGD.Text = "Clear";
+            this.buttonClearGD.UseVisualStyleBackColor = true;
+            this.buttonClearGD.Click += new System.EventHandler(this.buttonClearGD_Click);
+            // 
             // EntryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(420, 534);
+            this.Controls.Add(this.buttonClearGD);
+            this.Controls.Add(this.buttonClearTD);
+            this.Controls.Add(this.buttonClearTO);
             this.Controls.Add(this.buttonWGG);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.labelTitle);
@@ -503,5 +539,8 @@
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonWGG;
+        private System.Windows.Forms.Button buttonClearTO;
+        private System.Windows.Forms.Button buttonClearTD;
+        private System.Windows.Forms.Button buttonClearGD;
     }
 }
