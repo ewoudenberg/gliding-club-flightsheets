@@ -224,30 +224,30 @@ namespace au.org.GGC {
 
     [DelimitedRecord(",")]
     public sealed class AefType {
-        [FieldQuoted('"', QuoteMode.OptionalForRead)] public String Code;
-        [FieldQuoted('"', QuoteMode.OptionalForRead)] public String Name;
+        [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String Code;
+        [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String Name;
     }
 
     [DelimitedRecord(",")]
     public sealed class Pilot {
-        [FieldQuoted('"', QuoteMode.OptionalForRead)] public String LastName;
-        [FieldQuoted('"', QuoteMode.OptionalForRead)] public String FirstName;
-        [FieldQuoted('"', QuoteMode.OptionalForRead)] public String ID;
-        [FieldQuoted('"', QuoteMode.OptionalForRead)] public String Club;
+        [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String LastName;
+        [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String FirstName;
+        [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String ID;
+        [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String Club;
     }
 
     [DelimitedRecord(",")]
     public sealed class Aircraft {
-        [FieldQuoted('"', QuoteMode.OptionalForRead)] public String Reg;
-        [FieldQuoted('"', QuoteMode.OptionalForRead)] public String Type;
-        [FieldQuoted('"', QuoteMode.OptionalForRead)] public String Club;
-        [FieldQuoted('"', QuoteMode.OptionalForRead)] public String Seats;
-        [FieldQuoted('"', QuoteMode.OptionalForRead)] public String Name;
+       [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String Reg;
+       [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String Type;
+       [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String Club;
+       [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String Seats;
+       [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String Name;
     }
 
     [DelimitedRecord(",")]
     public sealed class Airfield {
-        [FieldQuoted('"', QuoteMode.OptionalForRead)] public String Name;
+       [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String Name;
     }
 
     [DelimitedRecord(",")]

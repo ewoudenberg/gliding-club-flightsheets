@@ -33,6 +33,9 @@ namespace au.org.GGC {
             StartWallClock();
             LoadFromCsv(GetTodaysAirfieldFile());
             AirfieldName = Airfield;
+            // Windows XP doesn't have the Unicode <- character.
+            if (Environment.OSVersion.Version.Major < 6) 
+                labelClerkAlert.Text = "<< Your Name Please?";
         }
 
         int[] Timecolumns = new int[] { 6, 7, 8 };
@@ -49,7 +52,7 @@ namespace au.org.GGC {
             FlightSheet.Columns.Add(btn);
 
             string[] columns = { "Flight No", "Pilot 1", "Pilot 2", "Tug", 
-                                   "Glider", "Take\nOff", "Tug\nDown", "Glider\nDown", 
+                                   "Glider", "Take Off", "Tug Down", "Glider Down", 
                                    "Tow Time", "Flight Time", "Annual\nCheck", "Mutual", 
                                    "AEF Type", "Charge To", "Notes"};
 

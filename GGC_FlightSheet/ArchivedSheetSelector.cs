@@ -47,7 +47,6 @@ namespace au.org.GGC {
             buttonOpenExisting.Enabled = listBoxFileList.Text.Trim().Length != 0;
         }
 
-
         private void buttonOpenExisting_Click(object sender, EventArgs e) {
             ReturnSelectedFile();
         }
@@ -55,7 +54,7 @@ namespace au.org.GGC {
         void ReturnSelectedFile() {
             Filename = ((Flightfile)listBoxFileList.SelectedItem).Filepath;
             // Filename is e.g.: FlightSheet_20130413_Bacchus_Marsh.csv
-            var fileparts = Path.GetFileNameWithoutExtension(Filename).Split("_".ToCharArray(),4);
+            var fileparts = Path.GetFileNameWithoutExtension(Filename).Split("_".ToCharArray(),3);
             Airfield = fileparts[2].Replace("_", " ");
             DialogResult = System.Windows.Forms.DialogResult.OK;
         }
