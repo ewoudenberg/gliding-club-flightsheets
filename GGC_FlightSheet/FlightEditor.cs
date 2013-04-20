@@ -140,6 +140,14 @@ namespace au.org.GGC {
                 return ((DateTime)datetime).ToString("HH:mm:ss");
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
+            if (keyData == (Keys.Control | Keys.Return)) {
+                SaveFormAndExit();
+                return true;
+            } else
+                return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         DateTime? ParseTime(string text) {
             DateTime parsedTime;
             text = text.Trim();
@@ -149,6 +157,15 @@ namespace au.org.GGC {
                     return parsedTime;
                 if (DateTime.TryParseExact(text, "H:mm", null, 
                     System.Globalization.DateTimeStyles.AllowInnerWhite, out parsedTime))
+                    return parsedTime;
+                if (DateTime.TryParseExact(text, "H.mm", null,
+                    System.Globalization.DateTimeStyles.AllowInnerWhite, out parsedTime))
+                    return parsedTime;
+                if (DateTime.TryParseExact(text, "H mm", null,
+                   System.Globalization.DateTimeStyles.AllowInnerWhite, out parsedTime))
+                    return parsedTime;
+                if (DateTime.TryParseExact(text, "Hmm", null,
+                   System.Globalization.DateTimeStyles.AllowInnerWhite, out parsedTime))
                     return parsedTime;
             }
             return null;
@@ -168,7 +185,6 @@ namespace au.org.GGC {
                 return ((Displayable)c.SelectedItem).AuxData;
         }
             
-
         void InitFields() {
             comboBoxPilot1.DataSource = Csv.Instance.GetPilotsList();
             comboBoxPilot2.DataSource = Csv.Instance.GetPilotsList();
@@ -232,6 +248,10 @@ namespace au.org.GGC {
         }
 
         private void buttonOK_Click(object sender, EventArgs e) {
+            SaveFormAndExit();
+        }
+
+        void SaveFormAndExit() {
             StoreFormFields();
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
@@ -257,6 +277,14 @@ namespace au.org.GGC {
 
         private void buttonClearGD_Click(object sender, EventArgs e) {
             textBoxGliderDown.Text = "";
+        }
+
+        private void textBoxTime_TextChanged(object sender, EventArgs e) {
+            var textBox = (TextBox)sender;
+            if (textBox.Text.Trim().Length == 0 || ParseTime(textBox.Text) != null)
+                textBox.BackColor = System.Drawing.Color.White;
+            else
+                textBox.BackColor = System.Drawing.Color.Yellow;
         }
     }
 }

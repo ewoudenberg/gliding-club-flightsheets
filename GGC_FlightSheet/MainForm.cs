@@ -258,10 +258,8 @@ namespace au.org.GGC {
                 flightEntries.Add(entry);
             }
 
-            if (flightEntries.Count != 0) {
-                var engine = new FileHelperEngine<FlightEntry> { HeaderText = FlightEntry.Header };
-                engine.WriteFile(_ActiveFile, flightEntries);
-            }
+            var engine = new FileHelperEngine<FlightEntry> { HeaderText = FlightEntry.Header };
+            engine.WriteFile(_ActiveFile, flightEntries);
         }
 
         void LoadFromCsv(string filename) {
@@ -293,6 +291,7 @@ namespace au.org.GGC {
                 Flights.Add(flight);
             }
             EnsureEmptyRowPresent();
+            ButtonizeSheet();
         }
 
         int ParseInt(string val) {
@@ -300,14 +299,6 @@ namespace au.org.GGC {
             if (Int32.TryParse(val, out v))
                 return v;
             return 0;
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
-            if (keyData == (Keys.Control | Keys.N)) {
-                NewFlight();
-                return true;
-            } else
-                return base.ProcessCmdKey(ref msg, keyData);
         }
 
         Thread WallClockThread;
@@ -581,6 +572,9 @@ namespace au.org.GGC {
         }
 
         bool FormRowSelection(int row, int column) {
+            if (FlightSheet.SelectionMode == DataGridViewSelectionMode.FullRowSelect)
+                return true;
+
             SelectedRow = -1;
             bool validSelection =
                   column != 0
@@ -652,7 +646,10 @@ namespace au.org.GGC {
         }  
 
         private void deleteSelectedFileToolStripMenuItem_Click(object sender, EventArgs e) {
-            DeleteSelectedFlight();
+            if (FormRowSelection()) {
+                DeleteSelectedFlight();
+                RestoreCellSelection();
+            }
         }
 
         private void deleteThisEntryToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -671,7 +668,10 @@ namespace au.org.GGC {
         }
 
         private void cloneSelectedFlightToolStripMenuItem_Click(object sender, EventArgs e) {
-            CloneFlight(SelectedRow);
+            if (FormRowSelection()) {
+                CloneFlight(SelectedRow);
+                RestoreCellSelection();
+            }
         }
          
         private void cloneIntoNewEntryToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -680,8 +680,10 @@ namespace au.org.GGC {
         }
 
         private void editSToolStripMenuItem_Click(object sender, EventArgs e) {
-            EditFlight(SelectedRow);
-            RestoreCellSelection();
+            if (FormRowSelection()) {
+                EditFlight(SelectedRow);
+                RestoreCellSelection();
+            }
         }
 
         private void editThisEntryToolStripMenuItem_Click(object sender, EventArgs e) {

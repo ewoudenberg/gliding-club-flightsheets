@@ -78,6 +78,10 @@ Section "install"
     ${xml::ReplaceNode} $R0 $0
     ${xml::SaveFile} "" $0
 
+    # Give the settings file read write access for all users
+    AccessControl::GrantOnFile \
+    "$INSTDIR\FlightSheetSettings.xml" "(BU)" "GenericRead + GenericWrite"
+ 
     # create desktop shortcut
     CreateShortCut "$DESKTOP\${MUI_PRODUCT}.lnk" "$INSTDIR\${MUI_FILE}.exe" ""
  
