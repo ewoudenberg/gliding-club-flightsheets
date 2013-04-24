@@ -103,6 +103,7 @@ namespace au.org.GGC {
                 if (FlightSheetsFolder != browser.SelectedPath) {
                     FlightSheetsFolder = browser.SelectedPath;
                     LoadFromCsv(GetTodaysAirfieldFile());
+                    CopyClubDataIntoPlace();
                 }
                 if (TowAlarmThreshold != browser.TowAlarmThreshold) {
                     TowAlarmThreshold = browser.TowAlarmThreshold;
