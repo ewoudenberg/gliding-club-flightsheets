@@ -69,7 +69,10 @@ namespace au.org.GGC {
             final.Add(new Displayable() { DisplayName = DropdownHelp, RealName = "" });
             FileHelperEngine<Pilot> engine = new FileHelperEngine<Pilot>();
             engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
-            Pilot[] res = engine.ReadFile(@"programdata/pilots.csv");
+            string fn = FlightSheetsFolder + "/pilots.csv";
+            if (!File.Exists(fn))
+                MainForm.Fatal("Could not find file: " + fn);
+            var res = engine.ReadFile(fn);
             if (engine.ErrorManager.ErrorCount > 0)
                 engine.ErrorManager.SaveErrors("Errors.txt");
             foreach (Pilot pilot in res) {
@@ -100,7 +103,10 @@ namespace au.org.GGC {
             final.Add(new Displayable() { DisplayName = DropdownHelp, RealName = "" });
             FileHelperEngine<Aircraft> engine = new FileHelperEngine<Aircraft>();
             engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
-            Aircraft[] res = engine.ReadFile(@"programdata/aircraft.csv");
+            string fn = FlightSheetsFolder + "/aircraft.csv";
+            if (!File.Exists(fn))
+                MainForm.Fatal("Could not find file: " + fn);
+            var res = engine.ReadFile(fn);
             if (engine.ErrorManager.ErrorCount > 0)
                 engine.ErrorManager.SaveErrors("Errors.txt");
             foreach (Aircraft aircraft in res) {
@@ -127,7 +133,10 @@ namespace au.org.GGC {
         Dictionary<string, string> LoadAircraftTypes() {
             FileHelperEngine<Aircraft> engine = new FileHelperEngine<Aircraft>();
             engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
-            Aircraft[] res = engine.ReadFile(@"programdata/aircraft.csv");
+            string fn = FlightSheetsFolder + "/aircraft.csv";
+            if (!File.Exists(fn))
+                MainForm.Fatal("Could not find file: " + fn);
+            var res = engine.ReadFile(fn);
             if (engine.ErrorManager.ErrorCount > 0)
                 engine.ErrorManager.SaveErrors("Errors.txt");
             Dictionary<string, string> types = new Dictionary<string, string>();
@@ -142,7 +151,10 @@ namespace au.org.GGC {
             //final.Add(new Displayable() { DisplayName = DropdownHelp, RealName = "" });
             FileHelperEngine<Airfield> engine = new FileHelperEngine<Airfield>();
             engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
-            var res = engine.ReadFile(@"programdata/airfields.csv");
+            string fn = FlightSheetsFolder + "/airfields.csv";
+            if (!File.Exists(fn))
+                MainForm.Fatal("Could not find file: " + fn);
+            var res = engine.ReadFile(fn);
             if (engine.ErrorManager.ErrorCount > 0)
                 engine.ErrorManager.SaveErrors("Errors.txt");
             foreach (Airfield airfield in res) {
@@ -168,7 +180,11 @@ namespace au.org.GGC {
         public List<Displayable> LoadAefTypes() {
             FileHelperEngine<AefType> engine = new FileHelperEngine<AefType>();
             engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
-            var res = engine.ReadFile(@"programdata/aeftypes.csv");
+            string fn = FlightSheetsFolder + "/aeftypes.csv";
+            if (!File.Exists(fn))
+                MainForm.Fatal("Could not find file: " + fn);
+
+            var res = engine.ReadFile(fn);
             if (engine.ErrorManager.ErrorCount > 0)
                 engine.ErrorManager.SaveErrors("Errors.txt");
 
@@ -196,6 +212,17 @@ namespace au.org.GGC {
                 name = " [" + club + "]";
             return name;
         }
+
+        string FlightSheetsFolder {
+            get {
+                return CustomProperties<FlightSheetSettings>.Settings.Default.FlightSheetsFolder;
+            }
+            set {
+                CustomProperties<FlightSheetSettings>.Settings.Default.FlightSheetsFolder = value;
+                CustomProperties<FlightSheetSettings>.Settings.Save();
+            }
+        }
+
     }
 
     public class Displayable {

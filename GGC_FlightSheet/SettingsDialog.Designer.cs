@@ -117,7 +117,7 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "(minutes)";
             // 
-            // SettingsForm
+            // SettingsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -130,7 +130,7 @@
             this.Controls.Add(this.buttonBrowse);
             this.Controls.Add(this.textBoxFolderName);
             this.Controls.Add(this.label1);
-            this.Name = "SettingsForm";
+            this.Name = "SettingsDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "System Settings";
             this.ResumeLayout(false);

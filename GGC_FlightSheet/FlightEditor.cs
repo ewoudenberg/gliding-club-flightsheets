@@ -45,6 +45,7 @@ namespace au.org.GGC {
         }
 
         void SetFlightTitle() {
+            buttonDelete.Visible = !Flight.IsEmpty;
             if (Flight.IsEmpty)
                 labelTitle.Text = "New Flight Information";
             else

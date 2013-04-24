@@ -20,8 +20,21 @@ namespace au.org.GGC {
 
         public MainForm() {
             InitializeComponent();
+            CopyClubDataIntoPlace();
             InitSheet();
             HighlightInvalidFields();
+        }
+
+        // Copies the club data installed with the program into the 
+        // FlightSheets folder. This done so that cloud-syncing the Flightsheets Folder 
+        // (via Dropbox, Google Drive) can update the local club data as well.
+
+        void CopyClubDataIntoPlace() {
+            foreach (string filename in new [] {"aeftypes", "aircraft", "airfields", "pilots"}) {
+                string fn = "/" + filename + ".csv";
+                if (!File.Exists(FlightSheetsFolder + fn))
+                    File.Copy("programdata" + fn, FlightSheetsFolder + fn, false);
+            }
         }
 
         void InitSheet() {
@@ -121,7 +134,7 @@ namespace au.org.GGC {
 
         // If an empty time cell is double-clicked the flight is opened for editing.
         void FlightSheet_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
-            if (e.RowIndex < 0 || e.RowIndex >= (Flights.Count - 1))
+            if (e.RowIndex < 0 || e.RowIndex >= Flights.Count)
                 return;
             EditFlight(e.RowIndex);
         }
@@ -448,6 +461,8 @@ namespace au.org.GGC {
                 column.MinimumWidth = (Int32)(40.0 * (fontsize / 8.25));
             FlightSheet.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
             FlightSheet.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
+            contextMenuStripFlights.Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, fontsize);
+            menuStripMain.Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, fontsize);
         }
 
         private void comboBoxClerk_TextChanged(object sender, EventArgs e) {
@@ -761,5 +776,10 @@ namespace au.org.GGC {
             }
         }
         #endregion
+
+        static public void Fatal(string message) {
+            MessageBox.Show("A fatal error has occurred: " + message + "\n\nProgram will exit", "Fatal Error", MessageBoxButtons.OK);
+            Environment.Exit(1);           
+        }
     }
 }
