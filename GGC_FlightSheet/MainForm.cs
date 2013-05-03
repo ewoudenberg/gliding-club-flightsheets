@@ -98,6 +98,8 @@ namespace au.org.GGC {
             var browser = new SettingsDialog();
             browser.SelectedPath = FlightSheetsFolder;
             browser.TowAlarmThreshold = TowAlarmThreshold;
+            browser.GliderButtons = GliderButtons;
+            browser.TugButtons = TugButtons;
             var result = browser.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK) {
                 if (FlightSheetsFolder != browser.SelectedPath) {
@@ -109,6 +111,8 @@ namespace au.org.GGC {
                     TowAlarmThreshold = browser.TowAlarmThreshold;
                     ColorGridRows();
                 }
+                TugButtons = browser.TugButtons;
+                GliderButtons = browser.GliderButtons;
             }
         }
 
@@ -165,7 +169,7 @@ namespace au.org.GGC {
         void EditFlight(int rowindex) {
             RequestClerkLogin();
             var flight = Flights[rowindex];
-            var entry = new FlightEditor(flight);
+            var entry = new FlightEditor(flight, TugButtons, GliderButtons);
             var result = entry.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK) {
                 InitializeNewFlightFields(entry.Flight);
@@ -333,6 +337,7 @@ namespace au.org.GGC {
                 everyMinute = (everyMinute + 1) % 60;
                 toggle = !toggle;
                 labelOverTow.SafeInvoke(d => d.Visible = toggle & towAlarm);
+                labelClerkAlert.SafeInvoke(d => d.Visible = toggle & !ClerkReady);
                 labelTime.SafeInvoke(d => d.Text = DateTime.Now.ToString("HH:mm"));
                 CalculateFlightTimes();
                 if (!towAlarm)
@@ -482,12 +487,18 @@ namespace au.org.GGC {
                 textBoxFlightSheetRef.BackColor = System.Drawing.Color.White;
         }
 
+        bool ClerkReady {
+            get {
+                var text = comboBoxClerk.Text.Trim();
+                var item = ((Displayable)comboBoxClerk.SelectedItem);
+                bool clerkReady = item == null ? text.Length != 0 : item.RealName.Length != 0;
+                return clerkReady;
+            }
+        }
+
         bool ClerkCheck() {
-            var text = comboBoxClerk.Text.Trim();
-            var item = ((Displayable)comboBoxClerk.SelectedItem);
-            bool clerkReady = item == null ? text.Length != 0 : item.RealName.Length != 0;
-            ClerkAlertVisible = !clerkReady;
-            return clerkReady;
+            ClerkAlertVisible = !ClerkReady;
+            return ClerkReady;
         }
 
         // Clones an existing flight into a new one with the time fields cleared out
@@ -731,6 +742,11 @@ namespace au.org.GGC {
             }
         }
 
+        static public void Fatal(string message) {
+            MessageBox.Show("A fatal error has occurred: " + message + "\n\nProgram will exit", "Fatal Error", MessageBoxButtons.OK);
+            Environment.Exit(1);
+        }
+
         #region Persisted Settings
         int GridFontSize {
             get {
@@ -776,11 +792,28 @@ namespace au.org.GGC {
                 CustomProperties<FlightSheetSettings>.Settings.Save();
             }
         }
+        string[] TugButtons {
+            get {
+                return CustomProperties<FlightSheetSettings>.Settings.Default.TugButtons.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            }
+            set {
+                CustomProperties<FlightSheetSettings>.Settings.Default.TugButtons = String.Join(",", value);
+                CustomProperties<FlightSheetSettings>.Settings.Save();
+            }
+        }
+        string[] GliderButtons {
+            get {
+                return CustomProperties<FlightSheetSettings>.Settings.Default.GliderButtons.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            }
+            set {
+                CustomProperties<FlightSheetSettings>.Settings.Default.GliderButtons = String.Join(",", value);
+                CustomProperties<FlightSheetSettings>.Settings.Save();
+            }
+        }
+
+
+
         #endregion
 
-        static public void Fatal(string message) {
-            MessageBox.Show("A fatal error has occurred: " + message + "\n\nProgram will exit", "Fatal Error", MessageBoxButtons.OK);
-            Environment.Exit(1);           
-        }
     }
 }

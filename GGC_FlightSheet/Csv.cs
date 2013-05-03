@@ -314,7 +314,7 @@ namespace au.org.GGC {
         [FieldQuoted('"', QuoteMode.OptionalForRead)] public String AltPay2MemID;
         [FieldQuoted('"', QuoteMode.OptionalForRead)] public String AltPayAll;
         [FieldQuoted('"', QuoteMode.OptionalForRead)] public String AltPayAllMemID;
-        [FieldQuoted('"', QuoteMode.OptionalForRead, MultilineMode.AllowForRead)] public String Notes;
+        [FieldQuoted('"', QuoteMode.OptionalForRead, MultilineMode.AllowForBoth)] public String Notes;
         [FieldQuoted('"', QuoteMode.OptionalForRead)] public String ImpExpFlag;
         [FieldQuoted('"', QuoteMode.OptionalForRead)] public String Clerk;
     }

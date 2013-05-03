@@ -120,4 +120,11 @@
   <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="label6.Text" xml:space="preserve">
+    <value>The Tug and Glider button lists must 
+contain only the 3 letter aircraft registration
+(in CAPS) from the set of known aircraft 
+shown in the tug and glider pulldown lists.
+A maximum of 5 buttons can be set up.</value>
+  </data>
 </root>

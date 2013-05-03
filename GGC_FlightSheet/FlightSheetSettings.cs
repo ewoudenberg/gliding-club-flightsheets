@@ -9,18 +9,24 @@ namespace au.org.GGC {
         public String GridFontSize { get; set; }
         public String TowAlarmThreshold { get; set; }
         public String Airfield { get; set; }
+        public String TugButtons { get; set; }
+        public String GliderButtons { get; set; }
 
         public FlightSheetSettings() {
             FlightSheetsFolder = "GGC_FlightSheets";
             GridFontSize = "0";
             TowAlarmThreshold = "10";
             Airfield = "Bacchus Marsh";
+            TugButtons = "SSO,MSA,TNC,WGG";
+            GliderButtons = "GPZ,OWL,XOC";
         }
         public FlightSheetSettings(bool initialize) {
              FlightSheetsFolder = "GGC_FlightSheets";
              GridFontSize = "0";
              TowAlarmThreshold = "10";
              Airfield = "Bacchus Marsh";
+             TugButtons = "SSO,MSA,TNC,WGG";
+             GliderButtons = "GPZ,OWL,XOC";
         }
     }
 }

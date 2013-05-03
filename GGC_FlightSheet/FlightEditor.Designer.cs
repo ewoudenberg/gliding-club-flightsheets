@@ -36,12 +36,12 @@
             this.textBoxTakeoff = new System.Windows.Forms.TextBox();
             this.textBoxTugDown = new System.Windows.Forms.TextBox();
             this.textBoxGliderDown = new System.Windows.Forms.TextBox();
-            this.buttonSSO = new System.Windows.Forms.Button();
-            this.buttonMSA = new System.Windows.Forms.Button();
-            this.buttonTNC = new System.Windows.Forms.Button();
-            this.buttonGPZ = new System.Windows.Forms.Button();
-            this.buttonOWL = new System.Windows.Forms.Button();
-            this.buttonXOC = new System.Windows.Forms.Button();
+            this.buttonT0 = new System.Windows.Forms.Button();
+            this.buttonT1 = new System.Windows.Forms.Button();
+            this.buttonT2 = new System.Windows.Forms.Button();
+            this.buttonG0 = new System.Windows.Forms.Button();
+            this.buttonG1 = new System.Windows.Forms.Button();
+            this.buttonG2 = new System.Windows.Forms.Button();
             this.buttonTakeOff = new System.Windows.Forms.Button();
             this.buttonTugDown = new System.Windows.Forms.Button();
             this.buttonGliderDown = new System.Windows.Forms.Button();
@@ -55,10 +55,13 @@
             this.textBoxNotes = new System.Windows.Forms.TextBox();
             this.labelTitle = new System.Windows.Forms.Label();
             this.buttonDelete = new System.Windows.Forms.Button();
-            this.buttonWGG = new System.Windows.Forms.Button();
+            this.buttonT3 = new System.Windows.Forms.Button();
             this.buttonClearTO = new System.Windows.Forms.Button();
             this.buttonClearTD = new System.Windows.Forms.Button();
             this.buttonClearGD = new System.Windows.Forms.Button();
+            this.buttonT4 = new System.Windows.Forms.Button();
+            this.buttonG3 = new System.Windows.Forms.Button();
+            this.buttonG4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -207,67 +210,61 @@
             this.textBoxGliderDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxGliderDown.TextChanged += new System.EventHandler(this.textBoxTime_TextChanged);
             // 
-            // buttonSSO
+            // buttonT0
             // 
-            this.buttonSSO.Location = new System.Drawing.Point(130, 144);
-            this.buttonSSO.Name = "buttonSSO";
-            this.buttonSSO.Size = new System.Drawing.Size(49, 23);
-            this.buttonSSO.TabIndex = 6;
-            this.buttonSSO.Text = "SSO";
-            this.buttonSSO.UseVisualStyleBackColor = true;
-            this.buttonSSO.Click += new System.EventHandler(this.buttonTug_Click);
+            this.buttonT0.Location = new System.Drawing.Point(130, 144);
+            this.buttonT0.Name = "buttonT0";
+            this.buttonT0.Size = new System.Drawing.Size(42, 23);
+            this.buttonT0.TabIndex = 6;
+            this.buttonT0.UseVisualStyleBackColor = true;
+            this.buttonT0.Click += new System.EventHandler(this.buttonTug_Click);
             // 
-            // buttonMSA
+            // buttonT1
             // 
-            this.buttonMSA.Location = new System.Drawing.Point(185, 144);
-            this.buttonMSA.Name = "buttonMSA";
-            this.buttonMSA.Size = new System.Drawing.Size(49, 23);
-            this.buttonMSA.TabIndex = 7;
-            this.buttonMSA.Text = "MSA";
-            this.buttonMSA.UseVisualStyleBackColor = true;
-            this.buttonMSA.Click += new System.EventHandler(this.buttonTug_Click);
+            this.buttonT1.Location = new System.Drawing.Point(181, 144);
+            this.buttonT1.Name = "buttonT1";
+            this.buttonT1.Size = new System.Drawing.Size(42, 23);
+            this.buttonT1.TabIndex = 7;
+            this.buttonT1.UseVisualStyleBackColor = true;
+            this.buttonT1.Click += new System.EventHandler(this.buttonTug_Click);
             // 
-            // buttonTNC
+            // buttonT2
             // 
-            this.buttonTNC.AllowDrop = true;
-            this.buttonTNC.Location = new System.Drawing.Point(240, 144);
-            this.buttonTNC.Name = "buttonTNC";
-            this.buttonTNC.Size = new System.Drawing.Size(49, 23);
-            this.buttonTNC.TabIndex = 8;
-            this.buttonTNC.Text = "TNC";
-            this.buttonTNC.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonTNC.UseVisualStyleBackColor = true;
-            this.buttonTNC.Click += new System.EventHandler(this.buttonTug_Click);
+            this.buttonT2.AllowDrop = true;
+            this.buttonT2.Location = new System.Drawing.Point(232, 144);
+            this.buttonT2.Name = "buttonT2";
+            this.buttonT2.Size = new System.Drawing.Size(42, 23);
+            this.buttonT2.TabIndex = 8;
+            this.buttonT2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonT2.UseVisualStyleBackColor = true;
+            this.buttonT2.Click += new System.EventHandler(this.buttonTug_Click);
             // 
-            // buttonGPZ
+            // buttonG0
             // 
-            this.buttonGPZ.Location = new System.Drawing.Point(130, 206);
-            this.buttonGPZ.Name = "buttonGPZ";
-            this.buttonGPZ.Size = new System.Drawing.Size(49, 23);
-            this.buttonGPZ.TabIndex = 12;
-            this.buttonGPZ.Text = "GPZ";
-            this.buttonGPZ.UseVisualStyleBackColor = true;
-            this.buttonGPZ.Click += new System.EventHandler(this.buttonGlider_Click);
+            this.buttonG0.Location = new System.Drawing.Point(130, 206);
+            this.buttonG0.Name = "buttonG0";
+            this.buttonG0.Size = new System.Drawing.Size(42, 23);
+            this.buttonG0.TabIndex = 12;
+            this.buttonG0.UseVisualStyleBackColor = true;
+            this.buttonG0.Click += new System.EventHandler(this.buttonGlider_Click);
             // 
-            // buttonOWL
+            // buttonG1
             // 
-            this.buttonOWL.Location = new System.Drawing.Point(185, 206);
-            this.buttonOWL.Name = "buttonOWL";
-            this.buttonOWL.Size = new System.Drawing.Size(49, 23);
-            this.buttonOWL.TabIndex = 13;
-            this.buttonOWL.Text = "OWL";
-            this.buttonOWL.UseVisualStyleBackColor = true;
-            this.buttonOWL.Click += new System.EventHandler(this.buttonGlider_Click);
+            this.buttonG1.Location = new System.Drawing.Point(181, 206);
+            this.buttonG1.Name = "buttonG1";
+            this.buttonG1.Size = new System.Drawing.Size(42, 23);
+            this.buttonG1.TabIndex = 13;
+            this.buttonG1.UseVisualStyleBackColor = true;
+            this.buttonG1.Click += new System.EventHandler(this.buttonGlider_Click);
             // 
-            // buttonXOC
+            // buttonG2
             // 
-            this.buttonXOC.Location = new System.Drawing.Point(240, 206);
-            this.buttonXOC.Name = "buttonXOC";
-            this.buttonXOC.Size = new System.Drawing.Size(49, 23);
-            this.buttonXOC.TabIndex = 14;
-            this.buttonXOC.Text = "XOC";
-            this.buttonXOC.UseVisualStyleBackColor = true;
-            this.buttonXOC.Click += new System.EventHandler(this.buttonGlider_Click);
+            this.buttonG2.Location = new System.Drawing.Point(232, 206);
+            this.buttonG2.Name = "buttonG2";
+            this.buttonG2.Size = new System.Drawing.Size(42, 23);
+            this.buttonG2.TabIndex = 14;
+            this.buttonG2.UseVisualStyleBackColor = true;
+            this.buttonG2.Click += new System.EventHandler(this.buttonGlider_Click);
             // 
             // buttonTakeOff
             // 
@@ -414,17 +411,16 @@
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
-            // buttonWGG
+            // buttonT3
             // 
-            this.buttonWGG.AllowDrop = true;
-            this.buttonWGG.Location = new System.Drawing.Point(295, 144);
-            this.buttonWGG.Name = "buttonWGG";
-            this.buttonWGG.Size = new System.Drawing.Size(49, 23);
-            this.buttonWGG.TabIndex = 9;
-            this.buttonWGG.Text = "WGG";
-            this.buttonWGG.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonWGG.UseVisualStyleBackColor = true;
-            this.buttonWGG.Click += new System.EventHandler(this.buttonTug_Click);
+            this.buttonT3.AllowDrop = true;
+            this.buttonT3.Location = new System.Drawing.Point(283, 144);
+            this.buttonT3.Name = "buttonT3";
+            this.buttonT3.Size = new System.Drawing.Size(42, 23);
+            this.buttonT3.TabIndex = 9;
+            this.buttonT3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonT3.UseVisualStyleBackColor = true;
+            this.buttonT3.Click += new System.EventHandler(this.buttonTug_Click);
             // 
             // buttonClearTO
             // 
@@ -456,16 +452,48 @@
             this.buttonClearGD.UseVisualStyleBackColor = true;
             this.buttonClearGD.Click += new System.EventHandler(this.buttonClearGD_Click);
             // 
+            // buttonT4
+            // 
+            this.buttonT4.AllowDrop = true;
+            this.buttonT4.Location = new System.Drawing.Point(334, 144);
+            this.buttonT4.Name = "buttonT4";
+            this.buttonT4.Size = new System.Drawing.Size(42, 23);
+            this.buttonT4.TabIndex = 36;
+            this.buttonT4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonT4.UseVisualStyleBackColor = true;
+            this.buttonT4.Click += new System.EventHandler(this.buttonTug_Click);
+            // 
+            // buttonG3
+            // 
+            this.buttonG3.Location = new System.Drawing.Point(283, 206);
+            this.buttonG3.Name = "buttonG3";
+            this.buttonG3.Size = new System.Drawing.Size(42, 23);
+            this.buttonG3.TabIndex = 37;
+            this.buttonG3.UseVisualStyleBackColor = true;
+            this.buttonG3.Click += new System.EventHandler(this.buttonGlider_Click);
+            // 
+            // buttonG4
+            // 
+            this.buttonG4.Location = new System.Drawing.Point(334, 206);
+            this.buttonG4.Name = "buttonG4";
+            this.buttonG4.Size = new System.Drawing.Size(42, 23);
+            this.buttonG4.TabIndex = 38;
+            this.buttonG4.UseVisualStyleBackColor = true;
+            this.buttonG4.Click += new System.EventHandler(this.buttonGlider_Click);
+            // 
             // FlightEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(420, 534);
+            this.Controls.Add(this.buttonG4);
+            this.Controls.Add(this.buttonG3);
+            this.Controls.Add(this.buttonT4);
             this.Controls.Add(this.buttonClearGD);
             this.Controls.Add(this.buttonClearTD);
             this.Controls.Add(this.buttonClearTO);
-            this.Controls.Add(this.buttonWGG);
+            this.Controls.Add(this.buttonT3);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.textBoxNotes);
@@ -479,12 +507,12 @@
             this.Controls.Add(this.buttonGliderDown);
             this.Controls.Add(this.buttonTugDown);
             this.Controls.Add(this.buttonTakeOff);
-            this.Controls.Add(this.buttonXOC);
-            this.Controls.Add(this.buttonOWL);
-            this.Controls.Add(this.buttonGPZ);
-            this.Controls.Add(this.buttonTNC);
-            this.Controls.Add(this.buttonMSA);
-            this.Controls.Add(this.buttonSSO);
+            this.Controls.Add(this.buttonG2);
+            this.Controls.Add(this.buttonG1);
+            this.Controls.Add(this.buttonG0);
+            this.Controls.Add(this.buttonT2);
+            this.Controls.Add(this.buttonT1);
+            this.Controls.Add(this.buttonT0);
             this.Controls.Add(this.textBoxGliderDown);
             this.Controls.Add(this.textBoxTugDown);
             this.Controls.Add(this.textBoxTakeoff);
@@ -522,12 +550,12 @@
         private System.Windows.Forms.TextBox textBoxTakeoff;
         private System.Windows.Forms.TextBox textBoxTugDown;
         private System.Windows.Forms.TextBox textBoxGliderDown;
-        private System.Windows.Forms.Button buttonSSO;
-        private System.Windows.Forms.Button buttonMSA;
-        private System.Windows.Forms.Button buttonTNC;
-        private System.Windows.Forms.Button buttonGPZ;
-        private System.Windows.Forms.Button buttonOWL;
-        private System.Windows.Forms.Button buttonXOC;
+        private System.Windows.Forms.Button buttonT0;
+        private System.Windows.Forms.Button buttonT1;
+        private System.Windows.Forms.Button buttonT2;
+        private System.Windows.Forms.Button buttonG0;
+        private System.Windows.Forms.Button buttonG1;
+        private System.Windows.Forms.Button buttonG2;
         private System.Windows.Forms.Button buttonTakeOff;
         private System.Windows.Forms.Button buttonTugDown;
         private System.Windows.Forms.Button buttonGliderDown;
@@ -541,9 +569,12 @@
         private System.Windows.Forms.TextBox textBoxNotes;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button buttonDelete;
-        private System.Windows.Forms.Button buttonWGG;
+        private System.Windows.Forms.Button buttonT3;
         private System.Windows.Forms.Button buttonClearTO;
         private System.Windows.Forms.Button buttonClearTD;
         private System.Windows.Forms.Button buttonClearGD;
+        private System.Windows.Forms.Button buttonT4;
+        private System.Windows.Forms.Button buttonG3;
+        private System.Windows.Forms.Button buttonG4;
     }
 }

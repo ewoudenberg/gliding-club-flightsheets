@@ -12,22 +12,20 @@ using FileHelpers;
 
 namespace au.org.GGC {
     public partial class FlightEditor : Form {
-        public FlightEditor() {
-            InitializeComponent();
-            InitFields();
-            LoadFormFields(new Flight());
-        }
 
-        public FlightEditor(Flight flight) {
+        public FlightEditor(Flight flight, string [] tugButtons, string [] gliderButtons) {
             InitializeComponent();
+            TugButtons = tugButtons;
+            GliderButtons = gliderButtons;
+            Flight = flight.Clone();
             InitFields();
-            LoadFormFields(flight.Clone());
+            LoadFormFields();
         }
 
         public Flight Flight;
+        string[] TugButtons, GliderButtons;
 
-        void LoadFormFields(Flight flight) {
-            Flight = flight;
+        void LoadFormFields() {
             Pilot1Name = Flight.Pilot1;
             Pilot2Name = Flight.Pilot2;
             Tug = Flight.Tug;
@@ -185,7 +183,7 @@ namespace au.org.GGC {
             else
                 return ((Displayable)c.SelectedItem).AuxData;
         }
-            
+
         void InitFields() {
             comboBoxPilot1.DataSource = Csv.Instance.GetPilotsList();
             comboBoxPilot2.DataSource = Csv.Instance.GetPilotsList();
@@ -200,6 +198,20 @@ namespace au.org.GGC {
             comboBoxTug.DisplayMember = "DisplayName";
             comboBoxGlider.DisplayMember = "DisplayName";
             comboBoxAEF.DisplayMember = "DisplayName";
+
+            FixButtons(GliderButtons, new Button[] { buttonG0, buttonG1, buttonG2, buttonG3, buttonG4 });
+            FixButtons(TugButtons, new Button[] { buttonT0, buttonT1, buttonT2, buttonT3, buttonT4 } );
+        }
+
+        void FixButtons(string [] labels, Button [] controls) {
+            for (int i = 0; i < controls.Length; i++) {
+                if (i >= labels.Length) {
+                    controls[i].Visible = false;
+                } else {
+                    controls[i].Visible = true;
+                    controls[i].Text = labels[i];
+                }
+            }
         }
 
         private void comboBoxPilot_Leave(object sender, EventArgs e) {
@@ -270,14 +282,17 @@ namespace au.org.GGC {
 
         private void buttonClearTO_Click(object sender, EventArgs e) {
             textBoxTakeoff.Text = "";
+            textBoxTakeoff.Focus();
         }
 
         private void buttonClearTD_Click(object sender, EventArgs e) {
             textBoxTugDown.Text = "";
+            textBoxTugDown.Focus();
         }
 
         private void buttonClearGD_Click(object sender, EventArgs e) {
             textBoxGliderDown.Text = "";
+            textBoxGliderDown.Focus();
         }
 
         private void textBoxTime_TextChanged(object sender, EventArgs e) {

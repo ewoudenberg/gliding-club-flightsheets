@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 
-// Modified to keep new Flight entry at bottom of list.
+// Modified to 
+// 1) change sort to keep the "New Flight" entry at the end of the list.
+// 2) sort null/empty times as greater than any existing time. 
+// 3) sort string durations as if they were numeric.
 // E. Woudenberg for GGC
 
 // Courtesy:
@@ -35,7 +38,25 @@ namespace au.org.GGC
         {
             if (((Flight)(Object)(x)).FlightNo == null) return 1;
             if (((Flight)(Object)(y)).FlightNo == null) return -1;
-            return this.reverse * this.comparer.Compare(this.propertyDescriptor.GetValue(x), this.propertyDescriptor.GetValue(y));
+            object xval = this.propertyDescriptor.GetValue(x);
+            object yval = this.propertyDescriptor.GetValue(y);
+            if (this.propertyDescriptor.Name == "TakeOff" ||
+                this.propertyDescriptor.Name == "TugDown" ||
+                this.propertyDescriptor.Name == "GliderDown") {
+                if (xval == null) return this.reverse * 1;
+                if (yval == null) return this.reverse * -1;
+            }
+            if (this.propertyDescriptor.Name == "TowTime" ||
+                this.propertyDescriptor.Name == "FlightTime") {
+                int xi = 0;
+                if (xval != null)
+                    xi = Int32.Parse(((string)xval).Trim("+".ToCharArray()));
+                int yi = 0;
+                if (yval != null)
+                    yi = Int32.Parse(((string)yval).Trim("+".ToCharArray()));
+                return reverse * (xi - yi);
+            }
+            return this.reverse * this.comparer.Compare(xval, yval);
         }
 
         #endregion

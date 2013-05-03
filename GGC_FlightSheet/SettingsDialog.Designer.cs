@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsDialog));
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxFolderName = new System.Windows.Forms.TextBox();
             this.buttonBrowse = new System.Windows.Forms.Button();
@@ -32,6 +33,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxTowAlarmThreshold = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.textBoxTugButtons = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxGliderButtons = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -51,14 +58,14 @@
             this.textBoxFolderName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFolderName.Location = new System.Drawing.Point(27, 110);
             this.textBoxFolderName.Name = "textBoxFolderName";
-            this.textBoxFolderName.Size = new System.Drawing.Size(643, 26);
+            this.textBoxFolderName.Size = new System.Drawing.Size(735, 26);
             this.textBoxFolderName.TabIndex = 1;
             // 
             // buttonBrowse
             // 
             this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBrowse.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonBrowse.Location = new System.Drawing.Point(676, 110);
+            this.buttonBrowse.Location = new System.Drawing.Point(768, 110);
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(36, 26);
             this.buttonBrowse.TabIndex = 2;
@@ -70,7 +77,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(595, 154);
+            this.buttonOK.Location = new System.Drawing.Point(687, 295);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 3;
@@ -81,7 +88,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(27, 154);
+            this.buttonCancel.Location = new System.Drawing.Point(27, 295);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 4;
@@ -117,11 +124,75 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "(minutes)";
             // 
+            // textBoxTugButtons
+            // 
+            this.textBoxTugButtons.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTugButtons.Location = new System.Drawing.Point(371, 179);
+            this.textBoxTugButtons.Multiline = true;
+            this.textBoxTugButtons.Name = "textBoxTugButtons";
+            this.textBoxTugButtons.Size = new System.Drawing.Size(57, 96);
+            this.textBoxTugButtons.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(379, 154);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 18);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Tugs";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(469, 154);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 18);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Gliders";
+            // 
+            // textBoxGliderButtons
+            // 
+            this.textBoxGliderButtons.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxGliderButtons.Location = new System.Drawing.Point(468, 179);
+            this.textBoxGliderButtons.Multiline = true;
+            this.textBoxGliderButtons.Name = "textBoxGliderButtons";
+            this.textBoxGliderButtons.Size = new System.Drawing.Size(57, 96);
+            this.textBoxGliderButtons.TabIndex = 10;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(24, 182);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(285, 90);
+            this.label6.TabIndex = 12;
+            this.label6.Text = resources.GetString("label6.Text");
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(23, 150);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(277, 24);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Tug and Glider Shortcut Buttons";
+            // 
             // SettingsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(724, 194);
+            this.ClientSize = new System.Drawing.Size(816, 335);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBoxGliderButtons);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBoxTugButtons);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBoxTowAlarmThreshold);
             this.Controls.Add(this.label2);
@@ -149,5 +220,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxTowAlarmThreshold;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxTugButtons;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxGliderButtons;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }

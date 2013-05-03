@@ -30,9 +30,20 @@ namespace au.org.GGC {
                 SelectedPath = folderBrowserDialog1.SelectedPath;
         }
 
+        public string [] TugButtons {
+            get { return textBoxTugButtons.Text.Trim().Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries); }
+            set { textBoxTugButtons.Text = String.Join("\r\n", value); }
+        }
+
+        public string[] GliderButtons {
+            get { return textBoxGliderButtons.Text.Trim().Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries); }
+            set { textBoxGliderButtons.Text = String.Join("\r\n", value); }
+        }
+
         private void textBoxTowAlarmThreshold_TextChanged(object sender, EventArgs e) {
             int val;
             buttonOK.Enabled = Int32.TryParse(textBoxTowAlarmThreshold.Text, out val);
         }
+
     }
 }
