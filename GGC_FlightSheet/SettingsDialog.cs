@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,11 +12,17 @@ namespace au.org.GGC {
     public partial class SettingsDialog : Form {
         public SettingsDialog() {
             InitializeComponent();
+            CheckPaths();
         }
 
-        public string SelectedPath {
+        public string StoragePath {
             get { return textBoxFolderName.Text; }
             set { textBoxFolderName.Text = value; }
+        }
+
+        public string BackupPath {
+            get { return textBoxBackup.Text; }
+            set { textBoxBackup.Text = value; }
         }
 
         public int TowAlarmThreshold {
@@ -24,10 +31,17 @@ namespace au.org.GGC {
         }
 
         private void buttonBrowse_Click(object sender, EventArgs e) {
-            folderBrowserDialog1.SelectedPath = SelectedPath;
-            var result = folderBrowserDialog1.ShowDialog();
+            folderBrowserDialogStorage.SelectedPath = StoragePath;
+            var result = folderBrowserDialogStorage.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK)
-                SelectedPath = folderBrowserDialog1.SelectedPath;
+                StoragePath = folderBrowserDialogStorage.SelectedPath;
+        }
+
+        private void buttonBrowseBackup_Click(object sender, EventArgs e) {
+            folderBrowserDialogBackup.SelectedPath = BackupPath;
+            var result = folderBrowserDialogBackup.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+                BackupPath = folderBrowserDialogBackup.SelectedPath;
         }
 
         public string [] TugButtons {
@@ -43,6 +57,34 @@ namespace au.org.GGC {
         private void textBoxTowAlarmThreshold_TextChanged(object sender, EventArgs e) {
             int val;
             buttonOK.Enabled = Int32.TryParse(textBoxTowAlarmThreshold.Text, out val);
+        }
+
+        void CheckStorageFolder(string folderName, Label warning) {
+            bool okay = false;
+            string message = "";
+            string tempFile = Path.Combine(folderName, "folder.test.file");
+            try {
+                File.Create(tempFile).Close();
+                File.Delete(tempFile);
+                okay = true;
+            } catch (Exception e) {
+                message = e.Message;
+            }
+            warning.Text = "Folder Not Valid: " + message;
+            warning.Visible = !okay;
+        }
+
+        private void textBoxFolderName_TextChanged(object sender, EventArgs e) {
+            CheckStorageFolder(StoragePath, labelStorageFolderWarning);
+        }
+
+        private void textBoxBackup_TextChanged(object sender, EventArgs e) {
+            CheckStorageFolder(BackupPath, labelBackupFolderWarning);
+        }
+
+        void CheckPaths() {
+            CheckStorageFolder(StoragePath, labelStorageFolderWarning);
+            CheckStorageFolder(BackupPath, labelBackupFolderWarning);
         }
 
     }

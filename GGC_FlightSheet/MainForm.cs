@@ -20,6 +20,7 @@ namespace au.org.GGC {
 
         public MainForm() {
             InitializeComponent();
+            CheckFlightSheetsFolder();
             CopyClubDataIntoPlace();
             InitSheet();
             HighlightInvalidFields();
@@ -96,14 +97,15 @@ namespace au.org.GGC {
 
         void ChangeSettings() {
             var browser = new SettingsDialog();
-            browser.SelectedPath = FlightSheetsFolder;
+            browser.StoragePath = FlightSheetsFolder;
+            browser.BackupPath = BackupsFolder;
             browser.TowAlarmThreshold = TowAlarmThreshold;
             browser.GliderButtons = GliderButtons;
             browser.TugButtons = TugButtons;
             var result = browser.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK) {
-                if (FlightSheetsFolder != browser.SelectedPath) {
-                    FlightSheetsFolder = browser.SelectedPath;
+                if (FlightSheetsFolder != browser.StoragePath) {
+                    FlightSheetsFolder = browser.StoragePath;
                     LoadFromCsv(GetTodaysAirfieldFile());
                     CopyClubDataIntoPlace();
                 }
@@ -113,6 +115,7 @@ namespace au.org.GGC {
                 }
                 TugButtons = browser.TugButtons;
                 GliderButtons = browser.GliderButtons;
+                BackupsFolder = browser.BackupPath;
             }
         }
 
@@ -279,8 +282,34 @@ namespace au.org.GGC {
                 flightEntries.Add(entry);
             }
 
+            SaveToDisk(_ActiveFile, flightEntries);
+            if (String.IsNullOrWhiteSpace(BackupsFolder))
+                MessageBox.Show("No backups folder has been set. Please set one in Options->Settings", "No Backup Folder Set", MessageBoxButtons.OK);
+            else {
+                string backupFile = Path.Combine(BackupsFolder, Path.GetFileName(_ActiveFile));
+                SaveToDisk(backupFile, flightEntries);
+            }
+        }
+
+        // Save to disk by creating a new file and moving it on top of the old one.
+        // This avoids the case of wiping out the file during a failed write.
+
+        void SaveToDisk(string filename, List<FlightEntry> flightEntries) {
             var engine = new FileHelperEngine<FlightEntry> { HeaderText = FlightEntry.Header };
-            engine.WriteFile(_ActiveFile, flightEntries);
+            string tempfile = Path.Combine(Path.GetDirectoryName(filename), "flights.temp");
+            while (true) {
+                try {
+                    engine.WriteFile(tempfile, flightEntries);
+                    File.Delete(filename);
+                    File.Move(tempfile, filename);
+                } catch (Exception e) {
+                    var result = MessageBox.Show(String.Format("Error writing {0}, reason: {1}\nIs your backup device fitted?", filename, e.Message), 
+                        "Error Updating File", MessageBoxButtons.RetryCancel);
+                    if (result == System.Windows.Forms.DialogResult.Retry)
+                        continue;
+                }
+                break;
+            }
         }
 
         void LoadFromCsv(string filename) {
@@ -538,11 +567,22 @@ namespace au.org.GGC {
             new HelpSheet().ShowDialog();
         }
 
+        void CheckFlightSheetsFolder() {
+            while (true) {
+                try {
+                    if (!Directory.Exists(FlightSheetsFolder))
+                        Directory.CreateDirectory(FlightSheetsFolder);
+                    break;
+                } catch {
+                    MessageBox.Show("Cannot proceed until a valid flight sheets folder is set", "Flight Sheets Folder Must Be Set", MessageBoxButtons.OK);
+                    ChangeSettings();
+                }
+            }
+        }
+
         string GetTodaysAirfieldFile() {
-            string filename;
-            if (!Directory.Exists(FlightSheetsFolder))
-                Directory.CreateDirectory(FlightSheetsFolder);
-            filename = string.Format("{0}/FlightSheet_{1}_{2}.csv",
+            CheckFlightSheetsFolder();
+            string filename = string.Format("{0}/FlightSheet_{1}_{2}.csv",
                 FlightSheetsFolder,
                 DateTime.Now.ToString("yyyyMMdd"),
                 Airfield.Replace(" ", "_"));
@@ -780,6 +820,15 @@ namespace au.org.GGC {
             }
             set {
                 CustomProperties<FlightSheetSettings>.Settings.Default.FlightSheetsFolder = value;
+                CustomProperties<FlightSheetSettings>.Settings.Save();
+            }
+        }
+        string BackupsFolder {
+            get {
+                return CustomProperties<FlightSheetSettings>.Settings.Default.BackupsFolder;
+            }
+            set {
+                CustomProperties<FlightSheetSettings>.Settings.Default.BackupsFolder = value;
                 CustomProperties<FlightSheetSettings>.Settings.Save();
             }
         }

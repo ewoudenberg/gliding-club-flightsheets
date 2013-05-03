@@ -16,16 +16,13 @@ using System.Reflection;
 //[assembly: AssemblyProduct("Be.Timvw.Demo.SortableBindingList")]
 //[assembly: AssemblyCopyright("Copyright © Tim Van Wassenhove 2008")]
 
-namespace au.org.GGC
-{
-    public class PropertyComparer<T> : IComparer<T>
-    {
+namespace au.org.GGC {
+    public class PropertyComparer<T> : IComparer<T> {
         private readonly IComparer comparer;
         private PropertyDescriptor propertyDescriptor;
         private int reverse;
 
-        public PropertyComparer(PropertyDescriptor property, ListSortDirection direction)
-        {
+        public PropertyComparer(PropertyDescriptor property, ListSortDirection direction) {
             this.propertyDescriptor = property;
             Type comparerForPropertyType = typeof(Comparer<>).MakeGenericType(property.PropertyType);
             this.comparer = (IComparer)comparerForPropertyType.InvokeMember("Default", BindingFlags.Static | BindingFlags.GetProperty | BindingFlags.Public, null, null, null);
@@ -34,8 +31,7 @@ namespace au.org.GGC
 
         #region IComparer<T> Members
 
-        public int Compare(T x, T y)
-        {
+        public int Compare(T x, T y) {
             if (((Flight)(Object)(x)).FlightNo == null) return 1;
             if (((Flight)(Object)(y)).FlightNo == null) return -1;
             object xval = this.propertyDescriptor.GetValue(x);
@@ -48,31 +44,31 @@ namespace au.org.GGC
             }
             if (this.propertyDescriptor.Name == "TowTime" ||
                 this.propertyDescriptor.Name == "FlightTime") {
-                int xi = 0;
-                if (xval != null)
-                    xi = Int32.Parse(((string)xval).Trim("+".ToCharArray()));
-                int yi = 0;
-                if (yval != null)
-                    yi = Int32.Parse(((string)yval).Trim("+".ToCharArray()));
+                int xi = ParseInt(xval);
+                int yi = ParseInt(yval);
                 return reverse * (xi - yi);
             }
             return this.reverse * this.comparer.Compare(xval, yval);
         }
 
+        int ParseInt(object val) {
+            int i = 0;
+            if (!String.IsNullOrWhiteSpace((string)val))
+                i = Int32.Parse(((string)val).Trim("+".ToCharArray()));
+            return i;
+        }
+
         #endregion
 
-        private void SetPropertyDescriptor(PropertyDescriptor descriptor)
-        {
+        private void SetPropertyDescriptor(PropertyDescriptor descriptor) {
             this.propertyDescriptor = descriptor;
         }
 
-        private void SetListSortDirection(ListSortDirection direction)
-        {
+        private void SetListSortDirection(ListSortDirection direction) {
             this.reverse = direction == ListSortDirection.Ascending ? 1 : -1;
         }
 
-        public void SetPropertyAndDirection(PropertyDescriptor descriptor, ListSortDirection direction)
-        {
+        public void SetPropertyAndDirection(PropertyDescriptor descriptor, ListSortDirection direction) {
             this.SetPropertyDescriptor(descriptor);
             this.SetListSortDirection(direction);
         }

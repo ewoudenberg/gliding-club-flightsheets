@@ -6,6 +6,7 @@ namespace au.org.GGC {
     [Serializable]
     public class FlightSheetSettings {
         public String FlightSheetsFolder { get; set; }
+        public String BackupsFolder { get; set; }
         public String GridFontSize { get; set; }
         public String TowAlarmThreshold { get; set; }
         public String Airfield { get; set; }
@@ -14,6 +15,7 @@ namespace au.org.GGC {
 
         public FlightSheetSettings() {
             FlightSheetsFolder = "GGC_FlightSheets";
+            BackupsFolder = "";
             GridFontSize = "0";
             TowAlarmThreshold = "10";
             Airfield = "Bacchus Marsh";
@@ -22,6 +24,7 @@ namespace au.org.GGC {
         }
         public FlightSheetSettings(bool initialize) {
              FlightSheetsFolder = "GGC_FlightSheets";
+             BackupsFolder = "";
              GridFontSize = "0";
              TowAlarmThreshold = "10";
              Airfield = "Bacchus Marsh";
