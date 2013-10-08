@@ -169,6 +169,19 @@ namespace au.org.GGC {
             }
         }
 
+        string [] GetNonMembers() {
+            Dictionary<string, bool> pilots = new Dictionary<string,bool>();
+            foreach (Flight f in Flights) {
+                if (!String.IsNullOrWhiteSpace(f.Pilot1) && String.IsNullOrWhiteSpace(f.Pilot1ID))
+                    pilots[f.Pilot1] = true;
+                if (!String.IsNullOrWhiteSpace(f.Pilot2) && String.IsNullOrWhiteSpace(f.Pilot2ID))
+                    pilots[f.Pilot2] = true;
+                if (!String.IsNullOrWhiteSpace(f.ChargeTo) && String.IsNullOrWhiteSpace(f.ChargeToID))
+                    pilots[f.ChargeTo] = true;
+            }
+            return pilots.Keys.ToArray();
+        }
+
         void EditFlight(int rowindex) {
             RequestClerkLogin();
             var flight = Flights[rowindex];
@@ -240,7 +253,7 @@ namespace au.org.GGC {
         void EnsureEmptyRowPresent() {
             if (Flights.Count == 0 || Flights.Count(f => f.IsEmpty) == 0) {
                 Flights.AddNew();
-                FlightSheet.FirstDisplayedScrollingRowIndex = FlightSheet.RowCount - 1;
+                FlightSheet.FirstDisplayedScrollingRowIndex = Math.Max(0, FlightSheet.RowCount - 1);
             }
             ColorGridRows();
         }
@@ -536,6 +549,7 @@ namespace au.org.GGC {
             flight.TakeOff = flight.TugDown = flight.GliderDown = null;
             flight.TowTime = flight.FlightTime = "";
             flight.FlightNo = null;
+            flight.AnnualCheck = flight.Notes = flight.AEFType = "";
             InitializeNewFlightFields(flight);
             Flights[Flights.Count - 1] = flight;
             Save();
@@ -573,8 +587,8 @@ namespace au.org.GGC {
                     if (!Directory.Exists(FlightSheetsFolder))
                         Directory.CreateDirectory(FlightSheetsFolder);
                     break;
-                } catch {
-                    MessageBox.Show("Cannot proceed until a valid flight sheets folder is set", "Flight Sheets Folder Must Be Set", MessageBoxButtons.OK);
+                } catch (Exception e) {
+                    MessageBox.Show("Cannot proceed until a valid flight sheets folder is set -- failing to use: "+FlightSheetsFolder + ", reason: "+e.Message, "Flight Sheets Folder Must Be Set", MessageBoxButtons.OK);
                     ChangeSettings();
                 }
             }

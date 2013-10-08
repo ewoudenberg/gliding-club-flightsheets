@@ -86,6 +86,5 @@ namespace au.org.GGC {
             CheckStorageFolder(StoragePath, labelStorageFolderWarning);
             CheckStorageFolder(BackupPath, labelBackupFolderWarning);
         }
-
     }
 }

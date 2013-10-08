@@ -84,7 +84,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(687, 362);
+            this.buttonOK.Location = new System.Drawing.Point(687, 373);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 3;
@@ -95,7 +95,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(27, 362);
+            this.buttonCancel.Location = new System.Drawing.Point(27, 373);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 4;
@@ -134,17 +134,17 @@
             // textBoxTugButtons
             // 
             this.textBoxTugButtons.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTugButtons.Location = new System.Drawing.Point(379, 253);
+            this.textBoxTugButtons.Location = new System.Drawing.Point(433, 253);
             this.textBoxTugButtons.Multiline = true;
             this.textBoxTugButtons.Name = "textBoxTugButtons";
-            this.textBoxTugButtons.Size = new System.Drawing.Size(57, 96);
+            this.textBoxTugButtons.Size = new System.Drawing.Size(150, 96);
             this.textBoxTugButtons.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(387, 220);
+            this.label4.Location = new System.Drawing.Point(488, 220);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 18);
             this.label4.TabIndex = 9;
@@ -154,7 +154,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(465, 220);
+            this.label5.Location = new System.Drawing.Point(654, 220);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 18);
             this.label5.TabIndex = 11;
@@ -163,10 +163,10 @@
             // textBoxGliderButtons
             // 
             this.textBoxGliderButtons.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxGliderButtons.Location = new System.Drawing.Point(464, 253);
+            this.textBoxGliderButtons.Location = new System.Drawing.Point(606, 253);
             this.textBoxGliderButtons.Multiline = true;
             this.textBoxGliderButtons.Name = "textBoxGliderButtons";
-            this.textBoxGliderButtons.Size = new System.Drawing.Size(57, 96);
+            this.textBoxGliderButtons.Size = new System.Drawing.Size(150, 96);
             this.textBoxGliderButtons.TabIndex = 10;
             // 
             // label6
@@ -175,7 +175,7 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(24, 253);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(285, 90);
+            this.label6.Size = new System.Drawing.Size(384, 90);
             this.label6.TabIndex = 12;
             this.label6.Text = resources.GetString("label6.Text");
             // 
@@ -246,11 +246,10 @@
             // 
             // SettingsDialog
             // 
-            this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(816, 402);
+            this.ClientSize = new System.Drawing.Size(816, 413);
             this.Controls.Add(this.labelBackupFolderWarning);
             this.Controls.Add(this.labelStorageFolderWarning);
             this.Controls.Add(this.buttonBrowseBackup);

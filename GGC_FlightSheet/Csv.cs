@@ -23,6 +23,14 @@ namespace au.org.GGC {
                 PilotsList = LoadPilotsList(isMember: false);
             return new List<Displayable>(PilotsList);
         }
+        public List<Displayable> GetPilotsList(string [] nonMembers) {
+            if (PilotsList == null)
+                PilotsList = LoadPilotsList(isMember: false);
+            var first = new List<Displayable>(PilotsList);
+            var second = SynthPilotsFromNonmembers(nonMembers);
+            first.AddRange(second);
+            return first;
+        }
         public List<Displayable> GetTugsList() {
             if (TugsList == null)
                 TugsList = LoadAircraftList(tug: true);
@@ -96,6 +104,29 @@ namespace au.org.GGC {
             }
             final.Sort(CompareDisplays);
             return final;
+        }
+
+        public List<Displayable> SynthPilotsFromNonmembers(string[] values) {
+            List<Displayable> r = new List<Displayable>();
+            foreach (string vv in values) {
+                string v = vv.Replace(" [NEW]", "");
+                string[] parts = v.Split(" ,".ToCharArray(), 2, StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length > 1) {
+                    string firstname = parts[0];
+                    string lastname = parts[1];
+                    if (v.Contains(",")) {
+                        lastname = parts[0];
+                        firstname = parts[1];
+                    }
+                    string norm = firstname + " " + lastname + " [NEW]";
+                    string rev = lastname + ", " + firstname + " [NEW]";
+                    r.Add(new Displayable(norm, rev));
+                    r.Add(new Displayable(rev, rev));
+                } else {
+                    r.Add(new Displayable(v + " [NEW]", v + " [NEW]"));
+                }
+            }
+            return r;            
         }
 
         List<Displayable> LoadAircraftList(bool tug) {

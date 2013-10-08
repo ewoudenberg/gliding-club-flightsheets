@@ -215,37 +215,49 @@ namespace au.org.GGC {
         }
 
         private void comboBoxPilot_Leave(object sender, EventArgs e) {
-            FixCombo((ComboBox)sender, Csv.Instance.GetPilotsList());
+            FixComboExactMatch((ComboBox)sender, Csv.Instance.GetPilotsList());
         }
 
         private void comboBoxTug_Leave(object sender, EventArgs e) {
-            FixCombo(comboBoxTug, Csv.Instance.GetTugsList());
+            FixComboUsingInitial(comboBoxTug, Csv.Instance.GetTugsList(), comboBoxTug.Text);
         }
 
         private void comboBoxGlider_Leave(object sender, EventArgs e) {
-            FixCombo(comboBoxGlider, Csv.Instance.GetGlidersList());
+            FixComboUsingInitial(comboBoxGlider, Csv.Instance.GetGlidersList(), comboBoxGlider.Text);
         }
 
-        void FixCombo(ComboBox c, List<Displayable> list) {
-            FixCombo(c, list, c.Text);
-        }
-
-        void FixCombo(ComboBox c, List<Displayable> list, string text) {
-            string prefix = text.ToLower();
+        void FixComboExactMatch(ComboBox c, List<Displayable> list) {
+            string text = c.Text.ToLower();
             foreach (Displayable s in list) {
-                if (s.DisplayName.ToLower().StartsWith(prefix)) {
+                if (s.DisplayName.ToLower() == text) {
                     c.Text = s.RealName;
                     break;
                 }
             }
         }
 
+        void FixComboUsingInitial(ComboBox c, List<Displayable> list, string text) {
+            string prefix = text.ToLower();
+            bool found = false;
+            foreach (Displayable s in list) {
+                if (s.DisplayName.ToLower().StartsWith(prefix)) {
+                    c.Text = s.RealName;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                c.SelectedIndex = -1;
+                c.Text = text;
+            }
+        }
+
         private void buttonTug_Click(object sender, EventArgs e) {
-            FixCombo(comboBoxTug, Csv.Instance.GetTugsList(), ((Button)sender).Text);
+            FixComboUsingInitial(comboBoxTug, Csv.Instance.GetTugsList(), ((Button)sender).Text);
         }
 
         private void buttonGlider_Click(object sender, EventArgs e) {
-            FixCombo(comboBoxGlider, Csv.Instance.GetGlidersList(), ((Button)sender).Text);
+            FixComboUsingInitial(comboBoxGlider, Csv.Instance.GetGlidersList(), ((Button)sender).Text);
         }
 
         private void buttonTakeOff_Click(object sender, EventArgs e) {
