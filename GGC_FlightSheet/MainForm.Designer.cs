@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.FlightSheet = new System.Windows.Forms.DataGridView();
             this.Logo = new System.Windows.Forms.PictureBox();
@@ -44,8 +44,8 @@
             this.exitFlightSheetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addANewFlightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cloneSelectedFlightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,8 +60,8 @@
             this.aboutGGCFlightSheetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelClerkAlert = new System.Windows.Forms.Label();
             this.contextMenuStripFlights = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.editThisEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cloneIntoNewEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editThisEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteThisEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBoxFlightSheetRef = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -85,14 +85,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FlightSheet.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.FlightSheet.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.FlightSheet.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.FlightSheet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FlightSheet.Location = new System.Drawing.Point(12, 124);
             this.FlightSheet.Name = "FlightSheet";
@@ -227,15 +227,6 @@
             this.addANewFlightToolStripMenuItem.Text = "Add a &new flight ...";
             this.addANewFlightToolStripMenuItem.Click += new System.EventHandler(this.addANewFlightToolStripMenuItem_Click);
             // 
-            // editSToolStripMenuItem
-            // 
-            this.editSToolStripMenuItem.Name = "editSToolStripMenuItem";
-            this.editSToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.editSToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
-            this.editSToolStripMenuItem.Tag = "edit";
-            this.editSToolStripMenuItem.Text = "&Edit selected flight ...";
-            this.editSToolStripMenuItem.Click += new System.EventHandler(this.editSToolStripMenuItem_Click);
-            // 
             // cloneSelectedFlightToolStripMenuItem
             // 
             this.cloneSelectedFlightToolStripMenuItem.Name = "cloneSelectedFlightToolStripMenuItem";
@@ -244,6 +235,15 @@
             this.cloneSelectedFlightToolStripMenuItem.Tag = "duplicate";
             this.cloneSelectedFlightToolStripMenuItem.Text = "&Duplicate selected flight";
             this.cloneSelectedFlightToolStripMenuItem.Click += new System.EventHandler(this.cloneSelectedFlightToolStripMenuItem_Click);
+            // 
+            // editSToolStripMenuItem
+            // 
+            this.editSToolStripMenuItem.Name = "editSToolStripMenuItem";
+            this.editSToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.editSToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.editSToolStripMenuItem.Tag = "edit";
+            this.editSToolStripMenuItem.Text = "&Edit selected flight ...";
+            this.editSToolStripMenuItem.Click += new System.EventHandler(this.editSToolStripMenuItem_Click);
             // 
             // deleteSelectedFileToolStripMenuItem
             // 
@@ -377,19 +377,19 @@
             this.contextMenuStripFlights.Size = new System.Drawing.Size(178, 92);
             this.contextMenuStripFlights.Closing += new System.Windows.Forms.ToolStripDropDownClosingEventHandler(this.contextMenuStripFlights_Closing);
             // 
-            // editThisEntryToolStripMenuItem
-            // 
-            this.editThisEntryToolStripMenuItem.Name = "editThisEntryToolStripMenuItem";
-            this.editThisEntryToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.editThisEntryToolStripMenuItem.Text = "Edit this flight ...";
-            this.editThisEntryToolStripMenuItem.Click += new System.EventHandler(this.editThisEntryToolStripMenuItem_Click);
-            // 
             // cloneIntoNewEntryToolStripMenuItem
             // 
             this.cloneIntoNewEntryToolStripMenuItem.Name = "cloneIntoNewEntryToolStripMenuItem";
             this.cloneIntoNewEntryToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.cloneIntoNewEntryToolStripMenuItem.Text = "Duplicate this flight";
             this.cloneIntoNewEntryToolStripMenuItem.Click += new System.EventHandler(this.cloneIntoNewEntryToolStripMenuItem_Click);
+            // 
+            // editThisEntryToolStripMenuItem
+            // 
+            this.editThisEntryToolStripMenuItem.Name = "editThisEntryToolStripMenuItem";
+            this.editThisEntryToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.editThisEntryToolStripMenuItem.Text = "Edit this flight ...";
+            this.editThisEntryToolStripMenuItem.Click += new System.EventHandler(this.editThisEntryToolStripMenuItem_Click);
             // 
             // deleteThisEntryToolStripMenuItem
             // 

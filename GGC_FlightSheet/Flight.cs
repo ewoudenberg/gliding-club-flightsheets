@@ -36,6 +36,39 @@ namespace au.org.GGC {
         public DateTime? TakeOff { get; set; }
         public DateTime? TugDown { get; set; }
         public DateTime? GliderDown { get; set; }
+        // The _asString variants are to support e.g. "SSO Down" buttons.
+        String takeoff_string;
+        public String TakeOff_asString {
+            get {
+                if (TakeOff == null) return takeoff_string;
+                return ((DateTime)TakeOff).ToString("HH:mm");
+            }
+            set {
+                takeoff_string = value;
+            }
+        }
+        String tugdown_string;
+        public String TugDown_asString {
+            get {
+                if (IsTugless) return null;
+                if (TugDown == null) return tugdown_string;
+                return ((DateTime)TugDown).ToString("HH:mm");
+            }
+            set {
+                tugdown_string = value;
+            }
+        }
+        String gliderdown_string;
+        public String GliderDown_asString {
+            get {
+                if (GliderDown == null) return gliderdown_string;
+                return ((DateTime)GliderDown).ToString("HH:mm");
+            }
+            set {
+                gliderdown_string = value;
+            }
+        }
+
         public String AnnualCheck { get; set; }
         public String Mutual { get; set; }
         public String AEFType { get; set; }

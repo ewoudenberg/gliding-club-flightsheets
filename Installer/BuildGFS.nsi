@@ -50,7 +50,7 @@ Section "install"
     dotNet40NotFound: 
         Banner::show /set 76 "Installing .NET Framework 4.0" "Please wait"  
         SetOutPath $TEMP
-        File "c:\Users\eric\Desktop\GGC\GGC_FlightSheet\Installer\tools\dotNetFx40_Full_setup.exe"
+        File "c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\Installer\tools\dotNetFx40_Full_setup.exe"
         ; if you don't have $TEMP already, add here:
         ExecWait "$TEMP\dotNetFx40_Full_setup.exe /passive /norestart"
         Delete /REBOOTOK "$TEMP\dotNetFx40_Full_setup.exe"
@@ -59,12 +59,12 @@ Section "install"
 
     # Pack binaries
     setOutPath $INSTDIR
-    File /r c:\Users\eric\Desktop\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.exe
-    File /r c:\Users\eric\Desktop\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.dll
-    File /r c:\Users\eric\Desktop\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.xml
-    File /r c:\Users\eric\Desktop\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.pdb
-    File /r c:\Users\eric\Desktop\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.config
-    File /r c:\Users\eric\Desktop\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\programdata\
+    File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.exe
+    File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.dll
+    File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.xml
+    File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.pdb
+    File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.config
+    File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\programdata\
 
     # define uninstaller name
     writeUninstaller $INSTDIR\FlightSheetsUninstaller.exe

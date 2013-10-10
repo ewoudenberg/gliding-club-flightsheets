@@ -53,6 +53,8 @@ namespace au.org.GGC {
         }
 
         int[] Timecolumns = new int[] { 6, 7, 8 };
+        int[] TimeDownColumns = new int[] { 7, 8 };
+        int TakeOffTimeColumn = 6, TugDownTimeColumn = 7, GliderDownTimeColumn = 8;
         int[] CenteredColumns = new int[] { 1, 6, 7, 8, 9, 10, 11, 12 };
 
         void InitColumns() {
@@ -76,7 +78,7 @@ namespace au.org.GGC {
                 if (Timecolumns.Contains(iCol)) {
                     var bcol = new DataGridViewButtonColumn();
                     bcol.Text = column;
-                    bcol.UseColumnTextForButtonValue = true;
+                    //bcol.UseColumnTextForButtonValue = true;
                     bcol.SortMode = DataGridViewColumnSortMode.Automatic;
                     tbcol = bcol;
                 } else {
@@ -90,7 +92,7 @@ namespace au.org.GGC {
             }
 
             foreach (var i in Timecolumns)
-                FlightSheet.Columns[i].DefaultCellStyle.Format = "HH:mm";
+                FlightSheet.Columns[i].DataPropertyName += "_asString";
             foreach (var i in CenteredColumns)
                 FlightSheet.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
@@ -788,11 +790,37 @@ namespace au.org.GGC {
                 bool noButton = i == 1 && Flights[row].IsTugless;
                 if (!noButton && Flights[row][i] == null && !buttonIn && !newRow) {
                     var button = new DataGridViewButtonCell();
-                    button.UseColumnTextForButtonValue = true;
                     FlightSheet.Rows[row].Cells[Timecolumns[i]] = button;
+
+                    if (Timecolumns[i] == TakeOffTimeColumn) {
+                        string prefix = "Take";
+                        if (!String.IsNullOrEmpty(Flights[row].Glider))
+                            prefix = Flights[row].Glider.Split()[0];
+                        FlightSheet.Rows[row].Cells[Timecolumns[i]].Value = prefix + " Off";
+                    } else if (Timecolumns[i] == TugDownTimeColumn) {
+                        string prefix = "Tug";
+                        if (!String.IsNullOrEmpty(Flights[row].Tug))
+                            prefix = Flights[row].Tug.Split()[0];
+                        FlightSheet.Rows[row].Cells[Timecolumns[i]].Value = prefix + " Down";
+                    } else if (Timecolumns[i] == GliderDownTimeColumn) {
+                        string prefix = "Glider";
+                        if (!String.IsNullOrEmpty(Flights[row].Glider))
+                            prefix = Flights[row].Glider.Split()[0];
+                        FlightSheet.Rows[row].Cells[Timecolumns[i]].Value = prefix + " Down";
+                    } else {
+                        button.UseColumnTextForButtonValue = true;
+                    }
                     buttonIn = true;
-                } else
+                } else {
                     FlightSheet.Rows[row].Cells[Timecolumns[i]] = new DataGridViewTextBoxCell();
+                    if (Timecolumns[i] == TakeOffTimeColumn)
+                        Flights[row].TakeOff_asString = "";
+                    if (Timecolumns[i] == TugDownTimeColumn)
+                        Flights[row].TugDown_asString = "";
+                    if (Timecolumns[i] == GliderDownTimeColumn)
+                        Flights[row].GliderDown_asString = "";
+                }
+
             }
         }
 
