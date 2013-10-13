@@ -13,7 +13,7 @@ using FileHelpers;
 namespace au.org.GGC {
     public partial class FlightEditor : Form {
 
-        public FlightEditor(Flight flight, string [] tugButtons, string [] gliderButtons) {
+        public FlightEditor(Flight flight, string[] tugButtons, string[] gliderButtons) {
             InitializeComponent();
             TugButtons = tugButtons;
             GliderButtons = gliderButtons;
@@ -80,11 +80,11 @@ namespace au.org.GGC {
             Flight.Notes = Notes;
         }
 
-        public string Pilot1Name { 
+        public string Pilot1Name {
             get { return RealName(comboBoxPilot1); }
-            set { comboBoxPilot1.SelectedIndex = -1; comboBoxPilot1.Text = value; } 
+            set { comboBoxPilot1.SelectedIndex = -1; comboBoxPilot1.Text = value; }
         }
-        public string Pilot1ID {get { return AuxData(comboBoxPilot1); }}
+        public string Pilot1ID { get { return AuxData(comboBoxPilot1); } }
         public string Pilot2Name {
             get { return RealName(comboBoxPilot2); }
             set { comboBoxPilot2.SelectedIndex = -1; comboBoxPilot2.Text = value; }
@@ -96,7 +96,7 @@ namespace au.org.GGC {
         }
         public string ChargeToID { get { return AuxData(comboBoxChargeTo); } }
         public string Tug {
-            get { return RealName(comboBoxTug);  }
+            get { return RealName(comboBoxTug); }
             set { comboBoxTug.SelectedIndex = -1; comboBoxTug.Text = value; }
         }
         public string Glider {
@@ -151,10 +151,10 @@ namespace au.org.GGC {
             DateTime parsedTime;
             text = text.Trim();
             if (text.Length != 0) {
-                if (DateTime.TryParseExact(text, "H:mm:ss", null, 
+                if (DateTime.TryParseExact(text, "H:mm:ss", null,
                     System.Globalization.DateTimeStyles.AllowInnerWhite, out parsedTime))
                     return parsedTime;
-                if (DateTime.TryParseExact(text, "H:mm", null, 
+                if (DateTime.TryParseExact(text, "H:mm", null,
                     System.Globalization.DateTimeStyles.AllowInnerWhite, out parsedTime))
                     return parsedTime;
                 if (DateTime.TryParseExact(text, "H.mm", null,
@@ -200,10 +200,10 @@ namespace au.org.GGC {
             comboBoxAEF.DisplayMember = "DisplayName";
 
             FixButtons(GliderButtons, new Button[] { buttonG0, buttonG1, buttonG2, buttonG3, buttonG4 });
-            FixButtons(TugButtons, new Button[] { buttonT0, buttonT1, buttonT2, buttonT3, buttonT4 } );
+            FixButtons(TugButtons, new Button[] { buttonT0, buttonT1, buttonT2, buttonT3, buttonT4 });
         }
 
-        void FixButtons(string [] labels, Button [] controls) {
+        void FixButtons(string[] labels, Button[] controls) {
             for (int i = 0; i < controls.Length; i++) {
                 if (i >= labels.Length) {
                     controls[i].Visible = false;
@@ -224,6 +224,22 @@ namespace au.org.GGC {
 
         private void comboBoxGlider_Leave(object sender, EventArgs e) {
             FixComboUsingInitial(comboBoxGlider, Csv.Instance.GetGlidersList(), comboBoxGlider.Text);
+            EnableDisableP2Entry();
+        }
+
+        private void EnableDisableP2Entry() {
+            string prefix = comboBoxGlider.Text.ToLower();
+            Displayable matching = null;
+            foreach (Displayable s in Csv.Instance.GetGlidersList()) {
+                if (s.DisplayName.ToLower().StartsWith(prefix)) {
+                    matching = s;
+                    break;
+                }
+            }
+            bool enable = matching == null || matching.AuxData != "1";
+            comboBoxPilot2.Visible = enable;
+            labelPilot2.Visible = enable;
+            SwapPilotsButton.Visible = enable;
         }
 
         void FixComboExactMatch(ComboBox c, List<Displayable> list) {
@@ -258,6 +274,7 @@ namespace au.org.GGC {
 
         private void buttonGlider_Click(object sender, EventArgs e) {
             FixComboUsingInitial(comboBoxGlider, Csv.Instance.GetGlidersList(), ((Button)sender).Text);
+            EnableDisableP2Entry();
         }
 
         private void buttonTakeOff_Click(object sender, EventArgs e) {
@@ -313,6 +330,36 @@ namespace au.org.GGC {
                 textBox.BackColor = System.Drawing.Color.White;
             else
                 textBox.BackColor = System.Drawing.Color.Yellow;
+        }
+
+        private void SwapPilotsButton_Click(object sender, EventArgs e) {
+            string p1name = this.Pilot1Name;
+            this.Pilot1Name = this.Pilot2Name;
+            this.Pilot2Name = p1name;
+        }
+
+        internal void SetInitialFocus(int colindex) {
+            Control[] ControlRows = new Control[] { 
+                null, null,
+                comboBoxPilot1,
+                comboBoxPilot2,
+                comboBoxTug,
+                comboBoxGlider,
+                textBoxTakeoff,
+                textBoxTugDown,
+                textBoxGliderDown,
+                null,
+                null,
+                checkBoxAnnual,
+                checkBoxMutual,
+                comboBoxAEF,
+                comboBoxChargeTo,
+                textBoxNotes
+            };
+            if (colindex >= 0 && ControlRows[colindex] != null) {
+                ControlRows[colindex].Focus();
+                ControlRows[colindex].Select();
+            }
         }
     }
 }

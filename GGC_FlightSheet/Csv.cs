@@ -148,11 +148,13 @@ namespace au.org.GGC {
                     string name = aircraft.Reg + " " + aircraft.Name + ClubSuffix(aircraft.Club);
                     Displayable d = new Displayable();
                     d.DisplayName = d.RealName = name;
+                    d.AuxData = aircraft.Seats;
                     final.Add(d);
                     if (aircraft.Name != "") {
                         d = new Displayable();
                         d.DisplayName = aircraft.Name + " " + aircraft.Reg + ClubSuffix(aircraft.Club);
                         d.RealName = name;
+                        d.AuxData = aircraft.Seats;
                         final.Add(d);
                     }
                 }

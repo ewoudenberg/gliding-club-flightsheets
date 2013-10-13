@@ -146,7 +146,7 @@ namespace au.org.GGC {
         void FlightSheet_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
             if (e.RowIndex < 0 || e.RowIndex >= Flights.Count)
                 return;
-            EditFlight(e.RowIndex);
+            EditFlight(e.RowIndex, e.ColumnIndex);
         }
 
         void NewFlight() {
@@ -185,9 +185,14 @@ namespace au.org.GGC {
         }
 
         void EditFlight(int rowindex) {
+            EditFlight(rowindex, -1);
+        }
+
+        void EditFlight(int rowindex, int colindex) {
             RequestClerkLogin();
             var flight = Flights[rowindex];
             var entry = new FlightEditor(flight, TugButtons, GliderButtons);
+            entry.SetInitialFocus(colindex);
             var result = entry.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK) {
                 InitializeNewFlightFields(entry.Flight);
@@ -580,7 +585,7 @@ namespace au.org.GGC {
         }
 
         private void documentationToolStripMenuItem_Click(object sender, EventArgs e) {
-            new HelpSheet().ShowDialog();
+            new HelpSheet().Show();
         }
 
         void CheckFlightSheetsFolder() {
@@ -663,7 +668,7 @@ namespace au.org.GGC {
 
             SelectedRow = -1;
             bool validSelection =
-                  column != 0
+                  column >= 0
                   && row >= 0
                   && row < FlightSheet.RowCount - 1;
             if (validSelection) {

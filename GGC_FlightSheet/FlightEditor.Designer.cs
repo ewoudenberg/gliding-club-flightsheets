@@ -23,8 +23,9 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlightEditor));
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelPilot2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBoxPilot1 = new System.Windows.Forms.ComboBox();
@@ -62,6 +63,7 @@
             this.buttonT4 = new System.Windows.Forms.Button();
             this.buttonG3 = new System.Windows.Forms.Button();
             this.buttonG4 = new System.Windows.Forms.Button();
+            this.SwapPilotsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -71,20 +73,20 @@
             this.label1.Location = new System.Drawing.Point(34, 54);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 18);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 32;
             this.label1.Text = "Pilot&1 Name";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // label2
+            // labelPilot2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(34, 86);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 18);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Pilot&2 Name";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelPilot2.AutoSize = true;
+            this.labelPilot2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPilot2.Location = new System.Drawing.Point(34, 86);
+            this.labelPilot2.Name = "labelPilot2";
+            this.labelPilot2.Size = new System.Drawing.Size(89, 18);
+            this.labelPilot2.TabIndex = 33;
+            this.labelPilot2.Text = "Pilot&2 Name";
+            this.labelPilot2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label3
             // 
@@ -93,7 +95,7 @@
             this.label3.Location = new System.Drawing.Point(90, 118);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(33, 18);
-            this.label3.TabIndex = 4;
+            this.label3.TabIndex = 34;
             this.label3.Text = "&Tug";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -104,7 +106,7 @@
             this.label4.Location = new System.Drawing.Point(76, 180);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(47, 18);
-            this.label4.TabIndex = 10;
+            this.label4.TabIndex = 35;
             this.label4.Text = "&Glider";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -117,7 +119,7 @@
             this.comboBoxPilot1.Location = new System.Drawing.Point(130, 51);
             this.comboBoxPilot1.Name = "comboBoxPilot1";
             this.comboBoxPilot1.Size = new System.Drawing.Size(247, 26);
-            this.comboBoxPilot1.TabIndex = 1;
+            this.comboBoxPilot1.TabIndex = 0;
             this.comboBoxPilot1.Leave += new System.EventHandler(this.comboBoxPilot_Leave);
             // 
             // comboBoxPilot2
@@ -129,7 +131,7 @@
             this.comboBoxPilot2.Location = new System.Drawing.Point(130, 83);
             this.comboBoxPilot2.Name = "comboBoxPilot2";
             this.comboBoxPilot2.Size = new System.Drawing.Size(247, 26);
-            this.comboBoxPilot2.TabIndex = 3;
+            this.comboBoxPilot2.TabIndex = 1;
             this.comboBoxPilot2.Leave += new System.EventHandler(this.comboBoxPilot_Leave);
             // 
             // comboBoxTug
@@ -141,7 +143,7 @@
             this.comboBoxTug.Location = new System.Drawing.Point(130, 115);
             this.comboBoxTug.Name = "comboBoxTug";
             this.comboBoxTug.Size = new System.Drawing.Size(247, 26);
-            this.comboBoxTug.TabIndex = 5;
+            this.comboBoxTug.TabIndex = 2;
             this.comboBoxTug.Leave += new System.EventHandler(this.comboBoxTug_Leave);
             // 
             // comboBoxGlider
@@ -153,7 +155,7 @@
             this.comboBoxGlider.Location = new System.Drawing.Point(130, 177);
             this.comboBoxGlider.Name = "comboBoxGlider";
             this.comboBoxGlider.Size = new System.Drawing.Size(247, 26);
-            this.comboBoxGlider.TabIndex = 11;
+            this.comboBoxGlider.TabIndex = 3;
             this.comboBoxGlider.Leave += new System.EventHandler(this.comboBoxGlider_Leave);
             // 
             // buttonOK
@@ -162,7 +164,7 @@
             this.buttonOK.Location = new System.Drawing.Point(303, 486);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 33);
-            this.buttonOK.TabIndex = 33;
+            this.buttonOK.TabIndex = 30;
             this.buttonOK.Text = "O&K";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
@@ -174,7 +176,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(165, 486);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 33);
-            this.buttonCancel.TabIndex = 32;
+            this.buttonCancel.TabIndex = 29;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
@@ -185,7 +187,7 @@
             this.textBoxTakeoff.Location = new System.Drawing.Point(130, 236);
             this.textBoxTakeoff.Name = "textBoxTakeoff";
             this.textBoxTakeoff.Size = new System.Drawing.Size(71, 24);
-            this.textBoxTakeoff.TabIndex = 16;
+            this.textBoxTakeoff.TabIndex = 4;
             this.textBoxTakeoff.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxTakeoff.TextChanged += new System.EventHandler(this.textBoxTime_TextChanged);
             // 
@@ -195,7 +197,7 @@
             this.textBoxTugDown.Location = new System.Drawing.Point(129, 267);
             this.textBoxTugDown.Name = "textBoxTugDown";
             this.textBoxTugDown.Size = new System.Drawing.Size(71, 24);
-            this.textBoxTugDown.TabIndex = 19;
+            this.textBoxTugDown.TabIndex = 5;
             this.textBoxTugDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxTugDown.TextChanged += new System.EventHandler(this.textBoxTime_TextChanged);
             // 
@@ -205,7 +207,7 @@
             this.textBoxGliderDown.Location = new System.Drawing.Point(129, 298);
             this.textBoxGliderDown.Name = "textBoxGliderDown";
             this.textBoxGliderDown.Size = new System.Drawing.Size(71, 24);
-            this.textBoxGliderDown.TabIndex = 22;
+            this.textBoxGliderDown.TabIndex = 6;
             this.textBoxGliderDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxGliderDown.TextChanged += new System.EventHandler(this.textBoxTime_TextChanged);
             // 
@@ -214,7 +216,7 @@
             this.buttonT0.Location = new System.Drawing.Point(130, 144);
             this.buttonT0.Name = "buttonT0";
             this.buttonT0.Size = new System.Drawing.Size(42, 23);
-            this.buttonT0.TabIndex = 6;
+            this.buttonT0.TabIndex = 12;
             this.buttonT0.UseVisualStyleBackColor = true;
             this.buttonT0.Click += new System.EventHandler(this.buttonTug_Click);
             // 
@@ -223,7 +225,7 @@
             this.buttonT1.Location = new System.Drawing.Point(181, 144);
             this.buttonT1.Name = "buttonT1";
             this.buttonT1.Size = new System.Drawing.Size(42, 23);
-            this.buttonT1.TabIndex = 7;
+            this.buttonT1.TabIndex = 13;
             this.buttonT1.UseVisualStyleBackColor = true;
             this.buttonT1.Click += new System.EventHandler(this.buttonTug_Click);
             // 
@@ -233,7 +235,7 @@
             this.buttonT2.Location = new System.Drawing.Point(232, 144);
             this.buttonT2.Name = "buttonT2";
             this.buttonT2.Size = new System.Drawing.Size(42, 23);
-            this.buttonT2.TabIndex = 8;
+            this.buttonT2.TabIndex = 14;
             this.buttonT2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonT2.UseVisualStyleBackColor = true;
             this.buttonT2.Click += new System.EventHandler(this.buttonTug_Click);
@@ -243,7 +245,7 @@
             this.buttonG0.Location = new System.Drawing.Point(130, 206);
             this.buttonG0.Name = "buttonG0";
             this.buttonG0.Size = new System.Drawing.Size(42, 23);
-            this.buttonG0.TabIndex = 12;
+            this.buttonG0.TabIndex = 17;
             this.buttonG0.UseVisualStyleBackColor = true;
             this.buttonG0.Click += new System.EventHandler(this.buttonGlider_Click);
             // 
@@ -252,7 +254,7 @@
             this.buttonG1.Location = new System.Drawing.Point(181, 206);
             this.buttonG1.Name = "buttonG1";
             this.buttonG1.Size = new System.Drawing.Size(42, 23);
-            this.buttonG1.TabIndex = 13;
+            this.buttonG1.TabIndex = 18;
             this.buttonG1.UseVisualStyleBackColor = true;
             this.buttonG1.Click += new System.EventHandler(this.buttonGlider_Click);
             // 
@@ -261,7 +263,7 @@
             this.buttonG2.Location = new System.Drawing.Point(232, 206);
             this.buttonG2.Name = "buttonG2";
             this.buttonG2.Size = new System.Drawing.Size(42, 23);
-            this.buttonG2.TabIndex = 14;
+            this.buttonG2.TabIndex = 19;
             this.buttonG2.UseVisualStyleBackColor = true;
             this.buttonG2.Click += new System.EventHandler(this.buttonGlider_Click);
             // 
@@ -271,7 +273,7 @@
             this.buttonTakeOff.Location = new System.Drawing.Point(56, 234);
             this.buttonTakeOff.Name = "buttonTakeOff";
             this.buttonTakeOff.Size = new System.Drawing.Size(69, 29);
-            this.buttonTakeOff.TabIndex = 15;
+            this.buttonTakeOff.TabIndex = 22;
             this.buttonTakeOff.Text = "Take&Off";
             this.buttonTakeOff.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonTakeOff.UseVisualStyleBackColor = true;
@@ -283,7 +285,7 @@
             this.buttonTugDown.Location = new System.Drawing.Point(41, 265);
             this.buttonTugDown.Name = "buttonTugDown";
             this.buttonTugDown.Size = new System.Drawing.Size(84, 29);
-            this.buttonTugDown.TabIndex = 18;
+            this.buttonTugDown.TabIndex = 24;
             this.buttonTugDown.Text = "Tug &Down";
             this.buttonTugDown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonTugDown.UseVisualStyleBackColor = true;
@@ -295,7 +297,7 @@
             this.buttonGliderDown.Location = new System.Drawing.Point(27, 296);
             this.buttonGliderDown.Name = "buttonGliderDown";
             this.buttonGliderDown.Size = new System.Drawing.Size(98, 29);
-            this.buttonGliderDown.TabIndex = 21;
+            this.buttonGliderDown.TabIndex = 26;
             this.buttonGliderDown.Text = "Glide&r Down";
             this.buttonGliderDown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonGliderDown.UseVisualStyleBackColor = true;
@@ -308,7 +310,7 @@
             this.label5.Location = new System.Drawing.Point(57, 332);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(68, 18);
-            this.label5.TabIndex = 24;
+            this.label5.TabIndex = 36;
             this.label5.Text = "AEF/&F&&F";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -320,7 +322,7 @@
             this.comboBoxAEF.Location = new System.Drawing.Point(130, 329);
             this.comboBoxAEF.Name = "comboBoxAEF";
             this.comboBoxAEF.Size = new System.Drawing.Size(247, 26);
-            this.comboBoxAEF.TabIndex = 25;
+            this.comboBoxAEF.TabIndex = 7;
             // 
             // checkBoxMutual
             // 
@@ -329,7 +331,7 @@
             this.checkBoxMutual.Location = new System.Drawing.Point(130, 362);
             this.checkBoxMutual.Name = "checkBoxMutual";
             this.checkBoxMutual.Size = new System.Drawing.Size(71, 22);
-            this.checkBoxMutual.TabIndex = 26;
+            this.checkBoxMutual.TabIndex = 8;
             this.checkBoxMutual.Text = "&Mutual";
             this.checkBoxMutual.UseVisualStyleBackColor = true;
             // 
@@ -340,7 +342,7 @@
             this.checkBoxAnnual.Location = new System.Drawing.Point(210, 362);
             this.checkBoxAnnual.Name = "checkBoxAnnual";
             this.checkBoxAnnual.Size = new System.Drawing.Size(157, 22);
-            this.checkBoxAnnual.TabIndex = 27;
+            this.checkBoxAnnual.TabIndex = 9;
             this.checkBoxAnnual.Text = "&Annual Check Okay";
             this.checkBoxAnnual.UseVisualStyleBackColor = true;
             // 
@@ -353,7 +355,7 @@
             this.comboBoxChargeTo.Location = new System.Drawing.Point(131, 392);
             this.comboBoxChargeTo.Name = "comboBoxChargeTo";
             this.comboBoxChargeTo.Size = new System.Drawing.Size(247, 26);
-            this.comboBoxChargeTo.TabIndex = 29;
+            this.comboBoxChargeTo.TabIndex = 10;
             this.comboBoxChargeTo.Leave += new System.EventHandler(this.comboBoxPilot_Leave);
             // 
             // label6
@@ -363,7 +365,7 @@
             this.label6.Location = new System.Drawing.Point(46, 395);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 18);
-            this.label6.TabIndex = 28;
+            this.label6.TabIndex = 37;
             this.label6.Text = "&Charge To";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -374,7 +376,7 @@
             this.label7.Location = new System.Drawing.Point(76, 431);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(48, 18);
-            this.label7.TabIndex = 30;
+            this.label7.TabIndex = 38;
             this.label7.Text = "&Notes";
             this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -386,7 +388,7 @@
             this.textBoxNotes.Name = "textBoxNotes";
             this.textBoxNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxNotes.Size = new System.Drawing.Size(248, 49);
-            this.textBoxNotes.TabIndex = 31;
+            this.textBoxNotes.TabIndex = 11;
             // 
             // labelTitle
             // 
@@ -395,7 +397,7 @@
             this.labelTitle.Location = new System.Drawing.Point(126, 9);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(177, 25);
-            this.labelTitle.TabIndex = 35;
+            this.labelTitle.TabIndex = 31;
             this.labelTitle.Text = "Flight Information";
             // 
             // buttonDelete
@@ -405,7 +407,7 @@
             this.buttonDelete.Location = new System.Drawing.Point(31, 486);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(75, 33);
-            this.buttonDelete.TabIndex = 34;
+            this.buttonDelete.TabIndex = 28;
             this.buttonDelete.Text = "De&Lete";
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
@@ -416,7 +418,7 @@
             this.buttonT3.Location = new System.Drawing.Point(283, 144);
             this.buttonT3.Name = "buttonT3";
             this.buttonT3.Size = new System.Drawing.Size(42, 23);
-            this.buttonT3.TabIndex = 9;
+            this.buttonT3.TabIndex = 15;
             this.buttonT3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonT3.UseVisualStyleBackColor = true;
             this.buttonT3.Click += new System.EventHandler(this.buttonTug_Click);
@@ -426,7 +428,7 @@
             this.buttonClearTO.Location = new System.Drawing.Point(210, 237);
             this.buttonClearTO.Name = "buttonClearTO";
             this.buttonClearTO.Size = new System.Drawing.Size(45, 23);
-            this.buttonClearTO.TabIndex = 17;
+            this.buttonClearTO.TabIndex = 23;
             this.buttonClearTO.Text = "Clear";
             this.buttonClearTO.UseVisualStyleBackColor = true;
             this.buttonClearTO.Click += new System.EventHandler(this.buttonClearTO_Click);
@@ -436,7 +438,7 @@
             this.buttonClearTD.Location = new System.Drawing.Point(210, 268);
             this.buttonClearTD.Name = "buttonClearTD";
             this.buttonClearTD.Size = new System.Drawing.Size(45, 23);
-            this.buttonClearTD.TabIndex = 20;
+            this.buttonClearTD.TabIndex = 25;
             this.buttonClearTD.Text = "Clear";
             this.buttonClearTD.UseVisualStyleBackColor = true;
             this.buttonClearTD.Click += new System.EventHandler(this.buttonClearTD_Click);
@@ -446,7 +448,7 @@
             this.buttonClearGD.Location = new System.Drawing.Point(210, 299);
             this.buttonClearGD.Name = "buttonClearGD";
             this.buttonClearGD.Size = new System.Drawing.Size(45, 23);
-            this.buttonClearGD.TabIndex = 23;
+            this.buttonClearGD.TabIndex = 27;
             this.buttonClearGD.Text = "Clear";
             this.buttonClearGD.UseVisualStyleBackColor = true;
             this.buttonClearGD.Click += new System.EventHandler(this.buttonClearGD_Click);
@@ -457,7 +459,7 @@
             this.buttonT4.Location = new System.Drawing.Point(334, 144);
             this.buttonT4.Name = "buttonT4";
             this.buttonT4.Size = new System.Drawing.Size(42, 23);
-            this.buttonT4.TabIndex = 36;
+            this.buttonT4.TabIndex = 16;
             this.buttonT4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonT4.UseVisualStyleBackColor = true;
             this.buttonT4.Click += new System.EventHandler(this.buttonTug_Click);
@@ -467,7 +469,7 @@
             this.buttonG3.Location = new System.Drawing.Point(283, 206);
             this.buttonG3.Name = "buttonG3";
             this.buttonG3.Size = new System.Drawing.Size(42, 23);
-            this.buttonG3.TabIndex = 37;
+            this.buttonG3.TabIndex = 20;
             this.buttonG3.UseVisualStyleBackColor = true;
             this.buttonG3.Click += new System.EventHandler(this.buttonGlider_Click);
             // 
@@ -476,16 +478,31 @@
             this.buttonG4.Location = new System.Drawing.Point(334, 206);
             this.buttonG4.Name = "buttonG4";
             this.buttonG4.Size = new System.Drawing.Size(42, 23);
-            this.buttonG4.TabIndex = 38;
+            this.buttonG4.TabIndex = 21;
             this.buttonG4.UseVisualStyleBackColor = true;
             this.buttonG4.Click += new System.EventHandler(this.buttonGlider_Click);
             // 
+            // SwapPilotsButton
+            // 
+            this.SwapPilotsButton.BackColor = System.Drawing.Color.Transparent;
+            this.SwapPilotsButton.FlatAppearance.BorderSize = 0;
+            this.SwapPilotsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SwapPilotsButton.Image = ((System.Drawing.Image)(resources.GetObject("SwapPilotsButton.Image")));
+            this.SwapPilotsButton.Location = new System.Drawing.Point(379, 55);
+            this.SwapPilotsButton.Name = "SwapPilotsButton";
+            this.SwapPilotsButton.Size = new System.Drawing.Size(32, 52);
+            this.SwapPilotsButton.TabIndex = 39;
+            this.SwapPilotsButton.UseVisualStyleBackColor = false;
+            this.SwapPilotsButton.Click += new System.EventHandler(this.SwapPilotsButton_Click);
+            // 
             // FlightEditor
             // 
+            this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(420, 534);
+            this.Controls.Add(this.SwapPilotsButton);
             this.Controls.Add(this.buttonG4);
             this.Controls.Add(this.buttonG3);
             this.Controls.Add(this.buttonT4);
@@ -523,7 +540,7 @@
             this.Controls.Add(this.comboBoxPilot1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.labelPilot2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FlightEditor";
@@ -537,7 +554,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelPilot2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBoxPilot1;
@@ -575,5 +592,6 @@
         private System.Windows.Forms.Button buttonT4;
         private System.Windows.Forms.Button buttonG3;
         private System.Windows.Forms.Button buttonG4;
+        private System.Windows.Forms.Button SwapPilotsButton;
     }
 }
