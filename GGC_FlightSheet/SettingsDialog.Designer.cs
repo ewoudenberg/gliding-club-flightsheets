@@ -45,6 +45,7 @@
             this.folderBrowserDialogBackup = new System.Windows.Forms.FolderBrowserDialog();
             this.labelStorageFolderWarning = new System.Windows.Forms.Label();
             this.labelBackupFolderWarning = new System.Windows.Forms.Label();
+            this.buttonEditPrintSheetTemplate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -84,7 +85,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(687, 373);
+            this.buttonOK.Location = new System.Drawing.Point(687, 385);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 3;
@@ -95,7 +96,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(27, 373);
+            this.buttonCancel.Location = new System.Drawing.Point(27, 385);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 4;
@@ -137,7 +138,7 @@
             this.textBoxTugButtons.Location = new System.Drawing.Point(433, 253);
             this.textBoxTugButtons.Multiline = true;
             this.textBoxTugButtons.Name = "textBoxTugButtons";
-            this.textBoxTugButtons.Size = new System.Drawing.Size(150, 96);
+            this.textBoxTugButtons.Size = new System.Drawing.Size(150, 117);
             this.textBoxTugButtons.TabIndex = 8;
             // 
             // label4
@@ -166,7 +167,7 @@
             this.textBoxGliderButtons.Location = new System.Drawing.Point(606, 253);
             this.textBoxGliderButtons.Multiline = true;
             this.textBoxGliderButtons.Name = "textBoxGliderButtons";
-            this.textBoxGliderButtons.Size = new System.Drawing.Size(150, 96);
+            this.textBoxGliderButtons.Size = new System.Drawing.Size(150, 117);
             this.textBoxGliderButtons.TabIndex = 10;
             // 
             // label6
@@ -244,12 +245,24 @@
             this.labelBackupFolderWarning.Text = "Folder Not Valid:";
             this.labelBackupFolderWarning.Visible = false;
             // 
+            // buttonEditPrintSheetTemplate
+            // 
+            this.buttonEditPrintSheetTemplate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonEditPrintSheetTemplate.Location = new System.Drawing.Point(545, 23);
+            this.buttonEditPrintSheetTemplate.Name = "buttonEditPrintSheetTemplate";
+            this.buttonEditPrintSheetTemplate.Size = new System.Drawing.Size(217, 35);
+            this.buttonEditPrintSheetTemplate.TabIndex = 20;
+            this.buttonEditPrintSheetTemplate.Text = "Edit Printing Template";
+            this.buttonEditPrintSheetTemplate.UseVisualStyleBackColor = true;
+            this.buttonEditPrintSheetTemplate.Click += new System.EventHandler(this.buttonEditPrintSheetTemplate_Click);
+            // 
             // SettingsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(816, 413);
+            this.ClientSize = new System.Drawing.Size(816, 425);
+            this.Controls.Add(this.buttonEditPrintSheetTemplate);
             this.Controls.Add(this.labelBackupFolderWarning);
             this.Controls.Add(this.labelStorageFolderWarning);
             this.Controls.Add(this.buttonBrowseBackup);
@@ -301,5 +314,6 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogBackup;
         private System.Windows.Forms.Label labelStorageFolderWarning;
         private System.Windows.Forms.Label labelBackupFolderWarning;
+        private System.Windows.Forms.Button buttonEditPrintSheetTemplate;
     }
 }

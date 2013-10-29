@@ -633,14 +633,6 @@ namespace au.org.GGC {
             }
         }
 
-        private void openArchivedFlightSheetToolStripMenuItem_Click(object sender, EventArgs e) {
-            var browser = new ArchivedSheetSelector();
-            if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                AirfieldName = Airfield = browser.Airfield;
-                LoadFromCsv(browser.Filename);
-            }
-        }
-
         // Selection-related grid operations
 
         int SelectedRow, SavedColumnSelection, SavedRowSelection;
@@ -910,6 +902,29 @@ namespace au.org.GGC {
 
 
         #endregion
+
+        private void printWithExcelToolStripMenuItem_Click(object sender, EventArgs e) {
+            ExcelFlightSheet excel = new ExcelFlightSheet(Flights, Airfield, FlightSheetRef);
+            excel.Generate();
+            string fileName = excel.SaveSheet();
+            System.Diagnostics.Process.Start(fileName);
+        }
+
+        private void openArchivedFlightSheetToolStripMenuItem_Click(object sender, EventArgs e) {
+            var browser = new ArchivedSheetSelector();
+            if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                AirfieldName = Airfield = browser.Airfield;
+                LoadFromCsv(browser.Filename);
+            }
+        }
+
+        private void openArchivedFlightSheetToolStripMenuItem1_Click(object sender, EventArgs e) {
+            var browser = new ArchivedSheetSelector();
+            if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                AirfieldName = Airfield = browser.Airfield;
+                LoadFromCsv(browser.Filename);
+            }
+        }
 
     }
 }

@@ -86,5 +86,9 @@ namespace au.org.GGC {
             CheckStorageFolder(StoragePath, labelStorageFolderWarning);
             CheckStorageFolder(BackupPath, labelBackupFolderWarning);
         }
+
+        private void buttonEditPrintSheetTemplate_Click(object sender, EventArgs e) {
+            System.Diagnostics.Process.Start(ExcelFlightSheet.Flightsheet_template);
+        }
     }
 }

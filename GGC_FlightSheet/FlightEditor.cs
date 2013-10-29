@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
 
-using FileHelpers;
 
 namespace au.org.GGC {
     public partial class FlightEditor : Form {
@@ -116,12 +109,12 @@ namespace au.org.GGC {
             set { textBoxGliderDown.Text = DisplayTime(value); }
         }
         public string AnnualCheck {
-            get { return checkBoxAnnual.Checked ? "X" : ""; }
-            set { checkBoxAnnual.Checked = (value == "X"); }
+            get { return checkBoxAnnual.Checked ? "Annual" : ""; }
+            set { checkBoxAnnual.Checked = (value == "Annual"); }
         }
         public string Mutual {
-            get { return checkBoxMutual.Checked ? "X" : ""; }
-            set { checkBoxMutual.Checked = (value == "X"); }
+            get { return checkBoxMutual.Checked ? "Mutual" : ""; }
+            set { checkBoxMutual.Checked = (value == "Mutual"); }
         }
         public string AEFType {
             get { return comboBoxAEF.Text; }

@@ -6,7 +6,7 @@ Notes:
    Download: http://www.microsoft.com/visualstudio/eng/products/visual-studio-express-products
 
 2) FileHelpers is a pretty big package just for reading .csv files. On
-the other hand, it works well. I did modify the source slightly:
+   the other hand, it works well. I did modify the source slightly:
 
     diff -r  Original/FileHelpers_Source/FileHelpers/Converters/ConvertHelpers.cs \
     	       ../GGC_FlightSheet/FileHelpers_source/Converters/ConvertHelpers.cs

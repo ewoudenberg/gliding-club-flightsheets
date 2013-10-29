@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NPOI, Version=1.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>NPOI\NPOI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -60,6 +64,7 @@
     </Compile>
     <Compile Include="Csv.cs" />
     <Compile Include="CustomSettings.cs" />
+    <Compile Include="ExcelFlightSheet.cs" />
     <Compile Include="Flight.cs" />
     <Compile Include="FlightEditor.cs">
       <SubType>Form</SubType>
@@ -127,6 +132,19 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Content Include="NPOI\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="NPOI\NPOI.DDF.dll" />
+    <Content Include="NPOI\NPOI.DDF.xml" />
+    <Content Include="NPOI\NPOI.dll" />
+    <Content Include="NPOI\NPOI.HPSF.dll" />
+    <Content Include="NPOI\NPOI.HPSF.xml" />
+    <Content Include="NPOI\NPOI.HSSF.dll" />
+    <Content Include="NPOI\NPOI.HSSF.XML" />
+    <Content Include="NPOI\NPOI.POIFS.dll" />
+    <Content Include="NPOI\NPOI.POIFS.xml" />
+    <Content Include="NPOI\NPOI.Util.dll" />
+    <Content Include="NPOI\NPOI.Util.xml" />
+    <Content Include="NPOI\NPOI.xml" />
     <Content Include="programdata\aircraft.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -148,6 +166,9 @@
     <Content Include="programdata\GGC_Flight_Sheet_Documentation.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="programdata\flightsheet_excel_template.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

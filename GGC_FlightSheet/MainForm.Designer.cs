@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.FlightSheet = new System.Windows.Forms.DataGridView();
             this.Logo = new System.Windows.Forms.PictureBox();
@@ -39,8 +39,6 @@
             this.labelTime = new System.Windows.Forms.Label();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.archiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openArchivedFlightSheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitFlightSheetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addANewFlightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +67,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.labelDate = new System.Windows.Forms.Label();
             this.labelOverTow = new System.Windows.Forms.Label();
+            this.printWithExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openArchivedFlightSheetToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.FlightSheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.menuStripMain.SuspendLayout();
@@ -85,14 +85,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FlightSheet.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.FlightSheet.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.FlightSheet.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.FlightSheet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FlightSheet.Location = new System.Drawing.Point(12, 124);
             this.FlightSheet.Name = "FlightSheet";
@@ -177,31 +177,17 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.archiveToolStripMenuItem,
+            this.printWithExcelToolStripMenuItem,
+            this.openArchivedFlightSheetToolStripMenuItem1,
             this.exitFlightSheetsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // archiveToolStripMenuItem
-            // 
-            this.archiveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openArchivedFlightSheetToolStripMenuItem});
-            this.archiveToolStripMenuItem.Name = "archiveToolStripMenuItem";
-            this.archiveToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.archiveToolStripMenuItem.Text = "Access Archive";
-            // 
-            // openArchivedFlightSheetToolStripMenuItem
-            // 
-            this.openArchivedFlightSheetToolStripMenuItem.Name = "openArchivedFlightSheetToolStripMenuItem";
-            this.openArchivedFlightSheetToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.openArchivedFlightSheetToolStripMenuItem.Text = "Open Archived Flight Sheet ...";
-            this.openArchivedFlightSheetToolStripMenuItem.Click += new System.EventHandler(this.openArchivedFlightSheetToolStripMenuItem_Click);
-            // 
             // exitFlightSheetsToolStripMenuItem
             // 
             this.exitFlightSheetsToolStripMenuItem.Name = "exitFlightSheetsToolStripMenuItem";
-            this.exitFlightSheetsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.exitFlightSheetsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.exitFlightSheetsToolStripMenuItem.Text = "Exit";
             this.exitFlightSheetsToolStripMenuItem.Click += new System.EventHandler(this.exitFlightSheetsToolStripMenuItem_Click);
             // 
@@ -374,7 +360,7 @@
             this.editThisEntryToolStripMenuItem,
             this.deleteThisEntryToolStripMenuItem});
             this.contextMenuStripFlights.Name = "contextMenuStripFlights";
-            this.contextMenuStripFlights.Size = new System.Drawing.Size(178, 92);
+            this.contextMenuStripFlights.Size = new System.Drawing.Size(178, 70);
             this.contextMenuStripFlights.Closing += new System.Windows.Forms.ToolStripDropDownClosingEventHandler(this.contextMenuStripFlights_Closing);
             // 
             // cloneIntoNewEntryToolStripMenuItem
@@ -459,6 +445,20 @@
             this.labelOverTow.TabIndex = 15;
             this.labelOverTow.Text = "Long Tow Alert";
             // 
+            // printWithExcelToolStripMenuItem
+            // 
+            this.printWithExcelToolStripMenuItem.Name = "printWithExcelToolStripMenuItem";
+            this.printWithExcelToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.printWithExcelToolStripMenuItem.Text = "Print using Excel";
+            this.printWithExcelToolStripMenuItem.Click += new System.EventHandler(this.printWithExcelToolStripMenuItem_Click);
+            // 
+            // openArchivedFlightSheetToolStripMenuItem1
+            // 
+            this.openArchivedFlightSheetToolStripMenuItem1.Name = "openArchivedFlightSheetToolStripMenuItem1";
+            this.openArchivedFlightSheetToolStripMenuItem1.Size = new System.Drawing.Size(213, 22);
+            this.openArchivedFlightSheetToolStripMenuItem1.Text = "Open archived flight sheet";
+            this.openArchivedFlightSheetToolStripMenuItem1.Click += new System.EventHandler(this.openArchivedFlightSheetToolStripMenuItem1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -522,8 +522,6 @@
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.Label labelOverTow;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem archiveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openArchivedFlightSheetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitFlightSheetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem documentationToolStripMenuItem;
@@ -535,6 +533,8 @@
         private System.Windows.Forms.ToolStripMenuItem deleteThisEntryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editThisEntryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem printWithExcelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openArchivedFlightSheetToolStripMenuItem1;
     }
 }
 
