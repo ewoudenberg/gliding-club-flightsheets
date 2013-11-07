@@ -6,16 +6,18 @@ using System.Windows.Forms;
 namespace au.org.GGC {
     public partial class FlightEditor : Form {
 
-        public FlightEditor(Flight flight, string[] tugButtons, string[] gliderButtons) {
+        public FlightEditor(DateTime sheetTime, Flight flight, string[] tugButtons, string[] gliderButtons) {
             InitializeComponent();
             TugButtons = tugButtons;
             GliderButtons = gliderButtons;
+            SheetTime = sheetTime;
             Flight = flight.Clone();
             InitFields();
             LoadFormFields();
         }
 
         public Flight Flight;
+        public DateTime SheetTime;
         string[] TugButtons, GliderButtons;
 
         void LoadFormFields() {
@@ -143,23 +145,10 @@ namespace au.org.GGC {
         DateTime? ParseTime(string text) {
             DateTime parsedTime;
             text = text.Trim();
-            if (text.Length != 0) {
-                if (DateTime.TryParseExact(text, "H:mm:ss", null,
-                    System.Globalization.DateTimeStyles.AllowInnerWhite, out parsedTime))
-                    return parsedTime;
-                if (DateTime.TryParseExact(text, "H:mm", null,
-                    System.Globalization.DateTimeStyles.AllowInnerWhite, out parsedTime))
-                    return parsedTime;
-                if (DateTime.TryParseExact(text, "H.mm", null,
-                    System.Globalization.DateTimeStyles.AllowInnerWhite, out parsedTime))
-                    return parsedTime;
-                if (DateTime.TryParseExact(text, "H mm", null,
-                   System.Globalization.DateTimeStyles.AllowInnerWhite, out parsedTime))
-                    return parsedTime;
-                if (DateTime.TryParseExact(text, "Hmm", null,
-                   System.Globalization.DateTimeStyles.AllowInnerWhite, out parsedTime))
-                    return parsedTime;
-            }
+            if (text.Length != 0)
+                foreach (String format in new String[] { "H:mm:ss", "H:mm", "H.mm", "H mm", "Hmm" })
+                    if (DateTime.TryParseExact(text, format, null, System.Globalization.DateTimeStyles.AllowInnerWhite, out parsedTime))
+                        return new DateTime(SheetTime.Year, SheetTime.Month, SheetTime.Day, parsedTime.Hour, parsedTime.Minute, parsedTime.Second);
             return null;
         }
 

@@ -125,8 +125,15 @@ namespace au.org.GGC {
             if (flight.IsEmpty) {
                 flight.Clerk = comboBoxClerk.Text;
                 flight.FlightNo = GetNextFlightNumber();
-                flight.Logged = DateTime.Now;
+                flight.Logged = SheetTime(DateTime.Now);
             }
+        }
+
+        DateTime SheetTime(DateTime timepart) {
+            if (IsSheetEmpty())
+                return timepart;
+            DateTime sheetdate = (DateTime)Flights[0].Logged;
+            return new DateTime(sheetdate.Year, sheetdate.Month, sheetdate.Day, timepart.Hour, timepart.Minute, timepart.Second, DateTimeKind.Local);
         }
 
         int GetNextFlightNumber() {
@@ -191,7 +198,7 @@ namespace au.org.GGC {
         void EditFlight(int rowindex, int colindex) {
             RequestClerkLogin();
             var flight = Flights[rowindex];
-            var entry = new FlightEditor(flight, TugButtons, GliderButtons);
+            var entry = new FlightEditor(SheetTime(DateTime.Now), flight, TugButtons, GliderButtons);
             entry.SetInitialFocus(colindex);
             var result = entry.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK) {
@@ -255,6 +262,10 @@ namespace au.org.GGC {
                 datepart.Substring(0, 4), 
                 datepart.Substring(4, 2), 
                 datepart.Substring(6, 2));
+        }
+
+        bool IsSheetEmpty() {
+            return Flights.Count == 0 || Flights.Count(f => f.IsEmpty) == Flights.Count;
         }
 
         void EnsureEmptyRowPresent() {
@@ -387,7 +398,7 @@ namespace au.org.GGC {
                 toggle = !toggle;
                 labelOverTow.SafeInvoke(d => d.Visible = toggle & towAlarm);
                 labelClerkAlert.SafeInvoke(d => d.Visible = toggle & !ClerkReady);
-                labelTime.SafeInvoke(d => d.Text = DateTime.Now.ToString("HH:mm"));
+                labelTime.SafeInvoke(d => d.Text = DateTime.Now.ToString("HH:mm:ss"));
                 CalculateFlightTimes();
                 if (!towAlarm)
                     everyMinute = -1;
@@ -466,7 +477,7 @@ namespace au.org.GGC {
             bool changed = false;
             bool active = flight.TakeOff == null || flight.IsInTow || flight.GliderDown == null;
             if (flight.GliderDown != null) {
-                int age = Convert.ToInt32((DateTime.Now - (DateTime)flight.GliderDown).TotalMinutes);
+                int age = Convert.ToInt32((SheetTime(DateTime.Now) - (DateTime)flight.GliderDown).TotalMinutes);
                 if (age < 10)
                     active = true;
             }

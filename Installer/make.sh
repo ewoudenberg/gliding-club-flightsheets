@@ -13,3 +13,4 @@ echo -n cr to proceed:
 read a
 makensis BuildGFS.nsi
 mv GGC_FlightSheetsInstaller.exe "GGC_FlightSheetsInstaller_$version.exe"
+cp "GGC_FlightSheetsInstaller_$version.exe" "/Users/eric/Desktop/GoogleDrive/Google Drive/Software"

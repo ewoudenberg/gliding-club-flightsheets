@@ -25,7 +25,6 @@ namespace au.org.GGC {
 
         public ExcelFlightSheet(SortableBindingList<Flight> flights, String airfield, String sheetno) {
             Flights = CloneAndFinalizeSheet(flights);
-            //Flights = Flights.OrderBy(f => f.TakeOff).ToList();
             Airfield = airfield;
             Sheetno = sheetno;
         }
@@ -35,10 +34,9 @@ namespace au.org.GGC {
             foreach (Flight flight in flights) {
                 if (flight.FlightNo == null)
                     continue;
+                // Cloning allows us to manipulate our copy of a flight without affecting 
+                // the flights on the main sheet (though we don't currently manipulate the printed flights).
                 Flight f = flight.Clone();
-                if (f.TakeOff == null) f.TakeOff = DateTime.Now;
-                if (f.TugDown == null) f.TugDown = DateTime.Now;
-                if (f.GliderDown == null) f.GliderDown = DateTime.Now;
                 Flights.Add(f);
             }
             return Flights;
@@ -83,15 +81,25 @@ namespace au.org.GGC {
                 CreateCell(row, "pilot2", flight.Pilot2);
                 CreateCell(row, "tug", flight.Tug);
                 CreateCell(row, "glider", flight.Glider);
-                CreateCell(row, "takeoff", (DateTime)flight.TakeOff);
-                CreateCell(row, "tugdown", (DateTime)flight.TugDown);
-                CreateCell(row, "gliderdown", (DateTime)flight.GliderDown);
-                CreateCell(row, "towtime", ((DateTime)flight.TugDown - (DateTime)flight.TakeOff).TotalDays);
-                CreateCell(row, "flighttime", ((DateTime)flight.GliderDown - (DateTime)flight.TakeOff).TotalDays);
+                if (flight.TakeOff != null)
+                    CreateCell(row, "takeoff", (DateTime)flight.TakeOff);
+                if (flight.TugDown != null)
+                    CreateCell(row, "tugdown", (DateTime)flight.TugDown);
+                if (flight.GliderDown != null)
+                    CreateCell(row, "gliderdown", (DateTime)flight.GliderDown);
+                if (flight.TugDown != null && flight.TakeOff != null)
+                    CreateCell(row, "towtime", ((DateTime)flight.TugDown - (DateTime)flight.TakeOff).TotalDays);
+                if (flight.GliderDown != null && flight.TakeOff != null)
+                    CreateCell(row, "flighttime", ((DateTime)flight.GliderDown - (DateTime)flight.TakeOff).TotalDays);
                 CreateCell(row, "aef", flight.AEFType);
                 CreateCell(row, "annual", flight.AnnualCheck);
                 CreateCell(row, "mutual", flight.Mutual);
                 CreateCell(row, "notes", flight.Notes);
+                CreateCell(row, "chargeto", flight.ChargeTo);
+                string notations = flight.AEFType + " " + flight.AnnualCheck + " " + flight.Mutual + " " + flight.Notes;
+                if (!string.IsNullOrWhiteSpace(flight.ChargeTo))
+                    notations += " Charge to: " + flight.ChargeTo;
+                CreateCell(row, "notations", notations);
                 c = Math.Max(c, row.LastCellNum);
             }
             for (int i = 0; i < c; i++)
