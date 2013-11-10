@@ -66,6 +66,14 @@ namespace au.org.GGC {
         }
 
         private void listBoxFileList_SelectedIndexChanged(object sender, EventArgs e) {
+            
+        }
+
+        private void buttonOpenTodaySheet_Click(object sender, EventArgs e) {
+            this.DialogResult = System.Windows.Forms.DialogResult.Ignore;
+        }
+
+        private void listBoxFileList_MouseDoubleClick(object sender, MouseEventArgs e) {
             ReturnSelectedFile();
         }
     }

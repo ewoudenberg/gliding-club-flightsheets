@@ -636,14 +636,6 @@ namespace au.org.GGC {
             }
         }
 
-        private void openPriorDaysFlightSheetToolStripMenuItem_Click(object sender, EventArgs e) {
-            var browser = new ArchivedSheetSelector();
-            if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                AirfieldName = Airfield = browser.Airfield;
-                LoadFromCsv(browser.Filename);
-            }
-        }
-
         // Selection-related grid operations
 
         int SelectedRow, SavedColumnSelection, SavedRowSelection;
@@ -921,21 +913,18 @@ namespace au.org.GGC {
             System.Diagnostics.Process.Start(fileName);
         }
 
-        private void openArchivedFlightSheetToolStripMenuItem_Click(object sender, EventArgs e) {
-            var browser = new ArchivedSheetSelector();
-            if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                AirfieldName = Airfield = browser.Airfield;
-                LoadFromCsv(browser.Filename);
-            }
-        }
-
         private void openArchivedFlightSheetToolStripMenuItem1_Click(object sender, EventArgs e) {
             var browser = new ArchivedSheetSelector();
-            if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                AirfieldName = Airfield = browser.Airfield;
-                LoadFromCsv(browser.Filename);
+            DialogResult result = browser.ShowDialog();
+            switch (result) {
+                case System.Windows.Forms.DialogResult.OK:
+                    AirfieldName = Airfield = browser.Airfield;
+                    LoadFromCsv(browser.Filename);
+                    break;
+                case System.Windows.Forms.DialogResult.Ignore:
+                    LoadFromCsv(GetTodaysAirfieldFile());
+                    break;
             }
         }
-
     }
 }

@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace au.org.GGC {
     public partial class SettingsDialog : Form {
@@ -90,5 +91,15 @@ namespace au.org.GGC {
         private void buttonEditPrintSheetTemplate_Click(object sender, EventArgs e) {
             System.Diagnostics.Process.Start(ExcelFlightSheet.Flightsheet_template);
         }
+
+        private void OpenFlightSheetFolderButton_Click(object sender, EventArgs e) {
+            Process.Start("explorer.exe", textBoxFolderName.Text);
+        }
+
+        private void OpenBackupFolderButton_Click(object sender, EventArgs e) {
+            Process.Start("explorer.exe", textBoxBackup.Text);
+        }
+
+     
     }
 }

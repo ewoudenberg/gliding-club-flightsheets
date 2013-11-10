@@ -46,6 +46,8 @@
             this.labelStorageFolderWarning = new System.Windows.Forms.Label();
             this.labelBackupFolderWarning = new System.Windows.Forms.Label();
             this.buttonEditPrintSheetTemplate = new System.Windows.Forms.Button();
+            this.OpenFlightSheetFolderButton = new System.Windows.Forms.Button();
+            this.OpenBackupFolderButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -256,12 +258,34 @@
             this.buttonEditPrintSheetTemplate.UseVisualStyleBackColor = true;
             this.buttonEditPrintSheetTemplate.Click += new System.EventHandler(this.buttonEditPrintSheetTemplate_Click);
             // 
+            // OpenFlightSheetFolderButton
+            // 
+            this.OpenFlightSheetFolderButton.Location = new System.Drawing.Point(663, 72);
+            this.OpenFlightSheetFolderButton.Name = "OpenFlightSheetFolderButton";
+            this.OpenFlightSheetFolderButton.Size = new System.Drawing.Size(99, 23);
+            this.OpenFlightSheetFolderButton.TabIndex = 21;
+            this.OpenFlightSheetFolderButton.Text = "Open in Explorer";
+            this.OpenFlightSheetFolderButton.UseVisualStyleBackColor = true;
+            this.OpenFlightSheetFolderButton.Click += new System.EventHandler(this.OpenFlightSheetFolderButton_Click);
+            // 
+            // OpenBackupFolderButton
+            // 
+            this.OpenBackupFolderButton.Location = new System.Drawing.Point(663, 148);
+            this.OpenBackupFolderButton.Name = "OpenBackupFolderButton";
+            this.OpenBackupFolderButton.Size = new System.Drawing.Size(99, 23);
+            this.OpenBackupFolderButton.TabIndex = 22;
+            this.OpenBackupFolderButton.Text = "Open in Explorer";
+            this.OpenBackupFolderButton.UseVisualStyleBackColor = true;
+            this.OpenBackupFolderButton.Click += new System.EventHandler(this.OpenBackupFolderButton_Click);
+            // 
             // SettingsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(816, 425);
+            this.Controls.Add(this.OpenBackupFolderButton);
+            this.Controls.Add(this.OpenFlightSheetFolderButton);
             this.Controls.Add(this.buttonEditPrintSheetTemplate);
             this.Controls.Add(this.labelBackupFolderWarning);
             this.Controls.Add(this.labelStorageFolderWarning);
@@ -315,5 +339,7 @@
         private System.Windows.Forms.Label labelStorageFolderWarning;
         private System.Windows.Forms.Label labelBackupFolderWarning;
         private System.Windows.Forms.Button buttonEditPrintSheetTemplate;
+        private System.Windows.Forms.Button OpenFlightSheetFolderButton;
+        private System.Windows.Forms.Button OpenBackupFolderButton;
     }
 }
