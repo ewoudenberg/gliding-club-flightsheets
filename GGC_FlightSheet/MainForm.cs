@@ -296,8 +296,8 @@ namespace au.org.GGC {
                 entry.P1MemID = flight.Pilot1ID;
                 entry.P2Name = flight.Pilot2;
                 entry.P2MemID = flight.Pilot2ID;
-                entry.AltPay1 = flight.ChargeTo;
-                entry.AltPay1MemID = flight.ChargeToID;
+                entry.AltPayAll = flight.ChargeTo;
+                entry.AltPayAllMemID = flight.ChargeToID;
                 entry.Tug = flight.Tug;
                 entry.Glider = flight.Glider;
                 entry.TakeOff = flight.TakeOff;
@@ -357,8 +357,8 @@ namespace au.org.GGC {
                 flight.Pilot1ID = entry.P1MemID;
                 flight.Pilot2 = entry.P2Name;
                 flight.Pilot2ID = entry.P2MemID;
-                flight.ChargeTo = entry.AltPay1;
-                flight.ChargeToID = entry.AltPay1MemID;
+                flight.ChargeTo = entry.AltPayAll;
+                flight.ChargeToID = entry.AltPayAllMemID;
                 flight.Tug = entry.Tug;
                 flight.Glider = entry.Glider;
                 flight.TakeOff = entry.TakeOff;
