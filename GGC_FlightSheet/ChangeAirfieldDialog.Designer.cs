@@ -1,5 +1,5 @@
 ﻿namespace au.org.GGC {
-    partial class ChangeAirfield {
+    partial class ChangeFieldAndDateDialog {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -32,6 +32,8 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.dateTimePicker_flightsheet = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,7 +41,7 @@
             // 
             this.buttonCreateNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCreateNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCreateNew.Location = new System.Drawing.Point(263, 159);
+            this.buttonCreateNew.Location = new System.Drawing.Point(263, 236);
             this.buttonCreateNew.Name = "buttonCreateNew";
             this.buttonCreateNew.Size = new System.Drawing.Size(67, 34);
             this.buttonCreateNew.TabIndex = 2;
@@ -55,7 +57,7 @@
             this.comboBoxAirfield.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxAirfield.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxAirfield.FormattingEnabled = true;
-            this.comboBoxAirfield.Location = new System.Drawing.Point(25, 119);
+            this.comboBoxAirfield.Location = new System.Drawing.Point(22, 113);
             this.comboBoxAirfield.Name = "comboBoxAirfield";
             this.comboBoxAirfield.Size = new System.Drawing.Size(305, 26);
             this.comboBoxAirfield.TabIndex = 0;
@@ -90,11 +92,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(22, 89);
+            this.label2.Location = new System.Drawing.Point(22, 83);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 18);
+            this.label2.Size = new System.Drawing.Size(152, 18);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Airfield Name";
+            this.label2.Text = "Set Flightsheet Airfield";
             // 
             // folderBrowserDialog1
             // 
@@ -104,29 +106,49 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(49, 44);
+            this.label1.Location = new System.Drawing.Point(28, 40);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(250, 24);
+            this.label1.Size = new System.Drawing.Size(316, 24);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Select or Type Airfield Name";
+            this.label1.Text = "Change Flightsheet Airfield and Date";
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.Location = new System.Drawing.Point(25, 159);
+            this.buttonCancel.Location = new System.Drawing.Point(25, 236);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(67, 34);
             this.buttonCancel.TabIndex = 9;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // ConfirmAirfield
+            // dateTimePicker_flightsheet
+            // 
+            this.dateTimePicker_flightsheet.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker_flightsheet.Location = new System.Drawing.Point(22, 191);
+            this.dateTimePicker_flightsheet.Name = "dateTimePicker_flightsheet";
+            this.dateTimePicker_flightsheet.Size = new System.Drawing.Size(305, 24);
+            this.dateTimePicker_flightsheet.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(22, 161);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(140, 18);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Set Flightsheet Date";
+            // 
+            // ChangeFieldAndDateDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(356, 217);
+            this.ClientSize = new System.Drawing.Size(356, 291);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.dateTimePicker_flightsheet);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
@@ -137,9 +159,9 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ConfirmAirfield";
+            this.Name = "ChangeFieldAndDateDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Change Airfield Name";
+            this.Text = "Change Flightsheet Airfield and Date";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -158,5 +180,7 @@
         private System.Windows.Forms.ToolStripMenuItem documentationToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonCancel;
+        public System.Windows.Forms.DateTimePicker dateTimePicker_flightsheet;
+        private System.Windows.Forms.Label label3;
     }
 }

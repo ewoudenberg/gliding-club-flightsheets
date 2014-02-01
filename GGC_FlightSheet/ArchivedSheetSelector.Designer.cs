@@ -27,14 +27,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.listBoxFileList = new System.Windows.Forms.ListBox();
-            this.buttonOpenTodaySheet = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOpenExisting
             // 
             this.buttonOpenExisting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOpenExisting.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOpenExisting.Location = new System.Drawing.Point(306, 600);
+            this.buttonOpenExisting.Location = new System.Drawing.Point(294, 600);
             this.buttonOpenExisting.Name = "buttonOpenExisting";
             this.buttonOpenExisting.Size = new System.Drawing.Size(81, 34);
             this.buttonOpenExisting.TabIndex = 4;
@@ -45,12 +45,12 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(60, 56);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(31, 18);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 18);
+            this.label3.Size = new System.Drawing.Size(156, 24);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Select File Name";
+            this.label3.Text = "Select flight sheet";
             // 
             // buttonCancel
             // 
@@ -69,34 +69,33 @@
             this.listBoxFileList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxFileList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxFileList.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxFileList.FormattingEnabled = true;
             this.listBoxFileList.HorizontalScrollbar = true;
             this.listBoxFileList.ItemHeight = 18;
             this.listBoxFileList.Location = new System.Drawing.Point(35, 84);
             this.listBoxFileList.Name = "listBoxFileList";
-            this.listBoxFileList.Size = new System.Drawing.Size(352, 490);
+            this.listBoxFileList.Size = new System.Drawing.Size(340, 490);
             this.listBoxFileList.TabIndex = 10;
             this.listBoxFileList.SelectedIndexChanged += new System.EventHandler(this.listBoxFileList_SelectedIndexChanged);
             this.listBoxFileList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxFileList_MouseDoubleClick);
             // 
-            // buttonOpenTodaySheet
+            // label1
             // 
-            this.buttonOpenTodaySheet.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOpenTodaySheet.Location = new System.Drawing.Point(35, 8);
-            this.buttonOpenTodaySheet.Name = "buttonOpenTodaySheet";
-            this.buttonOpenTodaySheet.Size = new System.Drawing.Size(172, 34);
-            this.buttonOpenTodaySheet.TabIndex = 11;
-            this.buttonOpenTodaySheet.Text = "Open today\'s sheet";
-            this.buttonOpenTodaySheet.UseVisualStyleBackColor = true;
-            this.buttonOpenTodaySheet.Click += new System.EventHandler(this.buttonOpenTodaySheet_Click);
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(34, 63);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(209, 18);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Flights        Date             Airfield";
             // 
             // ArchivedSheetSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(435, 659);
-            this.Controls.Add(this.buttonOpenTodaySheet);
+            this.ClientSize = new System.Drawing.Size(423, 659);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.listBoxFileList);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label3);
@@ -119,6 +118,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ListBox listBoxFileList;
-        private System.Windows.Forms.Button buttonOpenTodaySheet;
+        private System.Windows.Forms.Label label1;
     }
 }

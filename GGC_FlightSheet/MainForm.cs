@@ -15,8 +15,8 @@ namespace au.org.GGC {
             get { return textBoxFlightSheetRef.Text; }
             set { textBoxFlightSheetRef.Text = value; }
         }
-        string _AirfieldName;
         string _ActiveFile;
+        string _FlightSheetDate;
 
         public MainForm() {
             InitializeComponent();
@@ -33,8 +33,9 @@ namespace au.org.GGC {
         void CopyClubDataIntoPlace() {
             foreach (string filename in new [] {"aeftypes", "aircraft", "airfields", "pilots"}) {
                 string fn = "/" + filename + ".csv";
-                if (!File.Exists(FlightSheetsFolder + fn))
-                    File.Copy("programdata" + fn, FlightSheetsFolder + fn, false);
+                string target = PersisitedFlightSheetsFolder + fn;
+                if (!File.Exists(target))
+                    File.Copy("programdata" + fn, target, false);
             }
         }
 
@@ -42,20 +43,23 @@ namespace au.org.GGC {
             SetLogo();
             InitColumns();
             FlightSheet.DataSource = Flights;
-            SetFontSize(GridFontSize);
+            SetFontSize(PersistedGridFontSize);
             SetupClerkBox();
             StartWallClock();
-            LoadFromCsv(GetTodaysAirfieldFile());
-            AirfieldName = Airfield;
+            LoadFromCsv(GetTodaysAirfieldFilename());
             // Windows XP doesn't have the Unicode <- character.
-            if (Environment.OSVersion.Version.Major < 6) 
+            if (Environment.OSVersion.Version.Major < 6) {
                 labelClerkAlert.Text = "<< Your Name Please?";
+                buttonChangeAirfield.Text = "<< Change >>";
+            }
+
         }
 
         int[] Timecolumns = new int[] { 6, 7, 8 };
         int[] TimeDownColumns = new int[] { 7, 8 };
         int TakeOffTimeColumn = 6, TugDownTimeColumn = 7, GliderDownTimeColumn = 8;
-        int[] CenteredColumns = new int[] { 1, 6, 7, 8, 9, 10, 11, 12 };
+        int[] CenteredColumns = new int[] { 1, 6, 7, 8, 9, 10}; // , 11, 12 };
+        int[] LeftAlignedColumnHeaders = new int[] { 11 };
 
         void InitColumns() {
             FlightSheet.AutoGenerateColumns = false;
@@ -69,8 +73,8 @@ namespace au.org.GGC {
 
             string[] columns = { "Flight No", "Pilot 1", "Pilot 2", "Tug", 
                                    "Glider", "Take Off", "Tug Down", "Glider Down", 
-                                   "Tow Time", "Flight Time", "Annual\nCheck", "Mutual", 
-                                   "AEF Type", "Charge To", "Notes"};
+                                   "Tow Time", "Flight Time", "Notations" };
+                                   
 
             foreach (var column in columns) {
                 ++iCol;
@@ -78,13 +82,12 @@ namespace au.org.GGC {
                 if (Timecolumns.Contains(iCol)) {
                     var bcol = new DataGridViewButtonColumn();
                     bcol.Text = column;
-                    //bcol.UseColumnTextForButtonValue = true;
                     bcol.SortMode = DataGridViewColumnSortMode.Automatic;
                     tbcol = bcol;
                 } else {
                     tbcol = new DataGridViewTextBoxColumn();
                 }
-                // Column names without spaces become the Flight class property to display
+                // Column names with their spaces removed become the Flight class property to display
                 tbcol.DataPropertyName = column.Replace(" ", "").Replace("\n", "");
                 tbcol.Name = column;
                 tbcol.MinimumWidth = 40;
@@ -95,29 +98,31 @@ namespace au.org.GGC {
                 FlightSheet.Columns[i].DataPropertyName += "_asString";
             foreach (var i in CenteredColumns)
                 FlightSheet.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            foreach (var i in LeftAlignedColumnHeaders)
+                FlightSheet.Columns[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
         }
 
         void ChangeSettings() {
             var browser = new SettingsDialog();
-            browser.StoragePath = FlightSheetsFolder;
-            browser.BackupPath = BackupsFolder;
-            browser.TowAlarmThreshold = TowAlarmThreshold;
-            browser.GliderButtons = GliderButtons;
-            browser.TugButtons = TugButtons;
+            browser.StoragePath = PersisitedFlightSheetsFolder;
+            browser.BackupPath = PersistedBackupsFolder;
+            browser.TowAlarmThreshold = PersistedTowAlarmThreshold;
+            browser.GliderButtons = PersistedGliderButtons;
+            browser.TugButtons = PersistedTugButtons;
             var result = browser.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK) {
-                if (FlightSheetsFolder != browser.StoragePath) {
-                    FlightSheetsFolder = browser.StoragePath;
-                    LoadFromCsv(GetTodaysAirfieldFile());
+                if (PersisitedFlightSheetsFolder != browser.StoragePath) {
+                    PersisitedFlightSheetsFolder = browser.StoragePath;
+                    LoadFromCsv(GetTodaysAirfieldFilename());
                     CopyClubDataIntoPlace();
                 }
-                if (TowAlarmThreshold != browser.TowAlarmThreshold) {
-                    TowAlarmThreshold = browser.TowAlarmThreshold;
+                if (PersistedTowAlarmThreshold != browser.TowAlarmThreshold) {
+                    PersistedTowAlarmThreshold = browser.TowAlarmThreshold;
                     ColorGridRows();
                 }
-                TugButtons = browser.TugButtons;
-                GliderButtons = browser.GliderButtons;
-                BackupsFolder = browser.BackupPath;
+                PersistedTugButtons = browser.TugButtons;
+                PersistedGliderButtons = browser.GliderButtons;
+                PersistedBackupsFolder = browser.BackupPath;
             }
         }
 
@@ -198,7 +203,7 @@ namespace au.org.GGC {
         void EditFlight(int rowindex, int colindex) {
             RequestClerkLogin();
             var flight = Flights[rowindex];
-            var entry = new FlightEditor(SheetTime(DateTime.Now), flight, TugButtons, GliderButtons);
+            var entry = new FlightEditor(SheetTime(DateTime.Now), flight, PersistedTugButtons, PersistedGliderButtons);
             entry.SetInitialFocus(colindex);
             var result = entry.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK) {
@@ -217,9 +222,22 @@ namespace au.org.GGC {
             Save();
         }
 
-        string AirfieldName {
-            set { _AirfieldName = value; labelAirfield.Text = "Airfield: " + value; }
-            get { return _AirfieldName; }
+        string AirfieldLabel {
+            set { labelAirfield.Text = "Airfield: " + value; }
+        }
+
+        // FlightSheetDate stores the date and also sets the date label.
+        // The format is YYYYMMDD (an 8 character string)
+
+        String FlightSheetDate {
+            set {
+                _FlightSheetDate = value;
+                labelDate.Text = String.Format("Date: {0}-{1}-{2}",
+                       value.Substring(0, 4),
+                       value.Substring(4, 2),
+                       value.Substring(6, 2));
+            }
+            get { return _FlightSheetDate; }
         }
 
         private void comboBoxClerk_Leave(object sender, EventArgs e) {
@@ -255,13 +273,11 @@ namespace au.org.GGC {
             ChangeSettings();
         }
 
-        void SetDateLabel(string filename) {
+        void SetSheetDateAndFieldFromFilename(string filename) {
             // Filename is e.g.: FlightSheet_20130413_Bacchus_Marsh.csv
-            string datepart = Path.GetFileNameWithoutExtension(filename).Split("_".ToCharArray())[1];
-            labelDate.Text = String.Format("Date: {0}-{1}-{2}", 
-                datepart.Substring(0, 4), 
-                datepart.Substring(4, 2), 
-                datepart.Substring(6, 2));
+            String[] parts = Path.GetFileNameWithoutExtension(filename).Split("_".ToCharArray(), 3);
+            FlightSheetDate = parts[1];
+            AirfieldLabel = parts[2].Replace("_", " ");
         }
 
         bool IsSheetEmpty() {
@@ -289,7 +305,7 @@ namespace au.org.GGC {
                     continue;
                 var entry = new FlightEntry();
                 entry.FltNo = flight.FlightNo.ToString();
-                entry.Place = AirfieldName;
+                entry.Place = PersistedAirfield;
                 entry.FltSheetRef = FlightSheetRef;
                 entry.FltDate = flight.Logged;
                 entry.P1Name = flight.Pilot1;
@@ -314,10 +330,10 @@ namespace au.org.GGC {
             }
 
             SaveToDisk(_ActiveFile, flightEntries);
-            if (String.IsNullOrWhiteSpace(BackupsFolder))
+            if (String.IsNullOrWhiteSpace(PersistedBackupsFolder))
                 MessageBox.Show("No backups folder has been set. Please set one in Options->Settings", "No Backup Folder Set", MessageBoxButtons.OK);
             else {
-                string backupFile = Path.Combine(BackupsFolder, Path.GetFileName(_ActiveFile));
+                string backupFile = Path.Combine(PersistedBackupsFolder, Path.GetFileName(_ActiveFile));
                 SaveToDisk(backupFile, flightEntries);
             }
         }
@@ -347,7 +363,7 @@ namespace au.org.GGC {
             _ActiveFile = filename;
             Flights.Clear();
             FlightSheetRef = "";
-            SetDateLabel(filename);
+            SetSheetDateAndFieldFromFilename(filename);
             foreach (var entry in Csv.Instance.LoadFlightEntries(filename)) {
                 FlightSheetRef = entry.FltSheetRef;
                 var flight = new Flight();
@@ -420,7 +436,7 @@ namespace au.org.GGC {
             bool towAlarm = false;
             for (int i = 0; i < Flights.Count-1; i++) {
                 var flight = Flights[i];
-                if (flight.IsInTow && flight.GetTowMinutes() > TowAlarmThreshold) {
+                if (flight.IsInTow && flight.GetTowMinutes() > PersistedTowAlarmThreshold) {
                     FlightSheet.Rows[i].DefaultCellStyle.BackColor = TowAlarmColor;
                     towAlarm = true;
                 }
@@ -504,7 +520,7 @@ namespace au.org.GGC {
         }
 
         void SetAndSaveFontSize(int fontindex) {
-            GridFontSize = fontindex;
+            PersistedGridFontSize = fontindex;
             SetFontSize(fontindex);
         }
 
@@ -602,23 +618,28 @@ namespace au.org.GGC {
         void CheckFlightSheetsFolder() {
             while (true) {
                 try {
-                    if (!Directory.Exists(FlightSheetsFolder))
-                        Directory.CreateDirectory(FlightSheetsFolder);
+                    if (!Directory.Exists(PersisitedFlightSheetsFolder))
+                        Directory.CreateDirectory(PersisitedFlightSheetsFolder);
                     break;
                 } catch (Exception e) {
-                    MessageBox.Show("Cannot proceed until a valid flight sheets folder is set -- failing to use: "+FlightSheetsFolder + ", reason: "+e.Message, "Flight Sheets Folder Must Be Set", MessageBoxButtons.OK);
+                    MessageBox.Show("Cannot proceed until a valid flight sheets folder is set -- failing to use: " 
+                        + PersisitedFlightSheetsFolder + ", reason: "+e.Message, "Flight Sheets Folder Must Be Set", MessageBoxButtons.OK);
                     ChangeSettings();
                 }
             }
         }
 
-        string GetTodaysAirfieldFile() {
+        string GetTodaysAirfieldFilename() {
+            return GetAirfieldFilename(PersistedAirfield, DateTime.Now);
+        }
+
+        string GetAirfieldFilename(String airfield, DateTime date) {
+            return GetAirfieldFilename(airfield, date.ToString("yyyyMMdd"));
+        }
+
+        string GetAirfieldFilename(String airfield, String date) {
             CheckFlightSheetsFolder();
-            string filename = string.Format("{0}/FlightSheet_{1}_{2}.csv",
-                FlightSheetsFolder,
-                DateTime.Now.ToString("yyyyMMdd"),
-                Airfield.Replace(" ", "_"));
-            return filename;
+            return string.Format("{0}/FlightSheet_{1}_{2}.csv", PersisitedFlightSheetsFolder, date, airfield.Replace(" ", "_"));
         }
 
         private void textBoxFlightSheetRef_TextChanged(object sender, EventArgs e) {
@@ -626,12 +647,12 @@ namespace au.org.GGC {
         }
 
         private void buttonChangeAirfield_Click(object sender, EventArgs e) {
-            var confirm = new ChangeAirfield(Airfield);
-            var result = confirm.ShowDialog();
+            var changeForm = new ChangeFieldAndDateDialog(PersistedAirfield, FlightSheetDate);
+            var result = changeForm.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK) {
-                if (Airfield != confirm.Airfield) {
-                    AirfieldName = Airfield = confirm.Airfield;
-                    LoadFromCsv(GetTodaysAirfieldFile());
+                if (PersistedAirfield != changeForm.Airfield || FlightSheetDate != changeForm.Date) {
+                    PersistedAirfield = changeForm.Airfield;
+                    LoadFromCsv(GetAirfieldFilename(PersistedAirfield, changeForm.Date));
                 }
             }
         }
@@ -830,7 +851,7 @@ namespace au.org.GGC {
         }
 
         #region Persisted Settings
-        int GridFontSize {
+        int PersistedGridFontSize {
             get {
                 try {
                     return Convert.ToInt32(CustomProperties<FlightSheetSettings>.Settings.Default.GridFontSize);
@@ -843,7 +864,7 @@ namespace au.org.GGC {
                 CustomProperties<FlightSheetSettings>.Settings.Save();
             }
         }
-        int TowAlarmThreshold {
+        int PersistedTowAlarmThreshold {
             get {
                 try {
                     return Convert.ToInt32(CustomProperties<FlightSheetSettings>.Settings.Default.TowAlarmThreshold);
@@ -856,7 +877,7 @@ namespace au.org.GGC {
                 CustomProperties<FlightSheetSettings>.Settings.Save();
             }
         }
-        string FlightSheetsFolder {
+        string PersisitedFlightSheetsFolder {
             get {
                 return CustomProperties<FlightSheetSettings>.Settings.Default.FlightSheetsFolder;
             }
@@ -865,7 +886,7 @@ namespace au.org.GGC {
                 CustomProperties<FlightSheetSettings>.Settings.Save();
             }
         }
-        string BackupsFolder {
+        string PersistedBackupsFolder {
             get {
                 return CustomProperties<FlightSheetSettings>.Settings.Default.BackupsFolder;
             }
@@ -874,7 +895,7 @@ namespace au.org.GGC {
                 CustomProperties<FlightSheetSettings>.Settings.Save();
             }
         }
-        string Airfield {
+        string PersistedAirfield {
             get {
                 return CustomProperties<FlightSheetSettings>.Settings.Default.Airfield;
             }
@@ -883,7 +904,7 @@ namespace au.org.GGC {
                 CustomProperties<FlightSheetSettings>.Settings.Save();
             }
         }
-        string[] TugButtons {
+        string[] PersistedTugButtons {
             get {
                 return CustomProperties<FlightSheetSettings>.Settings.Default.TugButtons.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             }
@@ -892,7 +913,7 @@ namespace au.org.GGC {
                 CustomProperties<FlightSheetSettings>.Settings.Save();
             }
         }
-        string[] GliderButtons {
+        string[] PersistedGliderButtons {
             get {
                 return CustomProperties<FlightSheetSettings>.Settings.Default.GliderButtons.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             }
@@ -907,7 +928,7 @@ namespace au.org.GGC {
         #endregion
 
         private void printWithExcelToolStripMenuItem_Click(object sender, EventArgs e) {
-            ExcelFlightSheet excel = new ExcelFlightSheet(Flights, Airfield, FlightSheetRef);
+            ExcelFlightSheet excel = new ExcelFlightSheet(Flights, PersistedAirfield, FlightSheetRef);
             excel.Generate();
             string fileName = excel.SaveSheet();
             System.Diagnostics.Process.Start(fileName);
@@ -918,13 +939,14 @@ namespace au.org.GGC {
             DialogResult result = browser.ShowDialog();
             switch (result) {
                 case System.Windows.Forms.DialogResult.OK:
-                    AirfieldName = Airfield = browser.Airfield;
+                    PersistedAirfield = browser.Airfield;
                     LoadFromCsv(browser.Filename);
                     break;
-                case System.Windows.Forms.DialogResult.Ignore:
-                    LoadFromCsv(GetTodaysAirfieldFile());
-                    break;
             }
+        }
+
+        private void openTodaysFlightSheetToolStripMenuItem_Click(object sender, EventArgs e) {
+            LoadFromCsv(GetTodaysAirfieldFilename());
         }
     }
 }

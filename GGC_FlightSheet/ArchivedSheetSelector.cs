@@ -29,7 +29,7 @@ namespace au.org.GGC {
                      Path.GetFileName(fn).Split("_".ToCharArray())[2] ascending
                      select new Flightfile(fn)).ToList();
                 listBoxFileList.DataSource = dataSource;
-                listBoxFileList.DisplayMember = "Filename";
+                listBoxFileList.DisplayMember = "Formatted_name";
             }
             
             EnableButtons();
@@ -81,9 +81,16 @@ namespace au.org.GGC {
     public class Flightfile {
         public string Filepath { get; set; }
         public string Filename { get; set; }
+        public string Formatted_name { get; set; }
         public Flightfile(string fn) {
             Filepath = fn;
             Filename = Path.GetFileName(fn);
+            int len = File.ReadAllLines(fn).Length - 1;
+            String[] parts = fn.Split("_".ToCharArray(), 3);
+            String ymd = parts[1];
+            String airfield = parts[2].Replace("_", " ").Replace(".csv", "");
+            String date = ymd.Substring(0, 4) + "-" + ymd.Substring(4, 2) + "-" + ymd.Substring(6, 2);
+            Formatted_name = String.Format("{0,4:G} {1} {2}", len, date, airfield);
         }
     }
 }

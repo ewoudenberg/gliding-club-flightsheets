@@ -64,6 +64,8 @@
             this.buttonG3 = new System.Windows.Forms.Button();
             this.buttonG4 = new System.Windows.Forms.Button();
             this.SwapPilotsButton = new System.Windows.Forms.Button();
+            this.button_minus_1_tow = new System.Windows.Forms.Button();
+            this.button_minus_1_flight = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -156,12 +158,14 @@
             this.comboBoxGlider.Name = "comboBoxGlider";
             this.comboBoxGlider.Size = new System.Drawing.Size(247, 26);
             this.comboBoxGlider.TabIndex = 3;
+            this.comboBoxGlider.TextChanged += new System.EventHandler(this.comboBoxGlider_TextChanged);
             this.comboBoxGlider.Leave += new System.EventHandler(this.comboBoxGlider_Leave);
             // 
             // buttonOK
             // 
+            this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOK.Location = new System.Drawing.Point(303, 486);
+            this.buttonOK.Location = new System.Drawing.Point(303, 548);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 33);
             this.buttonOK.TabIndex = 30;
@@ -171,9 +175,10 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.Location = new System.Drawing.Point(165, 486);
+            this.buttonCancel.Location = new System.Drawing.Point(165, 548);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 33);
             this.buttonCancel.TabIndex = 29;
@@ -373,21 +378,22 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(76, 431);
+            this.label7.Location = new System.Drawing.Point(37, 434);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 18);
+            this.label7.Size = new System.Drawing.Size(88, 72);
             this.label7.TabIndex = 38;
-            this.label7.Text = "&Notes";
+            this.label7.Text = "&Notes:\r\nGFA#:\r\nVoucher#:\r\nFlight ? of 5:\r\n";
             this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // textBoxNotes
             // 
+            this.textBoxNotes.AcceptsReturn = true;
             this.textBoxNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxNotes.Location = new System.Drawing.Point(130, 431);
             this.textBoxNotes.Multiline = true;
             this.textBoxNotes.Name = "textBoxNotes";
             this.textBoxNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxNotes.Size = new System.Drawing.Size(248, 49);
+            this.textBoxNotes.Size = new System.Drawing.Size(248, 111);
             this.textBoxNotes.TabIndex = 11;
             // 
             // labelTitle
@@ -402,9 +408,10 @@
             // 
             // buttonDelete
             // 
+            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDelete.ForeColor = System.Drawing.Color.Red;
-            this.buttonDelete.Location = new System.Drawing.Point(31, 486);
+            this.buttonDelete.Location = new System.Drawing.Point(31, 548);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(75, 33);
             this.buttonDelete.TabIndex = 28;
@@ -495,13 +502,35 @@
             this.SwapPilotsButton.UseVisualStyleBackColor = false;
             this.SwapPilotsButton.Click += new System.EventHandler(this.SwapPilotsButton_Click);
             // 
+            // button_minus_1_tow
+            // 
+            this.button_minus_1_tow.Location = new System.Drawing.Point(261, 268);
+            this.button_minus_1_tow.Name = "button_minus_1_tow";
+            this.button_minus_1_tow.Size = new System.Drawing.Size(106, 24);
+            this.button_minus_1_tow.TabIndex = 40;
+            this.button_minus_1_tow.Text = "Subtract 1 minute";
+            this.button_minus_1_tow.UseVisualStyleBackColor = true;
+            this.button_minus_1_tow.Click += new System.EventHandler(this.button_minus_1_tow_Click);
+            // 
+            // button_minus_1_flight
+            // 
+            this.button_minus_1_flight.Location = new System.Drawing.Point(261, 299);
+            this.button_minus_1_flight.Name = "button_minus_1_flight";
+            this.button_minus_1_flight.Size = new System.Drawing.Size(106, 23);
+            this.button_minus_1_flight.TabIndex = 41;
+            this.button_minus_1_flight.Text = "Subtract 1 minute";
+            this.button_minus_1_flight.UseVisualStyleBackColor = true;
+            this.button_minus_1_flight.Click += new System.EventHandler(this.button_minus_1_flight_Click);
+            // 
             // FlightEditor
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(420, 534);
+            this.ClientSize = new System.Drawing.Size(420, 596);
+            this.Controls.Add(this.button_minus_1_flight);
+            this.Controls.Add(this.button_minus_1_tow);
             this.Controls.Add(this.SwapPilotsButton);
             this.Controls.Add(this.buttonG4);
             this.Controls.Add(this.buttonG3);
@@ -593,5 +622,7 @@
         private System.Windows.Forms.Button buttonG3;
         private System.Windows.Forms.Button buttonG4;
         private System.Windows.Forms.Button SwapPilotsButton;
+        private System.Windows.Forms.Button button_minus_1_tow;
+        private System.Windows.Forms.Button button_minus_1_flight;
     }
 }

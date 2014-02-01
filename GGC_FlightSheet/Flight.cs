@@ -78,6 +78,26 @@ namespace au.org.GGC {
         public String Clerk { get; set; }
         public String TowTime { get; set; }
         public String FlightTime { get; set; }
+        public String Notations {
+            get {
+                String notes = "";
+                notes += addifpresent(", ", AnnualCheck);
+                notes += addifpresent(", ", Mutual);
+                notes += addifpresent(", ", AEFType);
+                notes += addifpresent(", ", Notes);
+                notes += addifpresent(", Charge to: ", ChargeTo);
+                notes = notes.Trim(", ".ToCharArray()).Replace("\n", " ");
+                return notes;
+            }
+        }
+
+        private String addifpresent(String prefix, String body) {
+            String result = "";
+            if (!String.IsNullOrWhiteSpace(body))
+                result = prefix + body;
+            return result;
+        }
+
         public string New { get; set; }
 
         public bool IsInTow {

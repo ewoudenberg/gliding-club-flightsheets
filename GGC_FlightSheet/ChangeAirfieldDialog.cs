@@ -1,25 +1,29 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace au.org.GGC {
 
-    public partial class ChangeAirfield : Form {
-        public ChangeAirfield(string airfield) {
+    public partial class ChangeFieldAndDateDialog : Form {
+        public ChangeFieldAndDateDialog(string airfield, string date) {
             InitializeComponent();
             Airfield = airfield;
+            Date = date;
             InitFields();
             EnableButtons();
         }
 
         public string Airfield;
+        public string Date;
 
         void InitFields() {
             comboBoxAirfield.DataSource = Csv.Instance.GetAirfieldsList();
             comboBoxAirfield.DisplayMember = "DisplayName";
             comboBoxAirfield.SelectedIndex = -1;
             comboBoxAirfield.Text = Airfield;
+            dateTimePicker_flightsheet.Value = DateTime.ParseExact(Date, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None);
         }
 
         private void comboBoxAirfield_TextChanged(object sender, System.EventArgs e) {
@@ -39,6 +43,7 @@ namespace au.org.GGC {
 
         private void buttonCreateNew_Click(object sender, System.EventArgs e) {
             Airfield = RealAirfield();
+            Date = dateTimePicker_flightsheet.Value.ToString("yyyyMMdd");
             DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 

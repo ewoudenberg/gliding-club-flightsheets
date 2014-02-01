@@ -60,8 +60,11 @@ namespace au.org.GGC {
         void StoreFormFields() {
             Flight.Pilot1 = Pilot1Name;
             Flight.Pilot1ID = Pilot1ID;
-            Flight.Pilot2 = Pilot2Name;
-            Flight.Pilot2ID = Pilot2ID;
+            Flight.Pilot2 = Flight.Pilot2ID = "";
+            if (IsGliderDualSeater(Glider)) {
+                Flight.Pilot2 = Pilot2Name;
+                Flight.Pilot2ID = Pilot2ID;
+            }
             Flight.Tug = Tug;
             Flight.Glider = Glider;
             Flight.TakeOff = TakeOff;
@@ -206,19 +209,26 @@ namespace au.org.GGC {
 
         private void comboBoxGlider_Leave(object sender, EventArgs e) {
             FixComboUsingInitial(comboBoxGlider, Csv.Instance.GetGlidersList(), comboBoxGlider.Text);
-            EnableDisableP2Entry();
+            //EnableDisableP2Entry();
+        }
+
+        private bool IsGliderDualSeater(String glider) {
+            string prefix = glider.ToLower();
+            Displayable matching = null;
+            if (prefix.Length > 1) {
+                foreach (Displayable s in Csv.Instance.GetGlidersList()) {
+                    if (s.DisplayName.ToLower().StartsWith(prefix)) {
+                        matching = s;
+                        break;
+                    }
+                }
+            }
+            return matching == null || matching.AuxData != "1";
         }
 
         private void EnableDisableP2Entry() {
-            string prefix = comboBoxGlider.Text.ToLower();
-            Displayable matching = null;
-            foreach (Displayable s in Csv.Instance.GetGlidersList()) {
-                if (s.DisplayName.ToLower().StartsWith(prefix)) {
-                    matching = s;
-                    break;
-                }
-            }
-            bool enable = matching == null || matching.AuxData != "1";
+
+            bool enable = IsGliderDualSeater(comboBoxGlider.Text);
             comboBoxPilot2.Visible = enable;
             labelPilot2.Visible = enable;
             SwapPilotsButton.Visible = enable;
@@ -306,6 +316,22 @@ namespace au.org.GGC {
             textBoxGliderDown.Focus();
         }
 
+        private void subtract_1_minute(TextBox timebox) {
+            DateTime? existing = ParseTime(timebox.Text);
+            if (existing != null) {
+                existing = ((DateTime)existing).AddMinutes(-1);
+                timebox.Text = DisplayTime(existing);
+            }
+        }
+
+        private void button_minus_1_tow_Click(object sender, EventArgs e) {
+            subtract_1_minute(textBoxTugDown);
+        }
+
+        private void button_minus_1_flight_Click(object sender, EventArgs e) {
+            subtract_1_minute(textBoxGliderDown);
+        }
+
         private void textBoxTime_TextChanged(object sender, EventArgs e) {
             var textBox = (TextBox)sender;
             if (textBox.Text.Trim().Length == 0 || ParseTime(textBox.Text) != null)
@@ -342,6 +368,10 @@ namespace au.org.GGC {
                 ControlRows[colindex].Focus();
                 ControlRows[colindex].Select();
             }
+        }
+
+        private void comboBoxGlider_TextChanged(object sender, EventArgs e) {
+            EnableDisableP2Entry();
         }
     }
 }
