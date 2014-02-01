@@ -61,22 +61,35 @@ Section "install"
     setOutPath $INSTDIR
     File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.exe
     File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.dll
-    File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.xml
     File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.pdb
     File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.config
-    File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\programdata\
+    File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\programdata
+    File /oname=SettingsPrototype.xml c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\FlightSheetSettings.xml
 
     # define uninstaller name
     writeUninstaller $INSTDIR\FlightSheetsUninstaller.exe
 
-    # Edit config file to point at FlightSheets folder
-	${xml::LoadFile} "$INSTDIR/FlightSheetSettings.xml" $0
-    ${xml::CreateText} "$DestDir" $R0
-    ${xml::RootElement} $R1 $0
-	${xml::FirstChildElement} "FlightSheetsFolder" $0 $1
-	${xml::FirstChild} "" $0 $1
-    ${xml::ReplaceNode} $R0 $0
-    ${xml::SaveFile} "" $0
+    # If config file not already present, create one from the prototype
+    IfFileExists "$INSTDIR/FlightSheetSettings.xml" Config_file_present
+	${xml::LoadFile} "$INSTDIR/SettingsPrototype.xml" $0
+
+        # Point at Installed location of FlightSheets folder 
+        ${xml::CreateText} "$DestDir" $R0
+        ${xml::RootElement} $R1 $0
+        ${xml::FirstChildElement} "FlightSheetsFolder" $0 $1
+        ${xml::FirstChild} "" $0 $1
+        ${xml::ReplaceNode} $R0 $0
+
+        # And set the BackupsFolder to blank
+        ${xml::CreateText} "" $R0
+        ${xml::RootElement} $R1 $0
+        ${xml::FirstChildElement} "BackupsFolder" $0 $1
+        ${xml::FirstChild} "" $0 $1
+        ${xml::ReplaceNode} $R0 $0
+
+    ${xml::SaveFile} "$INSTDIR/FlightSheetSettings.xml" $0
+
+Config_file_present:
 
     # Give the settings file read write access for all users
     AccessControl::GrantOnFile \

@@ -11,6 +11,20 @@ cat $config
 echo
 echo -n cr to proceed:
 read a
-makensis BuildGFS.nsi
+
+# Copy in the latest aircraft and pilots from the shared drive
+for i in aircraft.csv airfields.csv pilots.csv
+do
+   cp "/Users/eric/Desktop/GoogleDrive/Google Drive/FlightSheets/$i" \
+	/Users/eric/Desktop/Gliding/GGC/GGC_FlightSheet/GGC_FlightSheet/bin/Debug/programdata/
+done
+
+# build it
+makensis /V2 BuildGFS.nsi
+
+# Copy out the finished installer to the shared drive
+
+set -x
 mv GGC_FlightSheetsInstaller.exe "GGC_FlightSheetsInstaller_$version.exe"
 cp "GGC_FlightSheetsInstaller_$version.exe" "/Users/eric/Desktop/GoogleDrive/Google Drive/Software"
+echo Done

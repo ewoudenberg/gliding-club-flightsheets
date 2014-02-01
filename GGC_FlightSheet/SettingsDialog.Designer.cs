@@ -209,9 +209,9 @@
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(23, 140);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(357, 24);
+            this.label8.Size = new System.Drawing.Size(442, 24);
             this.label8.TabIndex = 14;
-            this.label8.Text = "Backup Storage Folder (on memory stick)";
+            this.label8.Text = "Backup Storage Folder (typically on a memory stick)";
             // 
             // buttonBrowseBackup
             // 
