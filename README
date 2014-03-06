@@ -18,4 +18,19 @@ Notes:
     >                 else
     >                                   return Convert.ToDateTime(from).ToString(mFormat);
 
-3) I use the NSIS installer builder with the XML plugin.
+3) I use the NSIS installer builder with the XML NSIS plugin v2.0 for creating the installer:
+   http://nsis.sf.net
+   http://nsis.sourceforge.net/XML_plug-in
+
+How to Build:
+
+1) In VS 2012: Build->Build Solution
+
+2) From (Cygwin command line): cd Installer; ./make.sh 1.0.15 (or whatever the next version is).
+
+   GGC_FlightSheetsInstaller_1.0.15.exe (e.g.) will be generated. 
+
+
+
+
+
