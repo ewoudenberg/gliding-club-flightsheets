@@ -312,11 +312,11 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(44, 332);
+            this.label5.Location = new System.Drawing.Point(14, 332);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(79, 18);
+            this.label5.Size = new System.Drawing.Size(111, 18);
             this.label5.TabIndex = 36;
-            this.label5.Text = "&Flight Type";
+            this.label5.Text = "AEF/&Flight Type";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // comboBoxAEF
