@@ -405,6 +405,8 @@ namespace au.org.GGC {
             WallClockThread.Start();
         }
 
+        // Keep wallclock and status indicators up to date.
+
         void WallClock() {
             bool toggle = false;
             bool towAlarm = false;
@@ -414,7 +416,17 @@ namespace au.org.GGC {
                 toggle = !toggle;
                 labelOverTow.SafeInvoke(d => d.Visible = toggle & towAlarm);
                 labelClerkAlert.SafeInvoke(d => d.Visible = toggle & !ClerkReady);
-                labelTime.SafeInvoke(d => d.Text = DateTime.Now.ToString("HH:mm:ss"));
+                labelTime.SafeInvoke(d => d.Text = DateTime.Now.ToString("H:mm:ss"));
+                labelGlidingTotal.SafeInvoke(d => d.Text =
+                    "Gliding total: " + to_hhmm(getGlidingTotal())
+                    + ", average: " + to_hhmm(getGlidingMean())
+                    + ", median: " + to_hhmm(getGlidingMedian())
+                    );
+                labelTowingTotal.SafeInvoke(d => d.Text = 
+                    "Towing total: " + to_hhmm(getTowingTotal())
+                    + ", average: " + to_hhmm(getTowingMean())
+                    + ", median: " + to_hhmm(getTowingMedian())
+                    );
                 CalculateFlightTimes();
                 if (!towAlarm)
                     everyMinute = -1;
@@ -424,6 +436,66 @@ namespace au.org.GGC {
                 towAlarm = CheckForTowAlarm();
                 Thread.Sleep(1000);
             }
+        }
+
+        String to_hhmm(TimeSpan ts) {
+            return String.Format("{0:D1}:{1:D2}", (int)ts.TotalHours, ts.Minutes);
+        }
+
+        TimeSpan getGlidingTotal() {
+            TimeSpan total = new TimeSpan(0);
+            foreach (Flight flight in Flights)
+                total += flight.FlightTimeSpan;
+            return total;
+        }
+
+        TimeSpan getGlidingMedian() {
+            List<double> times = (from flight in Flights
+                                  where flight.FlightTimeSpan.TotalMinutes != 0 
+                                  select flight.FlightTimeSpan.TotalMinutes).ToList();
+            return new TimeSpan(0, (int)median(times), 0);
+        }
+
+        TimeSpan getGlidingMean() {
+            List<double> times = (from flight in Flights 
+                           where flight.FlightTimeSpan.TotalMinutes != 0 
+                           select flight.FlightTimeSpan.TotalMinutes).ToList();
+            Double mean = 0;
+            if (times.Count != 0)
+                mean = times.Average();
+            return new TimeSpan(0, (int)mean, 0);
+        }
+
+        TimeSpan getTowingTotal() {
+            TimeSpan total = new TimeSpan(0);
+            foreach (Flight flight in Flights)
+                total += flight.TowTimeSpan;
+            return total;
+        }
+
+        TimeSpan getTowingMedian() {
+            List<double> times = (from flight in Flights 
+                                  where flight.TowTimeSpan.TotalMinutes != 0
+                                  select flight.TowTimeSpan.TotalMinutes).ToList();
+            return new TimeSpan(0, (int)median(times), 0);
+        }
+
+        TimeSpan getTowingMean() {
+            List<double> times = (from flight in Flights
+                           where flight.TowTimeSpan.TotalMinutes != 0
+                           select flight.TowTimeSpan.TotalMinutes).ToList();
+            Double mean = 0;
+            if (times.Count != 0)
+                mean = times.Average();
+            return new TimeSpan(0, (int)mean, 0);
+        }
+
+        Double median(List<Double> xs) {
+            if (xs.Count == 0)
+                return 0.0;
+            var ys = xs.OrderBy(x => x).ToList();
+            double mid = (ys.Count - 1) / 2.0;
+            return (ys[(int)(mid)] + ys[(int)(mid + 0.5)]) / 2;
         }
 
         System.Drawing.Color PreLaunchColor = System.Drawing.Color.LightGreen;
@@ -947,6 +1019,15 @@ namespace au.org.GGC {
 
         private void openTodaysFlightSheetToolStripMenuItem_Click(object sender, EventArgs e) {
             LoadFromCsv(GetTodaysAirfieldFilename());
+        }
+
+        private void pilotCurrencyRosterToolStripMenuItem_Click(object sender, EventArgs e) {
+            String pdffile = Path.Combine(PersisitedFlightSheetsFolder, "Currency Checks.pdf");
+            if (!File.Exists(pdffile)) {
+                MessageBox.Show("Could not find file " + pdffile, "Currency file not found");
+            } else {
+                System.Diagnostics.Process.Start(pdffile);
+            }
         }
     }
 }

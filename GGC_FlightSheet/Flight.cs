@@ -121,24 +121,36 @@ namespace au.org.GGC {
             }
         }
 
-        public int GetTowMinutes() {
-            if (this.TakeOff != null && !IsWinchLaunch && !IsMotorGlider) {
-                DateTime takeoff = (DateTime)this.TakeOff;
-                DateTime tugdown = DateTime.Now;
-                if (this.TugDown != null) tugdown = (DateTime)this.TugDown;
-                return Convert.ToInt32((tugdown - takeoff).TotalMinutes);
+        public TimeSpan TowTimeSpan {
+            get {
+                if (this.TakeOff != null && !IsWinchLaunch && !IsMotorGlider) {
+                    DateTime takeoff = (DateTime)this.TakeOff;
+                    DateTime tugdown = DateTime.Now;
+                    if (this.TugDown != null) tugdown = (DateTime)this.TugDown;
+                    return tugdown - takeoff;
+                }
+                return TimeSpan.FromMinutes(0);
             }
-            return 0;
+        }
+
+        public TimeSpan FlightTimeSpan {
+            get {
+                if (this.TakeOff != null) {
+                    DateTime takeoff = (DateTime)this.TakeOff;
+                    DateTime gliderdown = DateTime.Now;
+                    if (this.GliderDown != null) gliderdown = (DateTime)this.GliderDown;
+                    return gliderdown - takeoff;
+                }
+                return TimeSpan.FromMinutes(0);
+            }
+        }
+
+        public int GetTowMinutes() {
+            return Convert.ToInt32(TowTimeSpan.TotalMinutes);
         }
 
         public int GetFlightMinutes() {
-            if (this.TakeOff != null) {
-                DateTime takeoff = (DateTime)this.TakeOff;
-                DateTime gliderdown = DateTime.Now;
-                if (this.GliderDown != null) gliderdown = (DateTime)this.GliderDown;
-                return Convert.ToInt32((gliderdown - takeoff).TotalMinutes);
-            }
-            return 0;
+            return Convert.ToInt32(FlightTimeSpan.TotalMinutes);
         }
     }
 }
