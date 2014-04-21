@@ -141,8 +141,12 @@ namespace au.org.GGC {
             if (keyData == (Keys.Control | Keys.Return)) {
                 SaveFormAndExit();
                 return true;
-            } else
-                return base.ProcessCmdKey(ref msg, keyData);
+            } else {
+                if (keyData == (Keys.Control | Keys.A))
+                    return true;
+                else
+                    return base.ProcessCmdKey(ref msg, keyData);
+            }
         }
 
         DateTime? ParseTime(string text) {
@@ -209,7 +213,6 @@ namespace au.org.GGC {
 
         private void comboBoxGlider_Leave(object sender, EventArgs e) {
             FixComboUsingInitial(comboBoxGlider, Csv.Instance.GetGlidersList(), comboBoxGlider.Text);
-            //EnableDisableP2Entry();
         }
 
         private bool IsGliderDualSeater(String glider) {
@@ -227,7 +230,6 @@ namespace au.org.GGC {
         }
 
         private void EnableDisableP2Entry() {
-
             bool enable = IsGliderDualSeater(comboBoxGlider.Text);
             comboBoxPilot2.Visible = enable;
             labelPilot2.Visible = enable;
@@ -372,6 +374,27 @@ namespace au.org.GGC {
 
         private void comboBoxGlider_TextChanged(object sender, EventArgs e) {
             EnableDisableP2Entry();
+        }
+
+        private void comboBox_DropDown(object sender, EventArgs e) {
+            ComboBox combobox = (ComboBox)sender;
+            combobox.AutoCompleteMode = AutoCompleteMode.None;
+        }
+
+        private void comboBox_DropDownClosed(object sender, EventArgs e) {
+            ComboBox combobox = (ComboBox)sender;
+            combobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+        }
+
+        private void comboBox_KeyUp(object sender, KeyEventArgs e) {
+            if (e.Control && e.KeyCode == Keys.A) {
+                ((ComboBox)sender).SelectAll();
+                e.Handled = true;
+            } else if (e.KeyCode == Keys.Enter) {
+                ((ComboBox)sender).DroppedDown = false;
+            } else {
+                e.Handled = false;
+            }
         }
     }
 }

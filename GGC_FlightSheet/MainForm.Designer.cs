@@ -58,6 +58,7 @@
             this.changeFlightSheetFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pilotCurrencyRosterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutGGCFlightSheetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelClerkAlert = new System.Windows.Forms.Label();
             this.contextMenuStripFlights = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -71,7 +72,6 @@
             this.labelOverTow = new System.Windows.Forms.Label();
             this.labelGlidingTotal = new System.Windows.Forms.Label();
             this.labelTowingTotal = new System.Windows.Forms.Label();
-            this.pilotCurrencyRosterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.FlightSheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
@@ -363,6 +363,13 @@
             this.documentationToolStripMenuItem.Text = "Documentation";
             this.documentationToolStripMenuItem.Click += new System.EventHandler(this.documentationToolStripMenuItem_Click);
             // 
+            // pilotCurrencyRosterToolStripMenuItem
+            // 
+            this.pilotCurrencyRosterToolStripMenuItem.Name = "pilotCurrencyRosterToolStripMenuItem";
+            this.pilotCurrencyRosterToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.pilotCurrencyRosterToolStripMenuItem.Text = "Pilot Currency Checks Listing";
+            this.pilotCurrencyRosterToolStripMenuItem.Click += new System.EventHandler(this.pilotCurrencyRosterToolStripMenuItem_Click);
+            // 
             // aboutGGCFlightSheetsToolStripMenuItem
             // 
             this.aboutGGCFlightSheetsToolStripMenuItem.Name = "aboutGGCFlightSheetsToolStripMenuItem";
@@ -486,13 +493,6 @@
             this.labelTowingTotal.TabIndex = 17;
             this.labelTowingTotal.Text = "Towing total: 00:00, average: 00:00, median: 00:00";
             // 
-            // pilotCurrencyRosterToolStripMenuItem
-            // 
-            this.pilotCurrencyRosterToolStripMenuItem.Name = "pilotCurrencyRosterToolStripMenuItem";
-            this.pilotCurrencyRosterToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.pilotCurrencyRosterToolStripMenuItem.Text = "Pilot Currency Checks Listing";
-            this.pilotCurrencyRosterToolStripMenuItem.Click += new System.EventHandler(this.pilotCurrencyRosterToolStripMenuItem_Click);
-            // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -529,6 +529,7 @@
             this.Text = "Flight Sheet";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.FlightSheet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
             this.menuStripMain.ResumeLayout(false);

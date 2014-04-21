@@ -50,23 +50,8 @@ namespace au.org.GGC {
             // Windows XP doesn't have the Unicode <- character.
             if (Environment.OSVersion.Version.Major < 6) {
                 labelClerkAlert.Text = "<< Your Name Please?";
-                buttonChangeAirfield.Text = "Change";
             }
-            if (Flights.Count <= 1) {
-                //ShowChangeAirfieldToolTip();
-                //toolTipChangeAirfield.Show("Click here to change the\nflight sheet's airfield or date.",
-                //    buttonChangeAirfield);
-            }
-        }
-
-        void ShowChangeAirfieldToolTip() {
-            ToolTip toolTip1 = new ToolTip();
-            toolTip1.ShowAlways = true;
-            toolTip1.IsBalloon = true;
-            toolTip1.Active = true;
-            toolTip1.SetToolTip(buttonChangeAirfield, "Groovy!");
-            toolTip1.Show("Please enter a number.", buttonChangeAirfield, 10000);
-            int a = 1;
+           
         }
 
         int[] Timecolumns = new int[] { 6, 7, 8 };
@@ -1042,6 +1027,19 @@ namespace au.org.GGC {
             } else {
                 System.Diagnostics.Process.Start(pdffile);
             }
+        }
+
+        void ShowChangeAirfieldToolTip() {
+            if (Flights.Count <= 1) {
+                ToolTip tooltip = new ToolTip();
+                tooltip.IsBalloon = true;
+                tooltip.Show(String.Format("If you are not at {0}\nclick this button to change the airfield.", PersistedAirfield),
+                    buttonChangeAirfield, 15,-53, 10000);
+            }
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e) {
+            ShowChangeAirfieldToolTip();
         }
     }
 }
