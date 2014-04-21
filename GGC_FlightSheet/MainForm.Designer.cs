@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.FlightSheet = new System.Windows.Forms.DataGridView();
             this.Logo = new System.Windows.Forms.PictureBox();
@@ -72,10 +72,12 @@
             this.labelGlidingTotal = new System.Windows.Forms.Label();
             this.labelTowingTotal = new System.Windows.Forms.Label();
             this.pilotCurrencyRosterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.FlightSheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripFlights.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // FlightSheet
@@ -88,21 +90,21 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FlightSheet.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.FlightSheet.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.FlightSheet.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.FlightSheet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FlightSheet.Location = new System.Drawing.Point(12, 124);
+            this.FlightSheet.Location = new System.Drawing.Point(12, 130);
             this.FlightSheet.Name = "FlightSheet";
             this.FlightSheet.ReadOnly = true;
             this.FlightSheet.RowHeadersVisible = false;
             this.FlightSheet.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.FlightSheet.Size = new System.Drawing.Size(942, 283);
+            this.FlightSheet.Size = new System.Drawing.Size(942, 277);
             this.FlightSheet.TabIndex = 2;
             this.FlightSheet.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FlightSheet_CellClick);
             this.FlightSheet.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FlightSheet_CellDoubleClick);
@@ -112,7 +114,7 @@
             // Logo
             // 
             this.Logo.InitialImage = ((System.Drawing.Image)(resources.GetObject("Logo.InitialImage")));
-            this.Logo.Location = new System.Drawing.Point(12, 37);
+            this.Logo.Location = new System.Drawing.Point(12, 45);
             this.Logo.Name = "Logo";
             this.Logo.Size = new System.Drawing.Size(122, 71);
             this.Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -124,7 +126,7 @@
             // 
             this.labelAirfield.AutoSize = true;
             this.labelAirfield.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAirfield.Location = new System.Drawing.Point(324, 48);
+            this.labelAirfield.Location = new System.Drawing.Point(3, 42);
             this.labelAirfield.Name = "labelAirfield";
             this.labelAirfield.Size = new System.Drawing.Size(72, 24);
             this.labelAirfield.TabIndex = 3;
@@ -134,7 +136,7 @@
             // 
             this.labelClerk.AutoSize = true;
             this.labelClerk.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelClerk.Location = new System.Drawing.Point(287, 80);
+            this.labelClerk.Location = new System.Drawing.Point(433, 55);
             this.labelClerk.Name = "labelClerk";
             this.labelClerk.Size = new System.Drawing.Size(109, 24);
             this.labelClerk.TabIndex = 4;
@@ -147,7 +149,7 @@
             this.comboBoxClerk.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxClerk.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxClerk.FormattingEnabled = true;
-            this.comboBoxClerk.Location = new System.Drawing.Point(393, 80);
+            this.comboBoxClerk.Location = new System.Drawing.Point(437, 88);
             this.comboBoxClerk.Name = "comboBoxClerk";
             this.comboBoxClerk.Size = new System.Drawing.Size(229, 26);
             this.comboBoxClerk.TabIndex = 0;
@@ -159,7 +161,7 @@
             this.labelTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelTime.AutoSize = true;
             this.labelTime.Font = new System.Drawing.Font("Garamond", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTime.Location = new System.Drawing.Point(716, 39);
+            this.labelTime.Location = new System.Drawing.Point(716, 47);
             this.labelTime.Name = "labelTime";
             this.labelTime.Size = new System.Drawing.Size(238, 72);
             this.labelTime.TabIndex = 6;
@@ -357,14 +359,14 @@
             // documentationToolStripMenuItem
             // 
             this.documentationToolStripMenuItem.Name = "documentationToolStripMenuItem";
-            this.documentationToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.documentationToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.documentationToolStripMenuItem.Text = "Documentation";
             this.documentationToolStripMenuItem.Click += new System.EventHandler(this.documentationToolStripMenuItem_Click);
             // 
             // aboutGGCFlightSheetsToolStripMenuItem
             // 
             this.aboutGGCFlightSheetsToolStripMenuItem.Name = "aboutGGCFlightSheetsToolStripMenuItem";
-            this.aboutGGCFlightSheetsToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.aboutGGCFlightSheetsToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.aboutGGCFlightSheetsToolStripMenuItem.Text = "About GGC_FlightSheets ...";
             this.aboutGGCFlightSheetsToolStripMenuItem.Click += new System.EventHandler(this.aboutGGCFlightSheetsToolStripMenuItem_Click);
             // 
@@ -373,7 +375,7 @@
             this.labelClerkAlert.AutoSize = true;
             this.labelClerkAlert.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelClerkAlert.ForeColor = System.Drawing.Color.Red;
-            this.labelClerkAlert.Location = new System.Drawing.Point(631, 77);
+            this.labelClerkAlert.Location = new System.Drawing.Point(675, 85);
             this.labelClerkAlert.Name = "labelClerkAlert";
             this.labelClerkAlert.Size = new System.Drawing.Size(274, 31);
             this.labelClerkAlert.TabIndex = 8;
@@ -414,7 +416,7 @@
             // textBoxFlightSheetRef
             // 
             this.textBoxFlightSheetRef.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFlightSheetRef.Location = new System.Drawing.Point(184, 80);
+            this.textBoxFlightSheetRef.Location = new System.Drawing.Point(606, 56);
             this.textBoxFlightSheetRef.Name = "textBoxFlightSheetRef";
             this.textBoxFlightSheetRef.Size = new System.Drawing.Size(60, 26);
             this.textBoxFlightSheetRef.TabIndex = 9;
@@ -425,29 +427,29 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label1.Location = new System.Drawing.Point(142, 86);
+            this.label1.Location = new System.Drawing.Point(603, 41);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.Size = new System.Drawing.Size(71, 13);
             this.label1.TabIndex = 10;
-            this.label1.Text = "Ref No: ";
+            this.label1.Text = "Sheet Ref #: ";
             // 
             // buttonChangeAirfield
             // 
-            this.buttonChangeAirfield.Location = new System.Drawing.Point(247, 50);
+            this.buttonChangeAirfield.Location = new System.Drawing.Point(161, 36);
             this.buttonChangeAirfield.Name = "buttonChangeAirfield";
-            this.buttonChangeAirfield.Size = new System.Drawing.Size(76, 22);
+            this.buttonChangeAirfield.Size = new System.Drawing.Size(52, 22);
             this.buttonChangeAirfield.TabIndex = 11;
-            this.buttonChangeAirfield.Text = "←Change→";
+            this.buttonChangeAirfield.Text = "Change";
             this.buttonChangeAirfield.UseVisualStyleBackColor = true;
             this.buttonChangeAirfield.Click += new System.EventHandler(this.buttonChangeAirfield_Click);
             // 
             // labelDate
             // 
             this.labelDate.AutoSize = true;
-            this.labelDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDate.Location = new System.Drawing.Point(142, 53);
+            this.labelDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDate.Location = new System.Drawing.Point(3, 13);
             this.labelDate.Name = "labelDate";
-            this.labelDate.Size = new System.Drawing.Size(103, 15);
+            this.labelDate.Size = new System.Drawing.Size(150, 24);
             this.labelDate.TabIndex = 14;
             this.labelDate.Text = "Date: 2014-01-31";
             // 
@@ -456,7 +458,7 @@
             this.labelOverTow.AutoSize = true;
             this.labelOverTow.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelOverTow.ForeColor = System.Drawing.Color.Red;
-            this.labelOverTow.Location = new System.Drawing.Point(375, 6);
+            this.labelOverTow.Location = new System.Drawing.Point(375, 14);
             this.labelOverTow.Name = "labelOverTow";
             this.labelOverTow.Size = new System.Drawing.Size(176, 29);
             this.labelOverTow.TabIndex = 15;
@@ -491,6 +493,16 @@
             this.pilotCurrencyRosterToolStripMenuItem.Text = "Pilot Currency Checks Listing";
             this.pilotCurrencyRosterToolStripMenuItem.Click += new System.EventHandler(this.pilotCurrencyRosterToolStripMenuItem_Click);
             // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.labelAirfield);
+            this.panel1.Controls.Add(this.labelDate);
+            this.panel1.Location = new System.Drawing.Point(145, 45);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(282, 71);
+            this.panel1.TabIndex = 18;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -500,17 +512,16 @@
             this.Controls.Add(this.labelGlidingTotal);
             this.Controls.Add(this.labelOverTow);
             this.Controls.Add(this.labelClerkAlert);
-            this.Controls.Add(this.labelDate);
             this.Controls.Add(this.buttonChangeAirfield);
             this.Controls.Add(this.textBoxFlightSheetRef);
             this.Controls.Add(this.labelTime);
             this.Controls.Add(this.comboBoxClerk);
             this.Controls.Add(this.labelClerk);
-            this.Controls.Add(this.labelAirfield);
             this.Controls.Add(this.Logo);
             this.Controls.Add(this.FlightSheet);
             this.Controls.Add(this.menuStripMain);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.panel1);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "MainForm";
@@ -523,6 +534,8 @@
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
             this.contextMenuStripFlights.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -571,6 +584,7 @@
         private System.Windows.Forms.Label labelGlidingTotal;
         private System.Windows.Forms.Label labelTowingTotal;
         private System.Windows.Forms.ToolStripMenuItem pilotCurrencyRosterToolStripMenuItem;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
