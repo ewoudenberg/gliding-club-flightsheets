@@ -57,6 +57,7 @@
             this.grandpaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeFlightSheetFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aircraftTimeSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pilotCurrencyRosterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutGGCFlightSheetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -349,12 +350,20 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aircraftTimeSummaryToolStripMenuItem,
             this.documentationToolStripMenuItem,
             this.pilotCurrencyRosterToolStripMenuItem,
             this.aboutGGCFlightSheetsToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(123, 20);
             this.helpToolStripMenuItem.Text = "Further Information";
+            // 
+            // aircraftTimeSummaryToolStripMenuItem
+            // 
+            this.aircraftTimeSummaryToolStripMenuItem.Name = "aircraftTimeSummaryToolStripMenuItem";
+            this.aircraftTimeSummaryToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.aircraftTimeSummaryToolStripMenuItem.Text = "Aircraft Time Summaries";
+            this.aircraftTimeSummaryToolStripMenuItem.Click += new System.EventHandler(this.aircraftTimeSummaryToolStripMenuItem_Click);
             // 
             // documentationToolStripMenuItem
             // 
@@ -586,6 +595,7 @@
         private System.Windows.Forms.Label labelTowingTotal;
         private System.Windows.Forms.ToolStripMenuItem pilotCurrencyRosterToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStripMenuItem aircraftTimeSummaryToolStripMenuItem;
     }
 }
 

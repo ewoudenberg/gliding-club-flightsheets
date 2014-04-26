@@ -54,11 +54,12 @@ namespace au.org.GGC {
            
         }
 
-        int[] Timecolumns = new int[] { 6, 7, 8 };
-        int[] TimeDownColumns = new int[] { 7, 8 };
+        int[] Timecolumns = { 6, 7, 8 };
+        int[] TimeDownColumns = { 7, 8 };
         int TakeOffTimeColumn = 6, TugDownTimeColumn = 7, GliderDownTimeColumn = 8;
-        int[] CenteredColumns = new int[] { 1, 6, 7, 8, 9, 10}; // , 11, 12 };
-        int[] LeftAlignedColumnHeaders = new int[] { 11 };
+        int[] CenteredColumns = { 1, 6, 7, 8, 9, 10}; // , 11, 12 };
+        int[] LeftAlignedColumnHeaders = { 11 };
+        int[] FillColumns = { 11 };
 
         void InitColumns() {
             FlightSheet.AutoGenerateColumns = false;
@@ -99,6 +100,9 @@ namespace au.org.GGC {
                 FlightSheet.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             foreach (var i in LeftAlignedColumnHeaders)
                 FlightSheet.Columns[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            foreach (var i in FillColumns) {
+                FlightSheet.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
         }
 
         void ChangeSettings() {
@@ -231,12 +235,22 @@ namespace au.org.GGC {
         String FlightSheetDate {
             set {
                 _FlightSheetDate = value;
-                labelDate.Text = String.Format("Date: {0}-{1}-{2}",
-                       value.Substring(0, 4),
-                       value.Substring(4, 2),
-                       value.Substring(6, 2));
+                labelDate.Text = "Date: " + getFormattedDate(value);
             }
             get { return _FlightSheetDate; }
+        }
+
+        String FormattedFlightSheetDate {
+            get {
+                return getFormattedDate(_FlightSheetDate);
+            }
+        }
+
+        String getFormattedDate(string date) {
+            return String.Format("{0}-{1}-{2}",
+                       date.Substring(0, 4),
+                       date.Substring(4, 2),
+                       date.Substring(6, 2));
         }
 
         private void comboBoxClerk_Leave(object sender, EventArgs e) {
@@ -1040,6 +1054,10 @@ namespace au.org.GGC {
 
         private void MainForm_Shown(object sender, EventArgs e) {
             ShowChangeAirfieldToolTip();
+        }
+
+        private void aircraftTimeSummaryToolStripMenuItem_Click(object sender, EventArgs e) {
+            new AircraftSummaries(Flights, FontSizes[PersistedGridFontSize], PersistedAirfield, FormattedFlightSheetDate).ShowDialog();
         }
     }
 }

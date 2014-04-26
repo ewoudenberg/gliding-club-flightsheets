@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>au.org.GGC</RootNamespace>
     <AssemblyName>GGC_FlightSheet</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NPOI, Version=1.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
@@ -55,6 +57,12 @@
     <Compile Include="AboutBoxDialog.Designer.cs">
       <DependentUpon>AboutBoxDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="AircraftSummaries.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AircraftSummaries.Designer.cs">
+      <DependentUpon>AircraftSummaries.cs</DependentUpon>
+    </Compile>
     <Compile Include="ApplicationRunningHelper.cs" />
     <Compile Include="ChangeAirfieldDialog.cs">
       <SubType>Form</SubType>
@@ -62,6 +70,7 @@
     <Compile Include="ChangeAirfieldDialog.Designer.cs">
       <DependentUpon>ChangeAirfieldDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExcelAircraftSheet.cs" />
     <Compile Include="Csv.cs" />
     <Compile Include="CustomSettings.cs" />
     <Compile Include="ExcelFlightSheet.cs" />
@@ -103,6 +112,9 @@
     <Compile Include="SafeInvoke.cs" />
     <EmbeddedResource Include="AboutBoxDialog.resx">
       <DependentUpon>AboutBoxDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AircraftSummaries.resx">
+      <DependentUpon>AircraftSummaries.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChangeAirfieldDialog.resx">
       <DependentUpon>ChangeAirfieldDialog.cs</DependentUpon>
@@ -168,6 +180,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="programdata\flightsheet_excel_template.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="programdata\aircraft_sheet_excel_template.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
