@@ -19,7 +19,7 @@ namespace au.org.GGC {
         public string Date;
 
         void InitFields() {
-            comboBoxAirfield.DataSource = Csv.Instance.GetAirfieldsList();
+            comboBoxAirfield.DataSource = Csv.AirfieldsList;
             comboBoxAirfield.DisplayMember = "DisplayName";
             comboBoxAirfield.SelectedIndex = -1;
             comboBoxAirfield.Text = Airfield;

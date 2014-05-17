@@ -7,6 +7,7 @@ using System.Linq;
 using FileHelpers;
 using System.Threading;
 using System.IO;
+using System.Reflection;
 
 namespace au.org.GGC {
     public partial class MainForm : Form {
@@ -57,9 +58,10 @@ namespace au.org.GGC {
         int[] Timecolumns = { 6, 7, 8 };
         int[] TimeDownColumns = { 7, 8 };
         int TakeOffTimeColumn = 6, TugDownTimeColumn = 7, GliderDownTimeColumn = 8;
-        int[] CenteredColumns = { 1, 6, 7, 8, 9, 10}; // , 11, 12 };
-        int[] LeftAlignedColumnHeaders = { 11 };
-        int[] FillColumns = { 11 };
+        int[] CenteredColumns = { 1, 6, 7, 8, 9, 10};
+        int[] LeftAlignedColumnHeaders = { 12 };
+        int[] RightAlignedColumns = { 11 };
+        int[] FillColumns = { 12 };
 
         void InitColumns() {
             FlightSheet.AutoGenerateColumns = false;
@@ -73,7 +75,7 @@ namespace au.org.GGC {
 
             string[] columns = { "Flight No", "Pilot 1", "Pilot 2", "Tug", 
                                    "Glider", "Take Off", "Tug Down", "Glider Down", 
-                                   "Tow Time", "Flight Time", "Notations" };
+                                   "Tow Time", "Flight Time", "Est$", "Notations" };
                                    
 
             foreach (var column in columns) {
@@ -88,7 +90,7 @@ namespace au.org.GGC {
                     tbcol = new DataGridViewTextBoxColumn();
                 }
                 // Column names with their spaces removed become the Flight class property to display
-                tbcol.DataPropertyName = column.Replace(" ", "").Replace("\n", "");
+                tbcol.DataPropertyName = column.Replace(" ", "").Replace("\n", "").Replace("$", "");
                 tbcol.Name = column;
                 tbcol.MinimumWidth = 40;
                 FlightSheet.Columns.Add(tbcol);
@@ -98,6 +100,8 @@ namespace au.org.GGC {
                 FlightSheet.Columns[i].DataPropertyName += "_asString";
             foreach (var i in CenteredColumns)
                 FlightSheet.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            foreach (var i in RightAlignedColumns)
+                FlightSheet.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             foreach (var i in LeftAlignedColumnHeaders)
                 FlightSheet.Columns[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
             foreach (var i in FillColumns) {
@@ -112,6 +116,8 @@ namespace au.org.GGC {
             browser.TowAlarmThreshold = PersistedTowAlarmThreshold;
             browser.GliderButtons = PersistedGliderButtons;
             browser.TugButtons = PersistedTugButtons;
+            browser.ClubInitials = PersistedClubInitials;
+
             var result = browser.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK) {
                 if (PersisitedFlightSheetsFolder != browser.StoragePath) {
@@ -126,6 +132,7 @@ namespace au.org.GGC {
                 PersistedTugButtons = browser.TugButtons;
                 PersistedGliderButtons = browser.GliderButtons;
                 PersistedBackupsFolder = browser.BackupPath;
+                PersistedClubInitials = browser.ClubInitials;
             }
         }
 
@@ -332,10 +339,10 @@ namespace au.org.GGC {
                 entry.TakeOff = flight.TakeOff;
                 entry.TugDown = flight.TugDown;
                 entry.GliderDown = flight.GliderDown;
-                entry.TugDuration = flight.GetTowMinutes().ToString();
-                entry.GliderDuration = flight.GetFlightMinutes().ToString();
+                entry.TugDuration = flight.TowMinutes.ToString();
+                entry.GliderDuration = flight.FlightMinutes.ToString();
                 entry.Mutual = flight.Mutual;
-                entry.TIFType = Displayable.DisplayToReal(Csv.Instance.GetAefTypesList(), flight.AEFType);
+                entry.TIFType = Displayable.DisplayToReal(Csv.AefTypesList, flight.AEFType);
                 entry.AnnualChkOK = flight.AnnualCheck;
                 entry.Notes = flight.Notes;
                 entry.Clerk = flight.Clerk;
@@ -394,7 +401,7 @@ namespace au.org.GGC {
                 flight.TugDown = entry.TugDown;
                 flight.GliderDown = entry.GliderDown;
                 flight.Mutual = entry.Mutual;
-                flight.AEFType = Displayable.RealToDisplay(Csv.Instance.GetAefTypesList(), entry.TIFType);
+                flight.AEFType = Displayable.RealToDisplay(Csv.AefTypesList, entry.TIFType);
                 flight.AnnualCheck = entry.AnnualChkOK;
                 flight.Notes = entry.Notes;
                 flight.Clerk = entry.Clerk;
@@ -431,7 +438,8 @@ namespace au.org.GGC {
                 labelClerkAlert.SafeInvoke(d => d.Visible = toggle & !ClerkReady);
                 labelTime.SafeInvoke(d => d.Text = DateTime.Now.ToString("H:mm:ss"));
                 labelGlidingTotal.SafeInvoke(d => d.Text =
-                    "Gliding total: " + to_hhmm(getGlidingTotal())
+                    "Gliding all: " + to_hhmm(getGlidingTotal(false))
+                    + ", club: " + to_hhmm(getGlidingTotal(true))
                     + ", average: " + to_hhmm(getGlidingMean())
                     + ", median: " + to_hhmm(getGlidingMedian())
                     );
@@ -455,10 +463,11 @@ namespace au.org.GGC {
             return String.Format("{0:D1}:{1:D2}", (int)ts.TotalHours, ts.Minutes);
         }
 
-        TimeSpan getGlidingTotal() {
+        TimeSpan getGlidingTotal(bool club_only) {
             TimeSpan total = new TimeSpan(0);
             foreach (Flight flight in Flights)
-                total += flight.FlightTimeSpan;
+                if (!club_only || flight.IsClubGlider)
+                    total += flight.FlightTimeSpan;
             return total;
         }
 
@@ -521,7 +530,7 @@ namespace au.org.GGC {
             bool towAlarm = false;
             for (int i = 0; i < Flights.Count-1; i++) {
                 var flight = Flights[i];
-                if (flight.IsInTow && flight.GetTowMinutes() > PersistedTowAlarmThreshold) {
+                if (flight.IsInTow && flight.TowMinutes > PersistedTowAlarmThreshold) {
                     FlightSheet.Rows[i].DefaultCellStyle.BackColor = TowAlarmColor;
                     towAlarm = true;
                 }
@@ -561,8 +570,8 @@ namespace au.org.GGC {
         bool FixTimes(Flight flight) {
             bool changed = false;
             if (flight.TakeOff != null) {
-                string towtime = flight.GetTowMinutes().ToString();
-                string flighttime = flight.GetFlightMinutes().ToString();
+                string towtime = flight.TowMinutes.ToString();
+                string flighttime = flight.FlightMinutes.ToString();
                 if (flight.IsInTow) towtime += '+';
                 if (flight.GliderDown == null) flighttime += '+';
                 changed = (flight.TowTime != towtime) || (flight.FlightTime != flighttime);
@@ -903,6 +912,7 @@ namespace au.org.GGC {
                         if (!String.IsNullOrEmpty(Flights[row].Glider))
                             prefix = Flights[row].Glider.Split()[0];
                         FlightSheet.Rows[row].Cells[Timecolumns[i]].Value = prefix + " Off";
+                        buttonIn = true;
                     } else if (Timecolumns[i] == TugDownTimeColumn) {
                         string prefix = "Tug";
                         if (!String.IsNullOrEmpty(Flights[row].Tug))
@@ -913,10 +923,10 @@ namespace au.org.GGC {
                         if (!String.IsNullOrEmpty(Flights[row].Glider))
                             prefix = Flights[row].Glider.Split()[0];
                         FlightSheet.Rows[row].Cells[Timecolumns[i]].Value = prefix + " Down";
+                        buttonIn = true;
                     } else {
                         button.UseColumnTextForButtonValue = true;
                     }
-                    buttonIn = true;
                 } else {
                     FlightSheet.Rows[row].Cells[Timecolumns[i]] = new DataGridViewTextBoxCell();
                     if (Timecolumns[i] == TakeOffTimeColumn)
@@ -1008,6 +1018,16 @@ namespace au.org.GGC {
             }
         }
 
+        string PersistedClubInitials {
+            get {
+                return CustomProperties<FlightSheetSettings>.Settings.Default.ClubInitials;
+            }
+            set {
+                CustomProperties<FlightSheetSettings>.Settings.Default.ClubInitials = value;
+                CustomProperties<FlightSheetSettings>.Settings.Save();
+            }
+        }
+
 
 
         #endregion
@@ -1058,6 +1078,11 @@ namespace au.org.GGC {
 
         private void aircraftTimeSummaryToolStripMenuItem_Click(object sender, EventArgs e) {
             new AircraftSummaries(Flights, FontSizes[PersistedGridFontSize], PersistedAirfield, FormattedFlightSheetDate).ShowDialog();
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e) {
+            aboutGGCFlightSheetsToolStripMenuItem.Text = "About GGC Flightsheets Version " +
+                Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
     }
 }

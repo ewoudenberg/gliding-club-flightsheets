@@ -12,6 +12,7 @@ namespace au.org.GGC {
         public String Airfield { get; set; }
         public String TugButtons { get; set; }
         public String GliderButtons { get; set; }
+        public String ClubInitials { get; set; }
 
         public FlightSheetSettings() {
             FlightSheetsFolder = "GGC_FlightSheets";
@@ -21,6 +22,7 @@ namespace au.org.GGC {
             Airfield = "Bacchus Marsh";
             TugButtons = "SSO,MSA,TNC,WGG";
             GliderButtons = "GPZ,OWL,XOC";
+            ClubInitials = "GGC";
         }
         public FlightSheetSettings(bool initialize) {
              FlightSheetsFolder = "GGC_FlightSheets";
@@ -30,6 +32,7 @@ namespace au.org.GGC {
              Airfield = "Bacchus Marsh";
              TugButtons = "SSO,MSA,TNC,WGG";
              GliderButtons = "GPZ,OWL,XOC";
+             ClubInitials = "GGC";
         }
     }
 }

@@ -28,15 +28,18 @@ namespace au.org.GGC {
         private void CalculateSummaries(SortableBindingList<Flight> Flights) {
             Dictionary<string, Summary> sums = new Dictionary<string, Summary>();
             foreach (Flight flight in Flights) {
-                add(sums, flight.Glider, "Glider", flight.GetFlightMinutes());
-                add(sums, flight.Tug, "Tug", flight.GetTowMinutes());              
+                add(sums, flight.Glider, "Glider", flight.FlightMinutes);
+                add(sums, flight.Tug, "Tug", flight.TowMinutes);              
             }
             List<Summary> summaries = sums.Values.ToList();
-            summaries.Sort(Comparer<Summary>.Create((i1, i2) => 
-                i1.Type.CompareTo(i2.Type) == 0 ? 
-                    i1.Aircraft.CompareTo(i2.Aircraft) : 
-                    i1.Type.CompareTo(i2.Type)));
+            summaries.Sort(compareSummary);
             Summaries = new BindingList<Summary>(summaries);
+        }
+
+        int compareSummary(Summary i1, Summary i2) {
+            return i1.Type.CompareTo(i2.Type) == 0 ?
+                    i1.Aircraft.CompareTo(i2.Aircraft) :
+                    i1.Type.CompareTo(i2.Type);
         }
 
         void add(Dictionary<string, Summary> sums, string aircraft, string type, int minutes) {
@@ -122,7 +125,7 @@ namespace au.org.GGC {
         }
         public String Hours {
             get {
-                return (Minutes / 60.0).ToString("F2");
+                return (Minutes / 60.0).ToString("F1");
             }
         }
         public int Minutes;

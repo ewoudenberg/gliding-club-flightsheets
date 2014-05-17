@@ -48,6 +48,9 @@
             this.buttonEditPrintSheetTemplate = new System.Windows.Forms.Button();
             this.OpenFlightSheetFolderButton = new System.Windows.Forms.Button();
             this.OpenBackupFolderButton = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxClubInitials = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -87,7 +90,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(687, 385);
+            this.buttonOK.Location = new System.Drawing.Point(687, 431);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 3;
@@ -98,7 +101,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(27, 385);
+            this.buttonCancel.Location = new System.Drawing.Point(27, 431);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 4;
@@ -140,7 +143,7 @@
             this.textBoxTugButtons.Location = new System.Drawing.Point(433, 253);
             this.textBoxTugButtons.Multiline = true;
             this.textBoxTugButtons.Name = "textBoxTugButtons";
-            this.textBoxTugButtons.Size = new System.Drawing.Size(150, 117);
+            this.textBoxTugButtons.Size = new System.Drawing.Size(150, 105);
             this.textBoxTugButtons.TabIndex = 8;
             // 
             // label4
@@ -169,7 +172,7 @@
             this.textBoxGliderButtons.Location = new System.Drawing.Point(606, 253);
             this.textBoxGliderButtons.Multiline = true;
             this.textBoxGliderButtons.Name = "textBoxGliderButtons";
-            this.textBoxGliderButtons.Size = new System.Drawing.Size(150, 117);
+            this.textBoxGliderButtons.Size = new System.Drawing.Size(150, 105);
             this.textBoxGliderButtons.TabIndex = 10;
             // 
             // label6
@@ -278,12 +281,42 @@
             this.OpenBackupFolderButton.UseVisualStyleBackColor = true;
             this.OpenBackupFolderButton.Click += new System.EventHandler(this.OpenBackupFolderButton_Click);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(23, 361);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(249, 24);
+            this.label9.TabIndex = 23;
+            this.label9.Text = "Club\'s Initials (in upper case)";
+            // 
+            // textBoxClubInitials
+            // 
+            this.textBoxClubInitials.Location = new System.Drawing.Point(286, 365);
+            this.textBoxClubInitials.Name = "textBoxClubInitials";
+            this.textBoxClubInitials.Size = new System.Drawing.Size(100, 20);
+            this.textBoxClubInitials.TabIndex = 24;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(27, 389);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(359, 13);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "You must restart the program after changing this in order for it to take effect";
+            // 
             // SettingsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(816, 425);
+            this.ClientSize = new System.Drawing.Size(816, 471);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.textBoxClubInitials);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.OpenBackupFolderButton);
             this.Controls.Add(this.OpenFlightSheetFolderButton);
             this.Controls.Add(this.buttonEditPrintSheetTemplate);
@@ -341,5 +374,8 @@
         private System.Windows.Forms.Button buttonEditPrintSheetTemplate;
         private System.Windows.Forms.Button OpenFlightSheetFolderButton;
         private System.Windows.Forms.Button OpenBackupFolderButton;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBoxClubInitials;
+        private System.Windows.Forms.Label label10;
     }
 }

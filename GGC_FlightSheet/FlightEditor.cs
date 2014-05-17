@@ -82,17 +82,17 @@ namespace au.org.GGC {
             get { return RealName(comboBoxPilot1); }
             set { comboBoxPilot1.SelectedIndex = -1; comboBoxPilot1.Text = value; }
         }
-        public string Pilot1ID { get { return AuxData(comboBoxPilot1); } }
+        public string Pilot1ID { get { return getPilotID(comboBoxPilot1); } }
         public string Pilot2Name {
             get { return RealName(comboBoxPilot2); }
             set { comboBoxPilot2.SelectedIndex = -1; comboBoxPilot2.Text = value; }
         }
-        public string Pilot2ID { get { return AuxData(comboBoxPilot2); } }
+        public string Pilot2ID { get { return getPilotID(comboBoxPilot2); } }
         public string ChargeTo {
             get { return RealName(comboBoxChargeTo); }
             set { comboBoxChargeTo.SelectedIndex = -1; comboBoxChargeTo.Text = value; }
         }
-        public string ChargeToID { get { return AuxData(comboBoxChargeTo); } }
+        public string ChargeToID { get { return getPilotID(comboBoxChargeTo); } }
         public string Tug {
             get { return RealName(comboBoxTug); }
             set { comboBoxTug.SelectedIndex = -1; comboBoxTug.Text = value; }
@@ -166,20 +166,24 @@ namespace au.org.GGC {
                 return ((Displayable)c.SelectedItem).RealName;
         }
 
-        string AuxData(ComboBox c) {
-            if (c.SelectedItem == null)
-                return "";
-            else
-                return ((Displayable)c.SelectedItem).AuxData;
+        string getPilotID(ComboBox c) {
+            if (c.SelectedItem != null) {
+                string key = ((Displayable)c.SelectedItem).Key;
+                if (key != null && Csv.PilotDict.ContainsKey(key))
+                    return Csv.PilotDict[key].ID;
+            }
+            return "";
         }
 
         void InitFields() {
-            comboBoxPilot1.DataSource = Csv.Instance.GetPilotsList();
-            comboBoxPilot2.DataSource = Csv.Instance.GetPilotsList();
-            comboBoxChargeTo.DataSource = Csv.Instance.GetPilotsList();
-            comboBoxTug.DataSource = Csv.Instance.GetTugsList();
-            comboBoxGlider.DataSource = Csv.Instance.GetGlidersList();
-            comboBoxAEF.DataSource = Csv.Instance.GetAefTypesList();
+            // Unless the PilotsList is cloned, the P1, P2 and ChargeTo dropdowns will
+            // interfere with each other (will actually be all ganged together).
+            comboBoxPilot1.DataSource = new List<Displayable>(Csv.PilotsList);
+            comboBoxPilot2.DataSource = new List<Displayable>(Csv.PilotsList);
+            comboBoxChargeTo.DataSource = new List<Displayable>(Csv.PilotsList);
+            comboBoxTug.DataSource = Csv.TugsList;
+            comboBoxGlider.DataSource = Csv.GlidersList;
+            comboBoxAEF.DataSource = Csv.AefTypesList;
 
             comboBoxPilot1.DisplayMember = "DisplayName";
             comboBoxPilot2.DisplayMember = "DisplayName";
@@ -204,29 +208,34 @@ namespace au.org.GGC {
         }
 
         private void comboBoxPilot_Leave(object sender, EventArgs e) {
-            FixComboExactMatch((ComboBox)sender, Csv.Instance.GetPilotsList());
+            FixComboExactMatch((ComboBox)sender, Csv.PilotsList);
         }
 
         private void comboBoxTug_Leave(object sender, EventArgs e) {
-            FixComboUsingInitial(comboBoxTug, Csv.Instance.GetTugsList(), comboBoxTug.Text);
+            FixComboUsingInitial(comboBoxTug, Csv.TugsList, comboBoxTug.Text);
         }
 
         private void comboBoxGlider_Leave(object sender, EventArgs e) {
-            FixComboUsingInitial(comboBoxGlider, Csv.Instance.GetGlidersList(), comboBoxGlider.Text);
+            FixComboUsingInitial(comboBoxGlider, Csv.GlidersList, comboBoxGlider.Text);
         }
 
         private bool IsGliderDualSeater(String glider) {
             string prefix = glider.ToLower();
             Displayable matching = null;
             if (prefix.Length > 1) {
-                foreach (Displayable s in Csv.Instance.GetGlidersList()) {
+                foreach (Displayable s in Csv.GlidersList) {
                     if (s.DisplayName.ToLower().StartsWith(prefix)) {
                         matching = s;
                         break;
                     }
                 }
             }
-            return matching == null || matching.AuxData != "1";
+            if (matching != null) {
+                string key = matching.Key;
+                if (key != null && Csv.AircraftDict.ContainsKey(key))
+                    return Csv.AircraftDict[key].Seats != 1;
+            }
+            return true;
         }
 
         private void EnableDisableP2Entry() {
@@ -263,11 +272,11 @@ namespace au.org.GGC {
         }
 
         private void buttonTug_Click(object sender, EventArgs e) {
-            FixComboUsingInitial(comboBoxTug, Csv.Instance.GetTugsList(), ((Button)sender).Text);
+            FixComboUsingInitial(comboBoxTug, Csv.TugsList, ((Button)sender).Text);
         }
 
         private void buttonGlider_Click(object sender, EventArgs e) {
-            FixComboUsingInitial(comboBoxGlider, Csv.Instance.GetGlidersList(), ((Button)sender).Text);
+            FixComboUsingInitial(comboBoxGlider, Csv.GlidersList, ((Button)sender).Text);
             EnableDisableP2Entry();
         }
 

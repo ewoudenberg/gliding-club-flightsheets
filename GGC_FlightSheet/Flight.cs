@@ -36,6 +36,21 @@ namespace au.org.GGC {
         public DateTime? TakeOff { get; set; }
         public DateTime? TugDown { get; set; }
         public DateTime? GliderDown { get; set; }
+        public String TugRego {
+            get {
+                if (Tug != null)
+                    return Tug.Split(" ".ToCharArray())[0];
+                return "";
+            }
+        }
+        public String GliderRego {
+            get {
+                if (Glider != null)
+                    return Glider.Split(" ".ToCharArray())[0];
+                return "";
+            }
+        }
+
         // The _asString variants are to support e.g. "SSO Down" buttons.
         String takeoff_string;
         public String TakeOff_asString {
@@ -78,6 +93,7 @@ namespace au.org.GGC {
         public String Clerk { get; set; }
         public String TowTime { get; set; }
         public String FlightTime { get; set; }
+
         public String Notations {
             get {
                 String notes = "";
@@ -121,6 +137,10 @@ namespace au.org.GGC {
             }
         }
 
+        public bool IsClubGlider {
+            get { return Glider != null && !Glider.Contains("["); }
+        }
+
         public TimeSpan TowTimeSpan {
             get {
                 if (this.TakeOff != null && !IsWinchLaunch && !IsMotorGlider) {
@@ -145,12 +165,55 @@ namespace au.org.GGC {
             }
         }
 
-        public int GetTowMinutes() {
-            return Convert.ToInt32(TowTimeSpan.TotalMinutes);
+        public int TowMinutes {
+            get {
+                // Rounds to nearest number of whole minutes
+                return Convert.ToInt32(TowTimeSpan.TotalSeconds / 60);
+            }
         }
 
-        public int GetFlightMinutes() {
-            return Convert.ToInt32(FlightTimeSpan.TotalMinutes);
+        public int FlightMinutes {
+            get {
+                // Rounds to nearest number of whole minutes
+                return Convert.ToInt32(FlightTimeSpan.TotalSeconds / 60);
+            }
+        }
+
+        //Hello Eric. I have attached a modified aircraft file for your use. This 
+        //has an additional field for aircraft tariff recorded in cents/min (or 
+        //cents/launch in the case of a winch).
+        //If you want to look at implementing a flight costing then the only rule 
+        //I would implement is the maximum of 200' flight time. Also the AEF 
+        //charges in the AEFtypes file. AEF's have a fixed cost as indicated, F+F 
+        //are flight costs + the charge indicated ($15). -Jeff Farrow
+
+        const int Max_Flight_Minutes = 200;
+        // Estimates the cost of each flight
+        public String Est {
+            get {
+                int tug = 0, glider = 0;
+                if (Csv.AircraftDict.ContainsKey(TugRego)) {
+                    tug = Csv.AircraftDict[TugRego].Rate;
+                    if (Csv.AircraftDict[TugRego].Type != "w")
+                        tug *= TowMinutes;
+                }
+                if (Csv.AircraftDict.ContainsKey(GliderRego))
+                    glider = Math.Min(FlightMinutes, Max_Flight_Minutes) * Csv.AircraftDict[GliderRego].Rate;
+                var cost = tug + glider;
+
+                if (AEFType != null) {
+                    var aefkey = Displayable.DisplayToKey(Csv.AefTypesList, AEFType);
+                    if (Csv.AefTypeDict.ContainsKey(aefkey)) {
+                        if (aefkey == "2")
+                            cost += Csv.AefTypeDict[aefkey].Rate;
+                        else if (Csv.AefTypeDict[aefkey].Rate != 0)
+                            cost = Csv.AefTypeDict[aefkey].Rate;
+                    }
+                }
+                if (cost == 0)
+                    return "";
+                return (cost/100).ToString(); 
+            }
         }
     }
 }

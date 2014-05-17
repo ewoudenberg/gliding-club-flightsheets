@@ -16,6 +16,11 @@ namespace au.org.GGC {
             CheckPaths();
         }
 
+        public string ClubInitials {
+            get { return textBoxClubInitials.Text; }
+            set { textBoxClubInitials.Text = value; }
+        }
+
         public string StoragePath {
             get { return textBoxFolderName.Text; }
             set { textBoxFolderName.Text = value; }
