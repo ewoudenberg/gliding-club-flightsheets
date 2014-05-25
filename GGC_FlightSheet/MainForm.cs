@@ -741,14 +741,53 @@ namespace au.org.GGC {
         }
 
         private void buttonChangeAirfield_Click(object sender, EventArgs e) {
-            var changeForm = new ChangeFieldAndDateDialog(PersistedAirfield, FlightSheetDate);
+            var changeForm = new ChangeFieldAndDateDialog(PersistedAirfield, FlightSheetDate, IsSheetEmpty());
             var result = changeForm.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK) {
-                if (PersistedAirfield != changeForm.Airfield || FlightSheetDate != changeForm.Date) {
+                if (PersistedAirfield != changeForm.Airfield || FlightSheetDate != changeForm.DateString) {
+                    List<Flight> saved = new List<Flight>();
+                    if (changeForm.MoveFlights) {
+                        saved.AddRange(Flights.Where(f => !f.IsEmpty));
+                        Flights.Clear();
+                        SaveToCsv();
+                    }
                     PersistedAirfield = changeForm.Airfield;
-                    LoadFromCsv(GetAirfieldFilename(PersistedAirfield, changeForm.Date));
+                    LoadFromCsv(GetAirfieldFilename(PersistedAirfield, changeForm.DateString));
+                    if (changeForm.MoveFlights) {
+                        foreach (Flight flight in saved)
+                            MergeFlightOntoSheet(flight, changeForm.Date);
+                        Save();
+                    }
                 }
             }
+        }
+
+        private void MergeFlightOntoSheet(Flight flight, DateTime newdate) {
+            flight.TakeOff = transferDate(flight.TakeOff, newdate);
+            flight.TugDown = transferDate(flight.TugDown, newdate);
+            flight.GliderDown = transferDate(flight.GliderDown, newdate);
+            flight.Logged = transferDate(flight.Logged, newdate);
+            flight.FlightNo = GetNextFlightNumber();
+            Flights.Insert(NewFlightInsertionPoint, flight);
+        }
+
+        private Int32 NewFlightInsertionPoint {
+            get {
+                for (int i = 0; i < Flights.Count; i++)
+                    if (Flights[i].IsEmpty)
+                        return i;
+                return 0;
+            }
+        }
+
+        private DateTime? transferDate(DateTime? oldtime, DateTime newdate) {
+            DateTime? newtime = null;
+            if (oldtime != null) {
+                DateTime oldtimevalue = oldtime.Value;
+                return new DateTime(newdate.Year, newdate.Month, newdate.Day,
+                                              oldtimevalue.Hour, oldtimevalue.Minute, oldtimevalue.Second);
+            }
+            return newtime;
         }
 
         // Selection-related grid operations
