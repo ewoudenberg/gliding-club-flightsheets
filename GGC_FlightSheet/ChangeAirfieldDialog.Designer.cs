@@ -96,7 +96,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(22, 83);
+            this.label2.Location = new System.Drawing.Point(22, 92);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(152, 18);
             this.label2.TabIndex = 7;
@@ -140,7 +140,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(22, 161);
+            this.label3.Location = new System.Drawing.Point(22, 170);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(140, 18);
             this.label3.TabIndex = 11;
@@ -164,10 +164,10 @@
             this.radioButtonKeep.Checked = true;
             this.radioButtonKeep.Location = new System.Drawing.Point(34, 22);
             this.radioButtonKeep.Name = "radioButtonKeep";
-            this.radioButtonKeep.Size = new System.Drawing.Size(171, 22);
+            this.radioButtonKeep.Size = new System.Drawing.Size(145, 22);
             this.radioButtonKeep.TabIndex = 1;
             this.radioButtonKeep.TabStop = true;
-            this.radioButtonKeep.Text = "Keep on current sheet";
+            this.radioButtonKeep.Text = "Keep on old sheet";
             this.radioButtonKeep.UseVisualStyleBackColor = true;
             // 
             // radioButtonMove
@@ -175,9 +175,9 @@
             this.radioButtonMove.AutoSize = true;
             this.radioButtonMove.Location = new System.Drawing.Point(34, 45);
             this.radioButtonMove.Name = "radioButtonMove";
-            this.radioButtonMove.Size = new System.Drawing.Size(179, 22);
+            this.radioButtonMove.Size = new System.Drawing.Size(151, 22);
             this.radioButtonMove.TabIndex = 0;
-            this.radioButtonMove.Text = "Move to selected sheet";
+            this.radioButtonMove.Text = "Move to new sheet";
             this.radioButtonMove.UseVisualStyleBackColor = true;
             // 
             // ChangeFieldAndDateDialog

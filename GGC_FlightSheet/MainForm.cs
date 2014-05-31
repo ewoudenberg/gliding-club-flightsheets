@@ -40,6 +40,20 @@ namespace au.org.GGC {
             }
         }
 
+        void Login() {
+            if (!IsSheetEmpty())
+                return;
+            LoginDialog login = new LoginDialog();
+            DialogResult result = login.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.Cancel)
+                return;
+            PersistedAirfield = login.Airfield;
+            LoadFromCsv(GetAirfieldFilename(PersistedAirfield, login.DateString));
+            comboBoxClerk.SelectedIndex = -1;
+            comboBoxClerk.SelectedText = login.Clerk;
+            comboBoxClerk.Text = login.Clerk;
+        }
+
         void InitSheet() {
             SetLogo();
             InitColumns();
@@ -48,6 +62,7 @@ namespace au.org.GGC {
             SetupClerkBox();
             StartWallClock();
             LoadFromCsv(GetTodaysAirfieldFilename());
+            Login();
             // Windows XP doesn't have the Unicode <- character.
             if (Environment.OSVersion.Version.Major < 6) {
                 labelClerkAlert.Text = "<< Your Name Please?";
@@ -264,11 +279,11 @@ namespace au.org.GGC {
             FixCombo((ComboBox)sender, Csv.Instance.LoadPilotsList(isMember: true));
         }
 
-        void FixCombo(ComboBox c, List<Displayable> list) {
+        static public void FixCombo(ComboBox c, List<Displayable> list) {
             FixCombo(c, list, c.Text);
         }
 
-        void FixCombo(ComboBox c, List<Displayable> list, string text) {
+        static public void FixCombo(ComboBox c, List<Displayable> list, string text) {
             string prefix = text.ToLower();
             foreach (Displayable s in list) {
                 if (s.DisplayName.ToLower().StartsWith(prefix)) {
@@ -1102,17 +1117,17 @@ namespace au.org.GGC {
             }
         }
 
-        void ShowChangeAirfieldToolTip() {
-            if (Flights.Count <= 1) {
+        void ShowChangeClerkTookTip() {
+            if (comboBoxClerk.SelectedIndex == 0) {
                 ToolTip tooltip = new ToolTip();
                 tooltip.IsBalloon = true;
-                tooltip.Show(String.Format("If you are not at {0}\nclick this button to change the airfield.", PersistedAirfield),
-                    buttonChangeAirfield, 15,-53, 10000);
+                tooltip.Show(String.Format("Please input your name here"),
+                    comboBoxClerk, 15,-53, 10000);
             }
         }
 
         private void MainForm_Shown(object sender, EventArgs e) {
-            ShowChangeAirfieldToolTip();
+            ShowChangeClerkTookTip();
         }
 
         private void aircraftTimeSummaryToolStripMenuItem_Click(object sender, EventArgs e) {
