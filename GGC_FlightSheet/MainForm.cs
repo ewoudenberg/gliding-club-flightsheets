@@ -167,10 +167,21 @@ namespace au.org.GGC {
         }
 
         int GetNextFlightNumber() {
-            if (Flights.Count == 0)
-                return 1;
+            return 1 + Math.Max(GetMaxFlightNumber(Flights), GetMaxFlightNumber(DeletedFlights));
+        }
+
+        int GetMaxFlightNumber(List<Flight> flights) {
+            if (flights.Count == 0)
+                return 0;
             else
-                return Flights.Max(f => f.IsEmpty ? 0 : (int)f.FlightNo) + 1;
+                return flights.Max(f => f.IsEmpty ? 0 : (int)f.FlightNo);
+        }
+
+        int GetMaxFlightNumber(SortableBindingList<Flight> flights) {
+            if (flights.Count == 0)
+                return 0;
+            else
+                return flights.Max(f => f.IsEmpty ? 0 : (int)f.FlightNo);
         }
 
         void SetupClerkBox() {
@@ -242,7 +253,10 @@ namespace au.org.GGC {
             }
         }
 
+        List<Flight> DeletedFlights = new List<Flight>();
+
         void RemoveFlight(int index) {
+            DeletedFlights.Add(Flights[index]);
             Flights.RemoveAt(index);
             Save();
         }
@@ -894,6 +908,8 @@ namespace au.org.GGC {
             foreach (ToolStripItem item in editToolStripMenuItem.DropDownItems)
                 if (new string[] { "delete", "edit", "duplicate" }.Contains(item.Tag))
                     item.Enabled = validSelection;
+
+            editToolStripMenuItem.DropDownItems["reinstateADeletedFlightToolStripMenuItem"].Enabled = DeletedFlights.Count != 0;
         }
 
         private void editToolStripMenuItem_DropDownClosed(object sender, EventArgs e) {
@@ -1137,6 +1153,17 @@ namespace au.org.GGC {
         private void helpToolStripMenuItem_Click(object sender, EventArgs e) {
             aboutGGCFlightSheetsToolStripMenuItem.Text = "About GGC Flightsheets Version " +
                 Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
+
+        private void reinstateADeletedFlightToolStripMenuItem_Click(object sender, EventArgs e) {
+            UndeleteFlightForm deletes = new UndeleteFlightForm(DeletedFlights, PersistedGridFontSize);
+            deletes.ShowDialog();
+            foreach (Flight flight in deletes.UndeletedFlights)
+                Flights.Add(flight);
+            Flight f = new Flight();
+            PropertyDescriptor flightno = TypeDescriptor.GetProperties(f).Find("Flightno", true);
+            Flights.ApplySort(flightno, ListSortDirection.Ascending);
+            Save();
         }
     }
 }
