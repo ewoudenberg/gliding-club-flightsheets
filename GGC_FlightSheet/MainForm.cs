@@ -467,15 +467,10 @@ namespace au.org.GGC {
                 labelClerkAlert.SafeInvoke(d => d.Visible = toggle & !ClerkReady);
                 labelTime.SafeInvoke(d => d.Text = DateTime.Now.ToString("H:mm:ss"));
                 labelGlidingTotal.SafeInvoke(d => d.Text =
-                    "Gliding all: " + to_hhmm(getGlidingTotal(false))
-                    + ", club: " + to_hhmm(getGlidingTotal(true))
-                    + ", average: " + to_hhmm(getGlidingMean())
-                    + ", median: " + to_hhmm(getGlidingMedian())
+                    "Median flight: " + to_minutes(getGlidingMedian())
                     );
                 labelTowingTotal.SafeInvoke(d => d.Text = 
-                    "Towing total: " + to_hhmm(getTowingTotal())
-                    + ", average: " + to_hhmm(getTowingMean())
-                    + ", median: " + to_hhmm(getTowingMedian())
+                    "Median tow: " + to_minutes(getTowingMedian())
                     );
                 CalculateFlightTimes();
                 if (!towAlarm)
@@ -488,8 +483,8 @@ namespace au.org.GGC {
             }
         }
 
-        String to_hhmm(TimeSpan ts) {
-            return String.Format("{0:D1}:{1:D2}", (int)ts.TotalHours, ts.Minutes);
+        String to_minutes(TimeSpan ts) {
+            return String.Format("{0:D1}", (int)(ts.TotalMinutes+.5));
         }
 
         TimeSpan getGlidingTotal(bool club_only) {
@@ -504,7 +499,7 @@ namespace au.org.GGC {
             List<double> times = (from flight in Flights
                                   where flight.FlightTimeSpan.TotalMinutes != 0 
                                   select flight.FlightTimeSpan.TotalMinutes).ToList();
-            return new TimeSpan(0, (int)median(times), 0);
+            return new TimeSpan(0, median(times), 0);
         }
 
         TimeSpan getGlidingMean() {
@@ -528,7 +523,7 @@ namespace au.org.GGC {
             List<double> times = (from flight in Flights 
                                   where flight.TowTimeSpan.TotalMinutes != 0
                                   select flight.TowTimeSpan.TotalMinutes).ToList();
-            return new TimeSpan(0, (int)median(times), 0);
+            return new TimeSpan(0, median(times), 0);
         }
 
         TimeSpan getTowingMean() {
@@ -541,12 +536,13 @@ namespace au.org.GGC {
             return new TimeSpan(0, (int)mean, 0);
         }
 
-        Double median(List<Double> xs) {
+        int median(List<Double> xs) {
             if (xs.Count == 0)
-                return 0.0;
+                return 0;
             var ys = xs.OrderBy(x => x).ToList();
             double mid = (ys.Count - 1) / 2.0;
-            return (ys[(int)(mid)] + ys[(int)(mid + 0.5)]) / 2;
+            double median = (ys[(int)(mid)] + ys[(int)(mid + 0.5)]) / 2;
+            return (int)(median + .5);
         }
 
         System.Drawing.Color PreLaunchColor = System.Drawing.Color.LightGreen;

@@ -3,9 +3,9 @@ then
   echo 'usage: make.sh <version> (e.g. 1.0.5)'
   exit
 fi
+GOOGLEDRIVE="/Users/eric/GoogleDriveGGC/GoogleDrive2/"
 version="$1"
 config="../GGC_FlightSheet/bin/Debug/FlightSheetSettings.xml"
-
 echo Current config file: $config
 cat $config
 echo
@@ -15,7 +15,7 @@ read a
 # Copy in the latest aircraft and pilots from the shared drive
 for i in aircraft.csv airfields.csv pilots.csv
 do
-   cp "/Users/eric/Desktop/GoogleDrive/Google Drive/FlightSheets/$i" \
+   cp "$GOOGLEDRIVE/FlightSheets/$i" \
 	/Users/eric/Desktop/Gliding/GGC/GGC_FlightSheet/GGC_FlightSheet/bin/Debug/programdata/
 done
 
@@ -26,5 +26,5 @@ makensis /V2 BuildGFS.nsi
 
 set -x
 mv GGC_FlightSheetsInstaller.exe "GGC_FlightSheetsInstaller_$version.exe"
-cp "GGC_FlightSheetsInstaller_$version.exe" "/Users/eric/Desktop/GoogleDrive/Google Drive/Software"
+cp "GGC_FlightSheetsInstaller_$version.exe" "$GOOGLEDRIVE/Software"
 echo Done

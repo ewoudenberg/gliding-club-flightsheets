@@ -106,7 +106,7 @@
             this.FlightSheet.ReadOnly = true;
             this.FlightSheet.RowHeadersVisible = false;
             this.FlightSheet.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.FlightSheet.Size = new System.Drawing.Size(942, 277);
+            this.FlightSheet.Size = new System.Drawing.Size(942, 288);
             this.FlightSheet.TabIndex = 2;
             this.FlightSheet.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FlightSheet_CellClick);
             this.FlightSheet.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FlightSheet_CellDoubleClick);
@@ -493,10 +493,10 @@
             // labelGlidingTotal
             // 
             this.labelGlidingTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelGlidingTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGlidingTotal.Location = new System.Drawing.Point(433, 410);
+            this.labelGlidingTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGlidingTotal.Location = new System.Drawing.Point(433, 418);
             this.labelGlidingTotal.Name = "labelGlidingTotal";
-            this.labelGlidingTotal.Size = new System.Drawing.Size(521, 24);
+            this.labelGlidingTotal.Size = new System.Drawing.Size(521, 17);
             this.labelGlidingTotal.TabIndex = 16;
             this.labelGlidingTotal.Text = "Gliding all: 00:00, club: 00:00, average: 00:00, median: 00:00";
             this.labelGlidingTotal.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -505,10 +505,10 @@
             // 
             this.labelTowingTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelTowingTotal.AutoSize = true;
-            this.labelTowingTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTowingTotal.Location = new System.Drawing.Point(12, 410);
+            this.labelTowingTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTowingTotal.Location = new System.Drawing.Point(12, 418);
             this.labelTowingTotal.Name = "labelTowingTotal";
-            this.labelTowingTotal.Size = new System.Drawing.Size(427, 24);
+            this.labelTowingTotal.Size = new System.Drawing.Size(282, 15);
             this.labelTowingTotal.TabIndex = 17;
             this.labelTowingTotal.Text = "Towing total: 00:00, average: 00:00, median: 00:00";
             // 
