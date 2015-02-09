@@ -12,12 +12,9 @@ using System.Reflection;
 namespace au.org.GGC {
     public partial class MainForm : Form {
         SortableBindingList<Flight> Flights = new SortableBindingList<Flight>();
-        string FlightSheetRef {
-            get { return textBoxFlightSheetRef.Text; }
-            set { textBoxFlightSheetRef.Text = value; }
-        }
+        
         string _ActiveFile;
-        string _FlightSheetDate;
+        static string _FlightSheetDate; // The format is YYYYMMDD (an 8 character string)
 
         public MainForm() {
             InitializeComponent();
@@ -155,15 +152,24 @@ namespace au.org.GGC {
             if (flight.IsEmpty) {
                 flight.Clerk = comboBoxClerk.Text;
                 flight.FlightNo = GetNextFlightNumber();
-                flight.Logged = SheetTime(DateTime.Now);
+                flight.Logged = SheetNow;
             }
         }
 
-        DateTime SheetTime(DateTime timepart) {
-            if (IsSheetEmpty())
+        public static DateTime SheetNow {
+            get { return SheetTime(DateTime.Now); }
+        }
+
+        public static DateTime SheetTime(DateTime timepart) {
+            int year, month, day;
+            try {
+                year = Convert.ToInt32(_FlightSheetDate.Substring(0,4));
+                month = Convert.ToInt32(_FlightSheetDate.Substring(4, 2));
+                day = Convert.ToInt32(_FlightSheetDate.Substring(6, 2));
+            } catch {
                 return timepart;
-            DateTime sheetdate = (DateTime)Flights[0].Logged;
-            return new DateTime(sheetdate.Year, sheetdate.Month, sheetdate.Day, timepart.Hour, timepart.Minute, timepart.Second, DateTimeKind.Local);
+            }
+            return new DateTime(year, month, day, timepart.Hour, timepart.Minute, timepart.Second, DateTimeKind.Local);
         }
 
         int GetNextFlightNumber() {
@@ -239,7 +245,7 @@ namespace au.org.GGC {
         void EditFlight(int rowindex, int colindex) {
             RequestClerkLogin();
             var flight = Flights[rowindex];
-            var entry = new FlightEditor(SheetTime(DateTime.Now), flight, PersistedTugButtons, PersistedGliderButtons);
+            var entry = new FlightEditor(SheetNow, flight, PersistedTugButtons, PersistedGliderButtons);
             entry.SetInitialFocus(colindex);
             var result = entry.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK) {
@@ -263,17 +269,6 @@ namespace au.org.GGC {
 
         string AirfieldLabel {
             set { labelAirfield.Text = "Airfield: " + value; }
-        }
-
-        // FlightSheetDate stores the date and also sets the date label.
-        // The format is YYYYMMDD (an 8 character string)
-
-        String FlightSheetDate {
-            set {
-                _FlightSheetDate = value;
-                labelDate.Text = "Date: " + getFormattedDate(value);
-            }
-            get { return _FlightSheetDate; }
         }
 
         String FormattedFlightSheetDate {
@@ -325,7 +320,9 @@ namespace au.org.GGC {
         void SetSheetDateAndFieldFromFilename(string filename) {
             // Filename is e.g.: FlightSheet_20130413_Bacchus_Marsh.csv
             String[] parts = Path.GetFileNameWithoutExtension(filename).Split("_".ToCharArray(), 3);
-            FlightSheetDate = parts[1];
+            labelDate.Text = "Date: " + getFormattedDate(parts[1]); 
+            _FlightSheetDate = parts[1];
+            _ActiveFile = filename;
             AirfieldLabel = parts[2].Replace("_", " ");
         }
 
@@ -409,7 +406,6 @@ namespace au.org.GGC {
         }
 
         void LoadFromCsv(string filename) {
-            _ActiveFile = filename;
             Flights.Clear();
             FlightSheetRef = "";
             SetSheetDateAndFieldFromFilename(filename);
@@ -567,7 +563,7 @@ namespace au.org.GGC {
         void ColorGridRows() {
             for (int i = 0; i < Flights.Count - 1; i++) {
                 var flight = Flights[i];
-                var color = System.Drawing.Color.White;
+                var color = (i % 2 != 0) ? System.Drawing.Color.Silver : System.Drawing.Color.White;
                 if (flight.TakeOff == null)
                     color = PreLaunchColor;
                 else if (flight.IsInTow)
@@ -612,7 +608,7 @@ namespace au.org.GGC {
             bool changed = false;
             bool active = flight.TakeOff == null || flight.IsInTow || flight.GliderDown == null;
             if (flight.GliderDown != null) {
-                int age = Convert.ToInt32((SheetTime(DateTime.Now) - (DateTime)flight.GliderDown).TotalMinutes);
+                int age = Convert.ToInt32((SheetNow - (DateTime)flight.GliderDown).TotalMinutes);
                 if (age < 10)
                     active = true;
             }
@@ -680,6 +676,11 @@ namespace au.org.GGC {
                 textBoxFlightSheetRef.BackColor = System.Drawing.Color.Yellow;
             else
                 textBoxFlightSheetRef.BackColor = System.Drawing.Color.White;
+        }
+
+        string FlightSheetRef {
+            get { return textBoxFlightSheetRef.Text; }
+            set { textBoxFlightSheetRef.Text = value; }
         }
 
         bool ClerkReady {
@@ -766,10 +767,10 @@ namespace au.org.GGC {
         }
 
         private void buttonChangeAirfield_Click(object sender, EventArgs e) {
-            var changeForm = new ChangeFieldAndDateDialog(PersistedAirfield, FlightSheetDate, IsSheetEmpty());
+            var changeForm = new ChangeFieldAndDateDialog(PersistedAirfield, _FlightSheetDate, IsSheetEmpty());
             var result = changeForm.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK) {
-                if (PersistedAirfield != changeForm.Airfield || FlightSheetDate != changeForm.DateString) {
+                if (PersistedAirfield != changeForm.Airfield || _FlightSheetDate != changeForm.DateString) {
                     List<Flight> saved = new List<Flight>();
                     if (changeForm.MoveFlights) {
                         saved.AddRange(Flights.Where(f => !f.IsEmpty));
@@ -891,7 +892,7 @@ namespace au.org.GGC {
                 var cell = FlightSheet.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 if (cell is DataGridViewButtonCell) {
                     int timei = e.ColumnIndex - Timecolumns[0];
-                    Flights[e.RowIndex][timei] = DateTime.Now;
+                    Flights[e.RowIndex][timei] = SheetNow;
                     FlightSheet.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
                     Save();
                 }

@@ -146,7 +146,7 @@ namespace au.org.GGC {
             get {
                 if (this.TakeOff != null && !IsWinchLaunch && !IsMotorGlider) {
                     DateTime takeoff = (DateTime)this.TakeOff;
-                    DateTime tugdown = DateTime.Now;
+                    DateTime tugdown = MainForm.SheetNow;
                     if (this.TugDown != null) tugdown = (DateTime)this.TugDown;
                     return tugdown - takeoff;
                 }
@@ -158,7 +158,7 @@ namespace au.org.GGC {
             get {
                 if (this.TakeOff != null) {
                     DateTime takeoff = (DateTime)this.TakeOff;
-                    DateTime gliderdown = DateTime.Now;
+                    DateTime gliderdown = MainForm.SheetNow;
                     if (this.GliderDown != null) gliderdown = (DateTime)this.GliderDown;
                     return gliderdown - takeoff;
                 }
@@ -194,9 +194,7 @@ namespace au.org.GGC {
             get {
                 if (IsEmpty)
                     return "";
-                int cost = 0;
-                //if (Csv.Instance.IsClubMember(Pilot1ID) || Csv.Instance.IsClubMember(Pilot2ID)) {
-                int tug = 0, glider = 0;
+                int cost = 0, tug = 0, glider = 0;
                 if (Csv.AircraftDict.ContainsKey(TugRego)) {
                     tug = Csv.AircraftDict[TugRego].Rate;
                     if (!Csv.Instance.IsWinch(TugRego))

@@ -54,18 +54,8 @@ namespace au.org.GGC {
         }
 
         void SetHeaders() {
-            DateTime? sheetDate = null;
             foreach (Flight flight in Flights) {
-                if (flight.TakeOff != null) {
-                    sheetDate = flight.TakeOff;
-                    break;
-                }
-            }
-            if (sheetDate == null)
-                sheetDate = DateTime.Now;
-
-            foreach (Flight flight in Flights) {
-                SetCell("date", sheetDate);
+                SetCell("date", MainForm.SheetNow);
                 SetCell("airfield", Airfield);
                 SetCell("flightsheet#", Sheetno);
                 break;

@@ -281,15 +281,15 @@ namespace au.org.GGC {
         }
 
         private void buttonTakeOff_Click(object sender, EventArgs e) {
-            textBoxTakeoff.Text = DisplayTime(DateTime.Now);
+            textBoxTakeoff.Text = DisplayTime(MainForm.SheetNow);
         }
 
         private void buttonTugDown_Click(object sender, EventArgs e) {
-            textBoxTugDown.Text = DisplayTime(DateTime.Now);
+            textBoxTugDown.Text = DisplayTime(MainForm.SheetNow);
         }
 
         private void buttonGliderDown_Click(object sender, EventArgs e) {
-            textBoxGliderDown.Text = DisplayTime(DateTime.Now);
+            textBoxGliderDown.Text = DisplayTime(MainForm.SheetNow);
         }
 
         private void buttonOK_Click(object sender, EventArgs e) {
