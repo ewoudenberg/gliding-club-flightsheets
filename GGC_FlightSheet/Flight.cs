@@ -207,10 +207,16 @@ namespace au.org.GGC {
                 if (AEFType != null) {
                     var aefkey = Displayable.DisplayToKey(Csv.AefTypesList, AEFType);
                     if (Csv.AefTypeDict.ContainsKey(aefkey)) {
-                        if (aefkey == "2")
-                            cost += Csv.AefTypeDict[aefkey].Rate;
-                        else if (Csv.AefTypeDict[aefkey].Rate != 0)
-                            cost = Csv.AefTypeDict[aefkey].Rate;
+                        switch (aefkey) {
+                            case "0":
+                            case "1":
+                            case "2":
+                                cost += Csv.AefTypeDict[aefkey].Rate;
+                                break;
+                            default:
+                                cost = Csv.AefTypeDict[aefkey].Rate;
+                                break;
+                        }
                     }
                 }
                 if (cost == 0)
