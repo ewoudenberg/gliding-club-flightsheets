@@ -114,8 +114,8 @@ namespace au.org.GGC {
             set { textBoxGliderDown.Text = DisplayTime(value); }
         }
         public string AnnualCheck {
-            get { return checkBoxAnnual.Checked ? "Annual" : ""; }
-            set { checkBoxAnnual.Checked = (value == "Annual"); }
+            get { return checkBoxAnnual.Checked ? "Annual Check OK" : ""; }
+            set { checkBoxAnnual.Checked = (value == "Annual Check OK"); }
         }
         public string Mutual {
             get { return checkBoxMutual.Checked ? "Mutual" : ""; }

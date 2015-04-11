@@ -131,7 +131,7 @@
             // 
             this.labelAirfield.AutoSize = true;
             this.labelAirfield.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAirfield.Location = new System.Drawing.Point(3, 42);
+            this.labelAirfield.Location = new System.Drawing.Point(3, 7);
             this.labelAirfield.Name = "labelAirfield";
             this.labelAirfield.Size = new System.Drawing.Size(72, 24);
             this.labelAirfield.TabIndex = 3;
@@ -464,7 +464,7 @@
             // 
             // buttonChangeAirfield
             // 
-            this.buttonChangeAirfield.Location = new System.Drawing.Point(161, 36);
+            this.buttonChangeAirfield.Location = new System.Drawing.Point(371, 69);
             this.buttonChangeAirfield.Name = "buttonChangeAirfield";
             this.buttonChangeAirfield.Size = new System.Drawing.Size(52, 22);
             this.buttonChangeAirfield.TabIndex = 11;
@@ -476,7 +476,7 @@
             // 
             this.labelDate.AutoSize = true;
             this.labelDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDate.Location = new System.Drawing.Point(3, 13);
+            this.labelDate.Location = new System.Drawing.Point(149, 51);
             this.labelDate.Name = "labelDate";
             this.labelDate.Size = new System.Drawing.Size(150, 24);
             this.labelDate.TabIndex = 14;
@@ -519,10 +519,9 @@
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.labelAirfield);
-            this.panel1.Controls.Add(this.labelDate);
-            this.panel1.Location = new System.Drawing.Point(145, 45);
+            this.panel1.Location = new System.Drawing.Point(145, 78);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(282, 71);
+            this.panel1.Size = new System.Drawing.Size(282, 38);
             this.panel1.TabIndex = 18;
             // 
             // MainForm
@@ -530,6 +529,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(966, 434);
+            this.Controls.Add(this.labelDate);
             this.Controls.Add(this.labelTowingTotal);
             this.Controls.Add(this.labelGlidingTotal);
             this.Controls.Add(this.labelOverTow);
