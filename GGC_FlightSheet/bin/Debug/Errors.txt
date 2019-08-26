@@ -1,0 +1,17 @@
+FileHelpers - Errors Saved at Friday, October 09, 2015 11:12:59 PM
+LineNumber | LineString |ErrorDescription
+1|428,G,ACA,1,1-26D|The delimiter ',' can´t be found after the field 'Name' at line 1 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
+2|45,G,CSA,1,LS 4|The delimiter ',' can´t be found after the field 'Name' at line 2 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
+3|T4,G,GBSC,1,Pegasus|The delimiter ',' can´t be found after the field 'Name' at line 3 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
+4|i1,G,NESA,1,PW-6U|The delimiter ',' can´t be found after the field 'Name' at line 4 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
+5|3S,G,Nutmeg,1,Grob 102|The delimiter ',' can´t be found after the field 'Name' at line 5 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
+6|SA,G,FSA,1,Jan-35|The delimiter ',' can´t be found after the field 'Name' at line 6 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
+7|RW,G,SSC,1,DG-200|The delimiter ',' can´t be found after the field 'Name' at line 7 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
+8|i1,G,NESA,2,PW-6|The delimiter ',' can´t be found after the field 'Name' at line 8 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
+9|IF,G,VSC,1,DG-400/17|The delimiter ',' can´t be found after the field 'Name' at line 9 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
+10|RC,G,GBSC,1,ASW 27|The delimiter ',' can´t be found after the field 'Name' at line 10 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
+11|2K,G,VSC,1,Pegasus|The delimiter ',' can´t be found after the field 'Name' at line 11 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
+12|JW,G,GBSC/CSA/NESA,1,ASW-24|The delimiter ',' can´t be found after the field 'Name' at line 12 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
+13|SXC,G,NESA,1,ApisM|The delimiter ',' can´t be found after the field 'Name' at line 13 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
+14|?,G,PMSC,1,Ventus|The delimiter ',' can´t be found after the field 'Name' at line 14 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
+15|?,G,GBSC,2,Puchacz|The delimiter ',' can´t be found after the field 'Name' at line 15 (the record has less fields, the delimiter is wrong or the next field must be marked as optional).
