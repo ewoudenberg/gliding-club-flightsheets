@@ -92,6 +92,7 @@ namespace au.org.GGC {
         public String ChargeToID { get; set; }
         public String Notes { get; set; }
         public String Clerk { get; set; }
+        public String DutyInst { get; set; }
         public String TowTime { get; set; }
         public String FlightTime { get; set; }
 

@@ -50,7 +50,7 @@ Section "install"
     dotNet40NotFound: 
         Banner::show /set 76 "Installing .NET Framework 4.0" "Please wait"  
         SetOutPath $TEMP
-        File "c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\Installer\tools\dotNetFx40_Full_setup.exe"
+        File "d:\Users\ggc3\Desktop\gliding-club-flightsheets\Installer\tools\dotNetFx40_Full_setup.exe"
         ; if you don't have $TEMP already, add here:
         ExecWait "$TEMP\dotNetFx40_Full_setup.exe /passive /norestart"
         Delete /REBOOTOK "$TEMP\dotNetFx40_Full_setup.exe"
@@ -59,19 +59,19 @@ Section "install"
 
     # Pack binaries
     setOutPath $INSTDIR
-    File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.exe
-    File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.dll
-    File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.pdb
-    File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\*.config
-    File /r c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\programdata
-    File /oname=SettingsPrototype.xml c:\Users\eric\Desktop\Gliding\GGC\GGC_FlightSheet\GGC_FlightSheet\bin\Debug\FlightSheetSettings.xml
+    File /r d:\Users\ggc3\Desktop\gliding-club-flightsheets\GGC_FlightSheet\bin\Debug\*.exe
+    File /r d:\Users\ggc3\Desktop\gliding-club-flightsheets\GGC_FlightSheet\bin\Debug\*.dll
+    File /r d:\Users\ggc3\Desktop\gliding-club-flightsheets\GGC_FlightSheet\bin\Debug\*.pdb
+    File /r d:\Users\ggc3\Desktop\gliding-club-flightsheets\GGC_FlightSheet\bin\Debug\*.config
+    File /r d:\Users\ggc3\Desktop\gliding-club-flightsheets\GGC_FlightSheet\bin\Debug\programdata
+    File /oname=SettingsPrototype.xml d:\Users\ggc3\Desktop\gliding-club-flightsheets\GGC_FlightSheet\bin\Debug\FlightSheetSettings.xml
 
     # define uninstaller name
     writeUninstaller $INSTDIR\FlightSheetsUninstaller.exe
 
     # If config file not already present, create one from the prototype
     IfFileExists "$INSTDIR/FlightSheetSettings.xml" Config_file_present
-	${xml::LoadFile} "$INSTDIR/SettingsPrototype.xml" $0
+	${xml::LoadFile} "$INSTDIR/SettingsPrototype.xml" $0 
 
         # Point at Installed location of FlightSheets folder 
         ${xml::CreateText} "$DestDir" $R0

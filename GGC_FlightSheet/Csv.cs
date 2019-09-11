@@ -13,6 +13,7 @@ namespace au.org.GGC {
             LoadAefTypesDict();
             LoadPilotDict();
             PilotsList = LoadPilotsList(isMember: false);
+            DutyInstList = LoadPilotsList(isL2: true);
             TugsList = LoadAircraftList(tug: true);
             GlidersList = LoadAircraftList(tug: false);
             AirfieldsList = LoadAirfieldList();
@@ -22,6 +23,7 @@ namespace au.org.GGC {
         static public Csv Instance = new Csv();
 
         public static List<Displayable> PilotsList;
+        public static List<Displayable> DutyInstList;
         public static List<Displayable> TugsList;
         public static List<Displayable> GlidersList;
         public static List<Displayable> AirfieldsList;
@@ -61,11 +63,13 @@ namespace au.org.GGC {
             }
         }
 
-        public List<Displayable> LoadPilotsList(bool isMember=false) {
+        public List<Displayable> LoadPilotsList(bool isMember=false, bool isL2=false) {
             List<Displayable> final = new List<Displayable>();
             final.Add(new Displayable() { DisplayName = DropdownHelp, RealName = "" });
             foreach (Pilot pilot in PilotDict.Values) {
                 if (isMember && pilot.Club.ToLower() != CLubInitials.ToLower())
+                    continue;
+                if (isL2 && pilot.Rating.ToLower() != "level 2")
                     continue;
                 string name = pilot.LastName;
                 if (pilot.FirstName != "")
@@ -285,6 +289,7 @@ namespace au.org.GGC {
         [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String FirstName;
         [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String ID;
         [FieldQuoted('"', QuoteMode.OptionalForRead),FieldTrim(TrimMode.Both)] public String Club;
+        [FieldQuoted('"', QuoteMode.OptionalForRead), FieldTrim(TrimMode.Both), FieldOptional] public String Rating;
     }
 
     [DelimitedRecord(",")]
@@ -305,7 +310,7 @@ namespace au.org.GGC {
     [DelimitedRecord(",")]
     [IgnoreFirst] 
     public sealed class FlightEntry {
-        public static string Header="FltDate,FltSheetRef,FltNo,Place,P1Name,P1MemID,P2Name,P2MemID,Tug,Glider,TakeOff,TugDown,GliderDown,GliderDuration,TugDuration,FltShtType,Mutual,TIFType,AnnualChk1,AnnualChk2,AnnualChkOK,Solo,Kms,AltPay1,AltPay1MemID,AltPay2,AltPay2MemID,AltPayAll,AltPayAllMemID,Notes,ImpExpFlag,Clerk";
+        public static string Header="FltDate,FltSheetRef,FltNo,Place,P1Name,P1MemID,P2Name,P2MemID,Tug,Glider,TakeOff,TugDown,GliderDown,GliderDuration,TugDuration,FltShtType,Mutual,TIFType,AnnualChk1,AnnualChk2,AnnualChkOK,Solo,Kms,AltPay1,AltPay1MemID,AltPay2,AltPay2MemID,AltPayAll,AltPayAllMemID,Notes,ImpExpFlag,Clerk,DutyInst";
         [FieldQuoted('"', QuoteMode.OptionalForRead)] 
         [FieldConverter(ConverterKind.Date, "yyyy-MM-dd HH:mm:ss")]  public DateTime? FltDate; 
         [FieldQuoted('"', QuoteMode.OptionalForRead)] public String FltSheetRef;
@@ -342,6 +347,7 @@ namespace au.org.GGC {
         [FieldQuoted('"', QuoteMode.OptionalForRead, MultilineMode.AllowForBoth)] public String Notes;
         [FieldQuoted('"', QuoteMode.OptionalForRead)] public String ImpExpFlag;
         [FieldQuoted('"', QuoteMode.OptionalForRead)] public String Clerk;
+        [FieldQuoted('"', QuoteMode.OptionalForRead), FieldOptional] public String DutyInst;
     }
 }
 

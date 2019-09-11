@@ -12,7 +12,7 @@ using System.Reflection;
 namespace au.org.GGC {
     public partial class MainForm : Form {
         SortableBindingList<Flight> Flights = new SortableBindingList<Flight>();
-        
+        public String BuildDate = Properties.Resources.BuildDate;
         string _ActiveFile;
         static string _FlightSheetDate; // The format is YYYYMMDD (an 8 character string)
 
@@ -46,25 +46,61 @@ namespace au.org.GGC {
                 return;
             PersistedAirfield = login.Airfield;
             LoadFromCsv(GetAirfieldFilename(PersistedAirfield, login.DateString));
+            SetClerk(login.Clerk);
+            SetDutyInst(login.DutyInst);
+        }
+
+        void FixupEnv() { 
+            // Windows XP doesn't have the Unicode <- character.
+            if (Environment.OSVersion.Version.Major < 6) {
+                labelClerkAlert.Text = "Enter Flight Clerk >>";
+                labelDutyInstAlert.Text = "Enter Duty Instructor >>";
+            }
+        }
+
+        void SetClerk(String clerk) {
             comboBoxClerk.SelectedIndex = -1;
-            comboBoxClerk.SelectedText = login.Clerk;
-            comboBoxClerk.Text = login.Clerk;
+            comboBoxClerk.SelectedText = clerk;
+            comboBoxClerk.Text = clerk;
+        }
+
+        void SetDutyInst(String dutyInst) {
+            comboBoxDutyInst.SelectedIndex = -1;
+            comboBoxDutyInst.SelectedText = dutyInst;
+            comboBoxDutyInst.Text = dutyInst;
+        }
+
+        void FixupClerks() { 
+            if (!ClerkReady) {
+                for (int i = Flights.Count-1; i >= 0; i--) { 
+                    if (!String.IsNullOrEmpty(Flights[i].Clerk)) {
+                        SetClerk(Flights[i].Clerk);
+                        break;
+                    }
+                }
+            }
+            if (!DutyInstReady) {
+                for (int i = Flights.Count - 1; i >= 0; i--) {
+                    if (!String.IsNullOrEmpty(Flights[i].DutyInst)) {
+                        SetDutyInst(Flights[i].DutyInst);
+                        break;
+                    }
+                }
+            }
         }
 
         void InitSheet() {
+            FixupEnv();
             SetLogo();
             InitColumns();
             FlightSheet.DataSource = Flights;
             SetFontSize(PersistedGridFontSize);
             SetupClerkBox();
+            SetupDutyInstBox();
             StartWallClock();
             LoadFromCsv(GetTodaysAirfieldFilename());
             Login();
-            // Windows XP doesn't have the Unicode <- character.
-            if (Environment.OSVersion.Version.Major < 6) {
-                labelClerkAlert.Text = "<< Your Name Please?";
-            }
-           
+            FixupClerks();
         }
 
         int[] Timecolumns = { 6, 7, 8 };
@@ -151,6 +187,7 @@ namespace au.org.GGC {
         void InitializeNewFlightFields(Flight flight) {
             if (flight.IsEmpty) {
                 flight.Clerk = comboBoxClerk.Text;
+                flight.DutyInst = comboBoxDutyInst.Text;
                 flight.FlightNo = GetNextFlightNumber();
                 flight.Logged = SheetNow;
             }
@@ -196,6 +233,12 @@ namespace au.org.GGC {
             comboBoxClerk.Focus();
         }
 
+        void SetupDutyInstBox() {
+            comboBoxDutyInst.DataSource = Csv.Instance.LoadPilotsList(isL2: true);
+            comboBoxDutyInst.DisplayMember = "DisplayName";
+            comboBoxDutyInst.Focus();
+        }
+
         // If an empty time cell is double-clicked the flight is opened for editing.
         void FlightSheet_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
             if (e.RowIndex < 0 || e.RowIndex >= Flights.Count)
@@ -211,16 +254,29 @@ namespace au.org.GGC {
 
         bool ClerkAlertVisible {
             set {
-                labelTime.Visible = !value;
                 labelClerkAlert.Visible = value;
             }
         }
 
+         bool DutyInstAlertVisible {
+            set {
+                labelDutyInstAlert.Visible = value;
+            }
+        }
+
+        bool TimeVisible { 
+            set {
+                labelTime.Visible = !value;
+            }
+        }
+
         void RequestClerkLogin() {
-            if (ClerkCheck() == false) {
+            if (ClerksCheck() == false) {
                 ClerkAlertVisible = false;
+                DutyInstAlertVisible = false;
                 System.Threading.Thread.Sleep(100);
-                ClerkAlertVisible = true;
+                ClerkAlertVisible = !ClerkReady;
+                DutyInstAlertVisible = !DutyInstReady;
                 System.Media.SystemSounds.Asterisk.Play();
             }
         }
@@ -372,6 +428,7 @@ namespace au.org.GGC {
                 entry.AnnualChkOK = flight.AnnualCheck;
                 entry.Notes = flight.Notes;
                 entry.Clerk = flight.Clerk;
+                entry.DutyInst = flight.DutyInst;
                 flightEntries.Add(entry);
             }
 
@@ -430,6 +487,7 @@ namespace au.org.GGC {
                 flight.AnnualCheck = entry.AnnualChkOK;
                 flight.Notes = entry.Notes;
                 flight.Clerk = entry.Clerk;
+                flight.DutyInst = entry.DutyInst;
                 Flights.Add(flight);
             }
             EnsureEmptyRowPresent();
@@ -461,6 +519,8 @@ namespace au.org.GGC {
                 toggle = !toggle;
                 labelOverTow.SafeInvoke(d => d.Visible = toggle & towAlarm);
                 labelClerkAlert.SafeInvoke(d => d.Visible = toggle & !ClerkReady);
+                labelDutyInstAlert.SafeInvoke(d => d.Visible = toggle & !DutyInstReady);
+                labelTime.SafeInvoke(d => d.Visible = ClerkReady & DutyInstReady);
                 labelTime.SafeInvoke(d => d.Text = DateTime.Now.ToString("H:mm:ss"));
                 labelGlidingTotal.SafeInvoke(d => d.Text =
                     "Median flight: " + to_minutes(getGlidingMedian())
@@ -663,18 +723,18 @@ namespace au.org.GGC {
         }
 
         private void comboBoxClerk_TextChanged(object sender, EventArgs e) {
-            ClerkCheck();
+            ClerksCheck();
         }
 
         void HighlightInvalidFields() {
             RefNoCheck();
-            ClerkCheck();
+            ClerksCheck();
         }
 
         void RefNoCheck() {
-            if (textBoxFlightSheetRef.Text.Trim().Length == 0)
-                textBoxFlightSheetRef.BackColor = System.Drawing.Color.Yellow;
-            else
+            //if (textBoxFlightSheetRef.Text.Trim().Length == 0)
+            //    textBoxFlightSheetRef.BackColor = System.Drawing.Color.Yellow;
+            //else
                 textBoxFlightSheetRef.BackColor = System.Drawing.Color.White;
         }
 
@@ -692,9 +752,21 @@ namespace au.org.GGC {
             }
         }
 
-        bool ClerkCheck() {
+        bool DutyInstReady {
+            get {
+                var text = comboBoxDutyInst.Text.Trim();
+                var item = ((Displayable)comboBoxDutyInst.SelectedItem);
+                bool dutyInstReady = item == null ? text.Length != 0 : item.RealName.Length != 0;
+                return dutyInstReady;
+            }
+        }
+
+        bool ClerksCheck() {
             ClerkAlertVisible = !ClerkReady;
-            return ClerkReady;
+            DutyInstAlertVisible = !DutyInstReady;
+            bool clerksReady = ClerkReady && DutyInstReady;
+            TimeVisible = clerksReady;
+            return clerksReady;
         }
 
         // Clones an existing flight into a new one with the time fields cleared out
@@ -898,6 +970,15 @@ namespace au.org.GGC {
                 }
             }
         }
+
+        private void FlightSheet_KeyDown(object sender, KeyEventArgs e) {
+            var cell = this.FlightSheet.CurrentCell;
+            if (cell != null && e.KeyCode == Keys.Enter && cell.ColumnIndex == 0) {
+                EditFlight(cell.RowIndex);
+                e.Handled = true;
+            }
+        }
+
 
         private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e) {
             bool validSelection = FormRowSelection();
@@ -1130,17 +1211,38 @@ namespace au.org.GGC {
             }
         }
 
-        void ShowChangeClerkTookTip() {
+       private void dailyBriefingSheetToolStripMenuItem_Click(object sender, EventArgs e) {
+            String pdffile = Path.Combine(PersisitedFlightSheetsFolder, "Daily Briefing Sheet.pdf");
+            if (!File.Exists(pdffile)) {
+                MessageBox.Show("Could not find file " + pdffile, "Daily Briefing file not found");
+            }
+            else {
+                System.Diagnostics.Process.Start(pdffile);
+            }
+        }
+
+        void ShowChangeClerkToolTip() {
             if (comboBoxClerk.SelectedIndex == 0) {
                 ToolTip tooltip = new ToolTip();
                 tooltip.IsBalloon = true;
-                tooltip.Show(String.Format("Please input your name here"),
+                tooltip.Show(String.Format("Please input the flight clerk here"),
                     comboBoxClerk, 15,-53, 10000);
             }
         }
 
+         void ShowChangeDutyInstToolTip() {
+            if (comboBoxDutyInst.SelectedIndex == 0) {
+                ToolTip tooltip = new ToolTip();
+                tooltip.IsBalloon = true;
+                tooltip.Show(String.Format("Please input the duty instructor here"),
+                    comboBoxDutyInst, 15,-53, 10000);
+            }
+        }
+
+ 
         private void MainForm_Shown(object sender, EventArgs e) {
-            ShowChangeClerkTookTip();
+            ShowChangeClerkToolTip();
+            ShowChangeDutyInstToolTip();
         }
 
         private void aircraftTimeSummaryToolStripMenuItem_Click(object sender, EventArgs e) {

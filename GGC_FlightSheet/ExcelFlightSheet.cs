@@ -66,6 +66,13 @@ namespace au.org.GGC {
                     SetCell("clerk", flight.Clerk);
                     break;
                }
+
+            // Use the first dutyInst of the day
+            foreach (Flight flight in Flights)
+               if (flight.DutyInst.Length != 0) {
+                    SetCell("dutyInst", flight.DutyInst);
+                    break;
+               }
         }
 
         public void Generate() {

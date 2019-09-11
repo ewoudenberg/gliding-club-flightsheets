@@ -105,7 +105,7 @@
             this.labelCopyright.Name = "labelCopyright";
             this.labelCopyright.Size = new System.Drawing.Size(397, 17);
             this.labelCopyright.TabIndex = 21;
-            this.labelCopyright.Text = "2013";
+            this.labelCopyright.Text = "2013-2019";
             this.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCompanyName

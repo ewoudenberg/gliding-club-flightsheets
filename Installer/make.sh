@@ -3,8 +3,9 @@ then
   echo 'usage: make.sh <version> (e.g. 1.0.5)'
   exit
 fi
-GOOGLEDRIVE="/Users/eric/GoogleDriveGGC/GoogleDrive2/"
+GOOGLEDRIVE="d:/Users/ggc3/Google Drive"
 version="$1"
+date > "../GGC_FlightSheet/Resources/BuildDate.txt"
 config="../GGC_FlightSheet/bin/Debug/FlightSheetSettings.xml"
 echo Current config file: $config
 cat $config
@@ -16,7 +17,7 @@ read a
 for i in aircraft.csv airfields.csv pilots.csv
 do
    cp "$GOOGLEDRIVE/FlightSheets/$i" \
-	/Users/eric/Desktop/Gliding/GGC/GGC_FlightSheet/GGC_FlightSheet/bin/Debug/programdata/
+        d:/Users/ggc3/Desktop/gliding-club-flightsheets/GGC_FlightSheet/bin/Debug/programdata/
 done
 
 # build it

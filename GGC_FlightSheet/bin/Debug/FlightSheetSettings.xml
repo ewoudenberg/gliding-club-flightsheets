@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FlightSheetSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <FlightSheetsFolder>C:\Users\eric\Desktop\Gliding\MWSA</FlightSheetsFolder>
+  <FlightSheetsFolder>D:\Users\ggc3\Desktop\GGC_FlightSheets</FlightSheetsFolder>
   <BackupsFolder>C:\tmp</BackupsFolder>
   <GridFontSize>1</GridFontSize>
   <TowAlarmThreshold>10</TowAlarmThreshold>
   <Airfield>Bacchus Marsh</Airfield>
   <TugButtons>SSO,MSA,WGG,TNC,BCK</TugButtons>
   <GliderButtons>GPZ,OWL,XOC,GHE,IRQ</GliderButtons>
-  <ClubInitials>MWSA</ClubInitials>
+  <ClubInitials>GGC</ClubInitials>
 </FlightSheetSettings>

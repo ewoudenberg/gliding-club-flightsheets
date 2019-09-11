@@ -20,6 +20,7 @@ namespace au.org.GGC {
         public string DateString;
         public DateTime Date;
         public string Clerk;
+        public string DutyInst;
 
         void ShowVersion() {
             var text = "v" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -30,6 +31,7 @@ namespace au.org.GGC {
             SetupAirfieldBox();
             SetupDateBox();
             SetupClerkBox();
+            SetupL2Box();
         }
 
         void SetupAirfieldBox() {
@@ -48,6 +50,15 @@ namespace au.org.GGC {
             comboBoxClerk.SelectedIndex = 0;
             comboBoxClerk.Focus();
         }
+
+        void SetupL2Box()
+        {
+            comboBoxL2.DataSource = Csv.Instance.LoadPilotsList(isL2: true);
+            comboBoxL2.DisplayMember = "DisplayName";
+            comboBoxL2.SelectedIndex = 0;
+            comboBoxL2.Focus();
+        }
+
 
         private void comboBoxAirfield_TextChanged(object sender, System.EventArgs e) {
             EnableButtons();
@@ -69,6 +80,7 @@ namespace au.org.GGC {
             Date = dateTimePicker_flightsheet.Value;
             DateString = Date.ToString("yyyyMMdd");
             Clerk = comboBoxClerk.Text;
+            DutyInst = comboBoxL2.Text;
             DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
