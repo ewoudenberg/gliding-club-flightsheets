@@ -21,6 +21,7 @@ namespace au.org.GGC {
         public DateTime Date;
         public string Clerk;
         public string DutyInst;
+        public Boolean DutyFreeform;
 
         void ShowVersion() {
             var text = "v" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -81,6 +82,7 @@ namespace au.org.GGC {
             DateString = Date.ToString("yyyyMMdd");
             Clerk = comboBoxClerk.Text;
             DutyInst = comboBoxL2.Text;
+            DutyFreeform = checkBoxAllowFreeformDutyInst.Checked;
             DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
@@ -90,6 +92,14 @@ namespace au.org.GGC {
 
         private void buttonHelp_Click(object sender, EventArgs e) {
             new HelpSheet().ShowDialog();
+        }
+
+        private void checkBoxTypeinDutyInst_CheckedChanged(object sender, EventArgs e) {
+            if (this.checkBoxAllowFreeformDutyInst.Checked) { 
+                this.comboBoxL2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown; 
+            } else {
+                this.comboBoxL2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            }
         }
     }
 }

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.FlightSheet = new System.Windows.Forms.DataGridView();
             this.Logo = new System.Windows.Forms.PictureBox();
@@ -80,6 +80,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxDutyInst = new System.Windows.Forms.ComboBox();
             this.labelDutyInstAlert = new System.Windows.Forms.Label();
+            this.checkBoxAllowFreeformDutyInst = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.FlightSheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.menuStripMain.SuspendLayout();
@@ -93,27 +94,27 @@
             this.FlightSheet.AllowUserToDeleteRows = false;
             this.FlightSheet.AllowUserToResizeColumns = false;
             this.FlightSheet.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.FlightSheet.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            this.FlightSheet.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.FlightSheet.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FlightSheet.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.FlightSheet.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.FlightSheet.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.FlightSheet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FlightSheet.Location = new System.Drawing.Point(12, 127);
+            this.FlightSheet.Location = new System.Drawing.Point(12, 124);
             this.FlightSheet.Name = "FlightSheet";
             this.FlightSheet.ReadOnly = true;
             this.FlightSheet.RowHeadersVisible = false;
             this.FlightSheet.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.FlightSheet.Size = new System.Drawing.Size(999, 306);
+            this.FlightSheet.Size = new System.Drawing.Size(1071, 312);
             this.FlightSheet.TabIndex = 3;
             this.FlightSheet.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FlightSheet_CellClick);
             this.FlightSheet.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FlightSheet_CellDoubleClick);
@@ -163,7 +164,7 @@
             this.comboBoxClerk.FormattingEnabled = true;
             this.comboBoxClerk.Location = new System.Drawing.Point(782, 32);
             this.comboBoxClerk.Name = "comboBoxClerk";
-            this.comboBoxClerk.Size = new System.Drawing.Size(229, 26);
+            this.comboBoxClerk.Size = new System.Drawing.Size(301, 26);
             this.comboBoxClerk.TabIndex = 0;
             this.comboBoxClerk.TextChanged += new System.EventHandler(this.comboBoxClerk_TextChanged);
             this.comboBoxClerk.Leave += new System.EventHandler(this.comboBoxClerk_Leave);
@@ -188,7 +189,7 @@
             this.helpToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
-            this.menuStripMain.Size = new System.Drawing.Size(1023, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(1095, 24);
             this.menuStripMain.TabIndex = 7;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -512,7 +513,7 @@
             // 
             this.labelGlidingTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelGlidingTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGlidingTotal.Location = new System.Drawing.Point(490, 433);
+            this.labelGlidingTotal.Location = new System.Drawing.Point(562, 436);
             this.labelGlidingTotal.Name = "labelGlidingTotal";
             this.labelGlidingTotal.Size = new System.Drawing.Size(521, 17);
             this.labelGlidingTotal.TabIndex = 16;
@@ -524,7 +525,7 @@
             this.labelTowingTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelTowingTotal.AutoSize = true;
             this.labelTowingTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTowingTotal.Location = new System.Drawing.Point(12, 433);
+            this.labelTowingTotal.Location = new System.Drawing.Point(12, 436);
             this.labelTowingTotal.Name = "labelTowingTotal";
             this.labelTowingTotal.Size = new System.Drawing.Size(282, 15);
             this.labelTowingTotal.TabIndex = 17;
@@ -556,11 +557,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxDutyInst.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.comboBoxDutyInst.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxDutyInst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDutyInst.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxDutyInst.FormattingEnabled = true;
-            this.comboBoxDutyInst.Location = new System.Drawing.Point(782, 78);
+            this.comboBoxDutyInst.Location = new System.Drawing.Point(782, 71);
             this.comboBoxDutyInst.Name = "comboBoxDutyInst";
-            this.comboBoxDutyInst.Size = new System.Drawing.Size(229, 26);
+            this.comboBoxDutyInst.Size = new System.Drawing.Size(301, 26);
             this.comboBoxDutyInst.TabIndex = 1;
             // 
             // labelDutyInstAlert
@@ -575,11 +577,23 @@
             this.labelDutyInstAlert.Text = "Enter Duty Instructor⟶";
             this.labelDutyInstAlert.Visible = false;
             // 
+            // checkBoxAllowFreeformDutyInst
+            // 
+            this.checkBoxAllowFreeformDutyInst.AutoSize = true;
+            this.checkBoxAllowFreeformDutyInst.Location = new System.Drawing.Point(783, 101);
+            this.checkBoxAllowFreeformDutyInst.Name = "checkBoxAllowFreeformDutyInst";
+            this.checkBoxAllowFreeformDutyInst.Size = new System.Drawing.Size(305, 17);
+            this.checkBoxAllowFreeformDutyInst.TabIndex = 22;
+            this.checkBoxAllowFreeformDutyInst.Text = "Allow me to type in the Level 2 (or above) instructor on duty";
+            this.checkBoxAllowFreeformDutyInst.UseVisualStyleBackColor = true;
+            this.checkBoxAllowFreeformDutyInst.CheckedChanged += new System.EventHandler(this.checkBoxAllowFreeformDutyInst_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1023, 449);
+            this.ClientSize = new System.Drawing.Size(1095, 452);
+            this.Controls.Add(this.checkBoxAllowFreeformDutyInst);
             this.Controls.Add(this.labelDutyInstAlert);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBoxDutyInst);
@@ -668,6 +682,7 @@
         private System.Windows.Forms.ComboBox comboBoxDutyInst;
         private System.Windows.Forms.Label labelDutyInstAlert;
         private System.Windows.Forms.ToolStripMenuItem dailyBriefingSheetToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBoxAllowFreeformDutyInst;
     }
 }
 

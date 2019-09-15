@@ -37,13 +37,14 @@
             this.labelVersion = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxL2 = new System.Windows.Forms.ComboBox();
+            this.checkBoxAllowFreeformDutyInst = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonLogin
             // 
             this.buttonLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonLogin.Location = new System.Drawing.Point(262, 493);
+            this.buttonLogin.Location = new System.Drawing.Point(262, 534);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(67, 34);
             this.buttonLogin.TabIndex = 4;
@@ -59,7 +60,7 @@
             this.comboBoxAirfield.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxAirfield.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxAirfield.FormattingEnabled = true;
-            this.comboBoxAirfield.Location = new System.Drawing.Point(27, 379);
+            this.comboBoxAirfield.Location = new System.Drawing.Point(27, 406);
             this.comboBoxAirfield.Name = "comboBoxAirfield";
             this.comboBoxAirfield.Size = new System.Drawing.Size(302, 26);
             this.comboBoxAirfield.TabIndex = 2;
@@ -69,7 +70,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(25, 358);
+            this.label2.Location = new System.Drawing.Point(25, 385);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 18);
             this.label2.TabIndex = 7;
@@ -92,7 +93,7 @@
             // dateTimePicker_flightsheet
             // 
             this.dateTimePicker_flightsheet.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker_flightsheet.Location = new System.Drawing.Point(27, 446);
+            this.dateTimePicker_flightsheet.Location = new System.Drawing.Point(27, 473);
             this.dateTimePicker_flightsheet.Name = "dateTimePicker_flightsheet";
             this.dateTimePicker_flightsheet.Size = new System.Drawing.Size(302, 24);
             this.dateTimePicker_flightsheet.TabIndex = 3;
@@ -101,7 +102,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(25, 422);
+            this.label3.Location = new System.Drawing.Point(25, 449);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 18);
             this.label3.TabIndex = 8;
@@ -133,7 +134,7 @@
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHelp.Location = new System.Drawing.Point(101, 493);
+            this.buttonHelp.Location = new System.Drawing.Point(101, 534);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(67, 34);
             this.buttonHelp.TabIndex = 5;
@@ -146,7 +147,7 @@
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.Location = new System.Drawing.Point(28, 493);
+            this.buttonCancel.Location = new System.Drawing.Point(28, 534);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(67, 34);
             this.buttonCancel.TabIndex = 6;
@@ -178,12 +179,24 @@
             // 
             this.comboBoxL2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.comboBoxL2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxL2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxL2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxL2.FormattingEnabled = true;
             this.comboBoxL2.Location = new System.Drawing.Point(27, 320);
             this.comboBoxL2.Name = "comboBoxL2";
             this.comboBoxL2.Size = new System.Drawing.Size(302, 26);
             this.comboBoxL2.TabIndex = 1;
+            // 
+            // checkBoxAllowFreeformDutyInst
+            // 
+            this.checkBoxAllowFreeformDutyInst.AutoSize = true;
+            this.checkBoxAllowFreeformDutyInst.Location = new System.Drawing.Point(30, 352);
+            this.checkBoxAllowFreeformDutyInst.Name = "checkBoxAllowFreeformDutyInst";
+            this.checkBoxAllowFreeformDutyInst.Size = new System.Drawing.Size(305, 17);
+            this.checkBoxAllowFreeformDutyInst.TabIndex = 15;
+            this.checkBoxAllowFreeformDutyInst.Text = "Allow me to type in the Level 2 (or above) instructor on duty";
+            this.checkBoxAllowFreeformDutyInst.UseVisualStyleBackColor = true;
+            this.checkBoxAllowFreeformDutyInst.CheckedChanged += new System.EventHandler(this.checkBoxTypeinDutyInst_CheckedChanged);
             // 
             // LoginDialog
             // 
@@ -192,7 +205,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(356, 549);
+            this.ClientSize = new System.Drawing.Size(356, 590);
+            this.Controls.Add(this.checkBoxAllowFreeformDutyInst);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.comboBoxL2);
             this.Controls.Add(this.buttonCancel);
@@ -232,5 +246,6 @@
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBoxL2;
+        private System.Windows.Forms.CheckBox checkBoxAllowFreeformDutyInst;
     }
 }

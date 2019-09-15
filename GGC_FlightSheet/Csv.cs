@@ -21,7 +21,7 @@ namespace au.org.GGC {
         }
 
         static public Csv Instance = new Csv();
-
+        String[] DutyLevels = new String[] { "level 2", "level 3" };
         public static List<Displayable> PilotsList;
         public static List<Displayable> DutyInstList;
         public static List<Displayable> TugsList;
@@ -46,7 +46,8 @@ namespace au.org.GGC {
                 GetAircraftType(regPlusName.Split(" ".ToCharArray())[0]) == "m";
         }
 
-        const string DropdownHelp = "-- Select from list or Type in --";
+        const string DropdownHelp = "-- Select from list or type in --";
+        const string DropdownHelpDutyInst = "-- Select from list or tick box to type in --";
 
         public void LoadPilotDict() {
             PilotDict = new Dictionary<string, Pilot>();
@@ -63,13 +64,15 @@ namespace au.org.GGC {
             }
         }
 
+        
         public List<Displayable> LoadPilotsList(bool isMember=false, bool isL2=false) {
+            string help = isL2 ? DropdownHelpDutyInst : DropdownHelp;
             List<Displayable> final = new List<Displayable>();
-            final.Add(new Displayable() { DisplayName = DropdownHelp, RealName = "" });
+            final.Add(new Displayable() { DisplayName = help, RealName = "" });
             foreach (Pilot pilot in PilotDict.Values) {
                 if (isMember && pilot.Club.ToLower() != CLubInitials.ToLower())
                     continue;
-                if (isL2 && pilot.Rating.ToLower() != "level 2")
+                if (isL2 && !DutyLevels.Contains(pilot.Rating.ToLower()))
                     continue;
                 string name = pilot.LastName;
                 if (pilot.FirstName != "")

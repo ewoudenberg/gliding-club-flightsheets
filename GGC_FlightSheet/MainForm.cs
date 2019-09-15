@@ -47,6 +47,7 @@ namespace au.org.GGC {
             PersistedAirfield = login.Airfield;
             LoadFromCsv(GetAirfieldFilename(PersistedAirfield, login.DateString));
             SetClerk(login.Clerk);
+            SetDutyFreeform(login.DutyFreeform);
             SetDutyInst(login.DutyInst);
         }
 
@@ -68,6 +69,10 @@ namespace au.org.GGC {
             comboBoxDutyInst.SelectedIndex = -1;
             comboBoxDutyInst.SelectedText = dutyInst;
             comboBoxDutyInst.Text = dutyInst;
+        }
+
+        void SetDutyFreeform(bool dutyFreeForm) {
+            checkBoxAllowFreeformDutyInst.Checked = dutyFreeForm;
         }
 
         void FixupClerks() { 
@@ -1239,7 +1244,14 @@ namespace au.org.GGC {
             }
         }
 
- 
+        private void checkBoxAllowFreeformDutyInst_CheckedChanged(object sender, EventArgs e) {
+            if (this.checkBoxAllowFreeformDutyInst.Checked) { 
+                this.comboBoxDutyInst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown; 
+            } else {
+                this.comboBoxDutyInst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            }
+        }
+
         private void MainForm_Shown(object sender, EventArgs e) {
             ShowChangeClerkToolTip();
             ShowChangeDutyInstToolTip();
